@@ -52,8 +52,15 @@ class Space {
   }
 }
 
-let Player1Board = new Gameboard();
+let Player1Board = new Gameboard('Kevin');
 console.log(Player1Board)
+
+
+// So we've created an empty gameboard and assigned a name to it. 
+// We need to be able to put the pieces on the board next
+
+
+
 
 
 module.exports = {
