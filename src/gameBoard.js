@@ -50,7 +50,7 @@ class Gameboard {
 
   generateEmptySpaces(board) {
     let spaces = [];
-    let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     for (let i = 0; i < alphabet.length; i++) {
       for (let j = 1; j < 11; j++) {
         const newSpace = new Space(board, alphabet[i], j, "empty");
@@ -67,14 +67,16 @@ class Gameboard {
     // Returns a starting space coordinates and either horizontal or verticle orientation
   }
 
-  getSpaceAt(verticleCoordinate, horizontalCoordinate){
-    for (let i = 0; i< this.spaces.length;i++){
-        if ((this.spaces[i].verticleCoordinate === verticleCoordinate) &&(this.spaces[i].horizontalCoordinate === horizontalCoordinate)){
-            return this.spaces[i];
-        }
+  getSpaceAt(verticleCoordinate, horizontalCoordinate) {
+    for (let i = 0; i < this.spaces.length; i++) {
+      if (
+        this.spaces[i].verticleCoordinate === verticleCoordinate &&
+        this.spaces[i].horizontalCoordinate === horizontalCoordinate
+      ) {
+        return this.spaces[i];
+      }
     }
   }
-
 }
 
 class Space {
@@ -93,20 +95,22 @@ class Space {
     return [this.verticleCoordinate, this.horizontalCoordinate];
   }
 
-// ************************************************************************
-// This is where I need to do some work. Gotta linnk all these squares up
-// ***But first***** Write some tests! 
+  // ************************************************************************
+  // This is where I need to do some work. Gotta linnk all these squares up
+  // ***But first***** Write some tests!
 
-
-// Do we need a method that takes coordinates and returns the space object?
-// ************************************************************************
-
+  // Do we need a method that takes coordinates and returns the space object?
+  // ************************************************************************
 
   getUp() {
-    if (this.verticleCoordinate === "A"){
-        return null
+    if (this.verticleCoordinate === "A") {
+      return null;
     }
-    return 
+    let space = this.board.getSpaceAt("");
+// Current issue is that we don't have an easy way to determine the alphabet letter below the current one. 
+// I'm not really sure where to write that code
+
+    return;
   }
 
   getDown() {
@@ -125,8 +129,7 @@ console.log(Player1Board);
 console.log(Player1Board.ships[0]);
 
 let space = Player1Board.getSpaceAt("A", 2);
-console.log(space)
-
+console.log(space);
 
 // So we've created an empty gameboard and assigned a name to it.
 // We need to be able to put the pieces on the board next
