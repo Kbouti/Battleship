@@ -11,9 +11,7 @@ import { whoIsAwesome, subtract } from "./ships";
 
 
 testgameBoardFile();
-whoIsAwesome();
 
-console.log(subtract(70,1));
 
 // Fantastic wepack tutorial: https://www.youtube.com/watch?v=IZGNcSuwBZs
 

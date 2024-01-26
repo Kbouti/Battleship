@@ -21,7 +21,15 @@ function testTrue(){
     // (2) Destroyer
 
 
-
+class Gameboard {
+    constructor(player,ships, turn, hits, misses){
+        this.player = player;
+        this.ships = ships;
+        this.turn = turn;
+        this.hits = hits;
+        this.misses = misses;
+    }
+}
 
 
 
