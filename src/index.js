@@ -6,12 +6,14 @@
 
 import _ from "lodash";
 import "./style.css";
-import { testgameBoardFile } from "./gameBoard";
-import { whoIsAwesome, subtract } from "./ships";
+import { Gameboard, Space } from "./gameBoard";
+import { Ship, subtract } from "./ships";
 
 
-testgameBoardFile();
 
 
-// Fantastic wepack tutorial: https://www.youtube.com/watch?v=IZGNcSuwBZs
+// The first thing the game needs to do is esatblish 2 boards (one for each player)
+// We'll focus on logic to do it once, then repeat. 
 
+let Player1Board = new Gameboard();
+console.log(Player1Board)

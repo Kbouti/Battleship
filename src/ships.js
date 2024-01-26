@@ -19,5 +19,5 @@ class Ship {
 
 module.exports = {
     subtract,
-    ship
+    Ship
 }
