@@ -2,8 +2,7 @@
 // ^ This import statement triggered an error message but seemed to work..
 // but this below got rid of the error statement (woohoo!)
 
-const Ship = require('./ships.js');
-
+const Ship = require("./ships.js");
 
 function testgameBoardFile() {
   const message = `gameBoard test success`;
@@ -27,15 +26,14 @@ function testTrue() {
 // (2) Destroyer
 
 class Gameboard {
-  constructor(player, turn) {
-    this.player = player;
-    this.ships = this.generateShips();
-    this.turn = turn;
-    // turn will be true or false
+  constructor(playerName) {
+    this.playerName = playerName;
+    this.ships = this.generateShips(this);
+    this.isMyTurn = false;
     this.spaces = this.generateEmptySpaces();
   }
 
-  generateShips(){
+  generateShips() {
     let ships = [];
     const carrier = new Ship.Ship("Carrier", 5);
     const battleship = new Ship.Ship("Battleship", 4);
@@ -52,14 +50,21 @@ class Gameboard {
 
   generateEmptySpaces() {
     let spaces = [];
-    let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    for (let i = 0;i<alphabet.length;i++){
-        for (let j = 1; j<11; j++){
-            const newSpace = new Space(alphabet[i], j, "empty");
-            spaces.push(newSpace);
-        }
+    let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    for (let i = 0; i < alphabet.length; i++) {
+      for (let j = 1; j < 11; j++) {
+        const newSpace = new Space(alphabet[i], j, "empty");
+        spaces.push(newSpace);
+      }
     }
     return spaces;
+  }
+
+  getOccupiedSpaces() {}
+
+  getPossibleLocations(size) {
+    // This takes the size of a ship and outputs all possible positions that that piece can go, taking into account the edges of the board and other pieces on the board
+    // Returns a starting space coordinates and either horizontal or verticle orientation
   }
 }
 
@@ -68,30 +73,53 @@ class Space {
     this.verticleCoordinate = verticleCoordinate;
     this.horizontalCoordinate = horizontalCoordinate;
     this.status = status;
+    this.up = this.getUp();
+    this.down = this.getDown();
+    this.right = this.getRight();
+    this.left = this.getLeft();
   }
 
   coordinates() {
     return [this.verticleCoordinate, this.horizontalCoordinate];
   }
+
+// ************************************************************************
+// This is where I need to do some work. Gotta linnk all these squares up
+// ***But first***** Write some tests! 
+// ************************************************************************
+
+
+  getUp() {
+    if (this.verticleCoordinate === "A"){
+        return null
+    }
+  }
+
+  getDown() {
+    // **giggity**
+  }
+
+  getRight() {}
+  getLeft() {}
+
+  // ************************************************************************
 }
 
-let Player1Board = new Gameboard('Kevin');
-console.log(Player1Board)
+let Player1Board = new Gameboard("Kevin");
+console.log(Player1Board);
 
+console.log(Player1Board.ships[0]);
 
-// So we've created an empty gameboard and assigned a name to it. 
+// So we've created an empty gameboard and assigned a name to it.
 // We need to be able to put the pieces on the board next
-// First we need to create the pieces. 
-// Then we need to decide where to put them
+// First we need to create the pieces.
+// Then we need to decide where we can put them
+// Then we need to decide where we want to put them
 // Then we need to put them in place
-
-
-
-
 
 module.exports = {
   testgameBoardFile,
   testTrue,
   Gameboard,
-  Player1Board
+  Player1Board,
 };
