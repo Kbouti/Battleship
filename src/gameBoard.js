@@ -1,3 +1,10 @@
+// import {Ship} from './ships'
+// ^ This import statement triggered an error message but seemed to work..
+// but this below got rid of the error statement (woohoo!)
+
+const Ship = require('./ships.js');
+
+
 function testgameBoardFile() {
   const message = `gameBoard test success`;
   const newElement = document.createElement(`div`);
@@ -13,18 +20,34 @@ function testTrue() {
 // Gameboard will consist of a series of 10x10 grids. The verticle axis is labeled A-J, the horizontal is 1-10
 // There are 5 pieces:
 // (length) NAME
-// (5) Aircraft Carrier
+// (5) Carrier
 // (4) BattleShip
 // (3) Submarine
 // (3) Cruiser
 // (2) Destroyer
 
 class Gameboard {
-  constructor(player, ships, turn) {
+  constructor(player, turn) {
     this.player = player;
-    this.ships = ships;
+    this.ships = this.generateShips();
     this.turn = turn;
+    // turn will be true or false
     this.spaces = this.generateEmptySpaces();
+  }
+
+  generateShips(){
+    let ships = [];
+    const carrier = new Ship.Ship("Carrier", 5);
+    const battleship = new Ship.Ship("Battleship", 4);
+    const submarine = new Ship.Ship("Submarine", 3);
+    const cruiser = new Ship.Ship("Cruiser", 3);
+    const destroyer = new Ship.Ship("Destroyer", 2);
+    ships.push(carrier);
+    ships.push(battleship);
+    ships.push(submarine);
+    ships.push(cruiser);
+    ships.push(destroyer);
+    return ships;
   }
 
   generateEmptySpaces() {
@@ -58,6 +81,9 @@ console.log(Player1Board)
 
 // So we've created an empty gameboard and assigned a name to it. 
 // We need to be able to put the pieces on the board next
+// First we need to create the pieces. 
+// Then we need to decide where to put them
+// Then we need to put them in place
 
 
 

@@ -5,19 +5,19 @@ function subtract (a, b){
 
 
 class Ship {
-    constructor(name, size, hits, isSunk, location){
+    constructor(name, size){
         this.name = name;
         this.size = size;
-        this.hits = hits;
-        this.isSunk = isSunk;
-        this.location = location;
+        this.hits = null
+        this.isSunk = false
+        this.location = null;
         // I'm thinking location will be an array of squares
     }
 }
 
 
 
-module.exports = {
+module.exports =  {
     subtract,
     Ship
 }
