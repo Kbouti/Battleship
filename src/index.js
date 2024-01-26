@@ -15,5 +15,3 @@ import { Ship, subtract } from "./ships";
 // The first thing the game needs to do is esatblish 2 boards (one for each player)
 // We'll focus on logic to do it once, then repeat. 
 
-let Player1Board = new Gameboard();
-console.log(Player1Board)

@@ -47,13 +47,18 @@ class Space {
     this.status = status;
   }
 
-  get coordinates() {
+  coordinates() {
     return [this.verticleCoordinate, this.horizontalCoordinate];
   }
 }
+
+let Player1Board = new Gameboard();
+console.log(Player1Board)
+
 
 module.exports = {
   testgameBoardFile,
   testTrue,
   Gameboard,
+  Player1Board
 };
