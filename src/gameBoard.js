@@ -30,7 +30,7 @@ class Gameboard {
     this.playerName = playerName;
     this.ships = this.generateShips(this);
     this.isMyTurn = false;
-    this.spaces = this.generateEmptySpaces();
+    this.spaces = this.generateEmptySpaces(this);
   }
 
   generateShips() {
@@ -48,12 +48,12 @@ class Gameboard {
     return ships;
   }
 
-  generateEmptySpaces() {
+  generateEmptySpaces(board) {
     let spaces = [];
     let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     for (let i = 0; i < alphabet.length; i++) {
       for (let j = 1; j < 11; j++) {
-        const newSpace = new Space(alphabet[i], j, "empty");
+        const newSpace = new Space(board, alphabet[i], j, "empty");
         spaces.push(newSpace);
       }
     }
@@ -66,13 +66,23 @@ class Gameboard {
     // This takes the size of a ship and outputs all possible positions that that piece can go, taking into account the edges of the board and other pieces on the board
     // Returns a starting space coordinates and either horizontal or verticle orientation
   }
+
+  getSpaceAt(verticleCoordinate, horizontalCoordinate){
+    for (let i = 0; i< this.spaces.length;i++){
+        if ((this.spaces[i].verticleCoordinate === verticleCoordinate) &&(this.spaces[i].horizontalCoordinate === horizontalCoordinate)){
+            return this.spaces[i];
+        }
+    }
+  }
+
 }
 
 class Space {
-  constructor(verticleCoordinate, horizontalCoordinate, status) {
+  constructor(board, verticleCoordinate, horizontalCoordinate) {
+    this.board = board;
     this.verticleCoordinate = verticleCoordinate;
     this.horizontalCoordinate = horizontalCoordinate;
-    this.status = status;
+    this.status = "empty";
     this.up = this.getUp();
     this.down = this.getDown();
     this.right = this.getRight();
@@ -86,6 +96,9 @@ class Space {
 // ************************************************************************
 // This is where I need to do some work. Gotta linnk all these squares up
 // ***But first***** Write some tests! 
+
+
+// Do we need a method that takes coordinates and returns the space object?
 // ************************************************************************
 
 
@@ -93,6 +106,7 @@ class Space {
     if (this.verticleCoordinate === "A"){
         return null
     }
+    return 
   }
 
   getDown() {
@@ -109,6 +123,10 @@ let Player1Board = new Gameboard("Kevin");
 console.log(Player1Board);
 
 console.log(Player1Board.ships[0]);
+
+let space = Player1Board.getSpaceAt("A", 2);
+console.log(space)
+
 
 // So we've created an empty gameboard and assigned a name to it.
 // We need to be able to put the pieces on the board next
