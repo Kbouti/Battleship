@@ -4,8 +4,10 @@
 
 const Ship = require("./ships.js");
 
-const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+// ************************************************************************************
+// Helper functions:
 
+const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 function getPreviousLetter(letter) {
   for (let i = 0; i < alphabet.length; i++) {
     if (alphabet[i] === letter) {
@@ -13,7 +15,6 @@ function getPreviousLetter(letter) {
     }
   }
 }
-
 function getNextLetter(letter) {
   for (let i = 0; i < alphabet.length; i++) {
     if (alphabet[i] === letter) {
@@ -22,18 +23,8 @@ function getNextLetter(letter) {
   }
 }
 
-function testgameBoardFile() {
-  const message = `gameBoard test success`;
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = message;
-  document.body.appendChild(newElement);
-  return;
-}
-
-function testTrue() {
-  return true;
-}
-
+// ************************************************************************************
+// Classes:
 
 class Gameboard {
   constructor(playerName) {
@@ -42,7 +33,6 @@ class Gameboard {
     this.isMyTurn = false;
     this.spaces = this.generateEmptySpaces(this);
   }
-
   generateShips() {
     let ships = [];
     const carrier = new Ship.Ship("Carrier", 5);
@@ -57,7 +47,6 @@ class Gameboard {
     ships.push(destroyer);
     return ships;
   }
-
   generateEmptySpaces(board) {
     let spaces = [];
     // const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -69,14 +58,6 @@ class Gameboard {
     }
     return spaces;
   }
-
-  getOccupiedSpaces() {}
-
-  getPossibleLocations(size) {
-    // This takes the size of a ship and outputs all possible positions that that piece can go, taking into account the edges of the board and other pieces on the board
-    // Returns a starting space coordinates and either horizontal or verticle orientation
-  }
-
   getSpaceAt(verticleCoordinate, horizontalCoordinate) {
     // Returns a space object for the given coordinates
     for (let i = 0; i < this.spaces.length; i++) {
@@ -88,7 +69,6 @@ class Gameboard {
       }
     }
   }
-
   linkSpaces() {
     // This function establishes left/right and up/down references between all squares. It should be run immedietely after generating squares
     for (let i = 0; i < this.spaces.length; i++) {
@@ -127,6 +107,12 @@ class Gameboard {
     }
     return;
   }
+  getOccupiedSpaces() {}
+  getPossibleLocations(size) {
+    // This takes the size of a ship and outputs all possible positions that that piece can go, taking into account the edges of the board and other pieces on the board
+    // Returns a starting space coordinates and either horizontal or verticle orientation
+  }
+
 }
 
 class Space {
@@ -140,14 +126,22 @@ class Space {
     this.right = null;
     this.left = null;
   }
-
   coordinates() {
     return [this.verticleCoordinate, this.horizontalCoordinate];
   }
 }
 
-let Player1Board = new Gameboard("Kevin");
-Player1Board.linkSpaces();
+// ************************************************************************************
+// Export functions:
+
+function createGameboard(playerName){
+    let newBoard = new Gameboard(playerName);
+    newBoard.linkSpaces();
+    return newBoard
+}
+
+
+
 
 // So we've created an empty gameboard and assigned a name to it.
 // We've created all the ship objects
@@ -157,11 +151,10 @@ Player1Board.linkSpaces();
 
 
 module.exports = {
-  testgameBoardFile,
-  testTrue,
+    // createGameBoard is the only export that's really necessary, the rest are exported to be tested
   Gameboard,
-  Player1Board,
   alphabet,
   getPreviousLetter,
   getNextLetter,
+  createGameboard
 };
