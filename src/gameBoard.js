@@ -4,6 +4,24 @@
 
 const Ship = require("./ships.js");
 
+const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+
+function getPreviousLetter(letter) {
+  for (let i = 0; i < alphabet.length; i++) {
+    if (alphabet[i] === letter) {
+      return alphabet[i - 1];
+    }
+  }
+}
+
+function getNextLetter(letter) {
+  for (let i = 0; i < alphabet.length; i++) {
+    if (alphabet[i] === letter) {
+      return alphabet[i + 1];
+    }
+  }
+}
+
 function testgameBoardFile() {
   const message = `gameBoard test success`;
   const newElement = document.createElement(`div`);
@@ -16,14 +34,6 @@ function testTrue() {
   return true;
 }
 
-// Gameboard will consist of a series of 10x10 grids. The verticle axis is labeled A-J, the horizontal is 1-10
-// There are 5 pieces:
-// (length) NAME
-// (5) Carrier
-// (4) BattleShip
-// (3) Submarine
-// (3) Cruiser
-// (2) Destroyer
 
 class Gameboard {
   constructor(playerName) {
@@ -50,7 +60,7 @@ class Gameboard {
 
   generateEmptySpaces(board) {
     let spaces = [];
-    const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    // const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     for (let i = 0; i < alphabet.length; i++) {
       for (let j = 1; j < 11; j++) {
         const newSpace = new Space(board, alphabet[i], j, "empty");
@@ -68,6 +78,7 @@ class Gameboard {
   }
 
   getSpaceAt(verticleCoordinate, horizontalCoordinate) {
+    // Returns a space object for the given coordinates
     for (let i = 0; i < this.spaces.length; i++) {
       if (
         this.spaces[i].verticleCoordinate === verticleCoordinate &&
@@ -77,6 +88,45 @@ class Gameboard {
       }
     }
   }
+
+  linkSpaces() {
+    // This function establishes left/right and up/down references between all squares. It should be run immedietely after generating squares
+    for (let i = 0; i < this.spaces.length; i++) {
+      if (this.spaces[i].verticleCoordinate === "A") {
+        this.spaces[i].up = null;
+      } else {
+        this.spaces[i].up = this.getSpaceAt(
+          getPreviousLetter(this.spaces[i].verticleCoordinate),
+          this.spaces[i].horizontalCoordinate
+        );
+      }
+      if (this.spaces[i].verticleCoordinate === "J") {
+        this.spaces[i].down = null;
+      } else {
+        this.spaces[i].down = this.getSpaceAt(
+          getNextLetter(this.spaces[i].verticleCoordinate),
+          this.spaces[i].horizontalCoordinate
+        );
+      }
+      if (this.spaces[i].horizontalCoordinate === 1) {
+        this.spaces[i].left = null;
+      } else {
+        this.spaces[i].left = this.getSpaceAt(
+          this.spaces[i].verticleCoordinate,
+          this.spaces[i].horizontalCoordinate - 1
+        );
+      }
+      if (this.spaces[i].horizontalCoordinate === 10) {
+        this.spaces[i].right = null;
+      } else {
+        this.spaces[i].right = this.getSpaceAt(
+          this.spaces[i].verticleCoordinate,
+          this.spaces[i].horizontalCoordinate + 1
+        );
+      }
+    }
+    return;
+  }
 }
 
 class Space {
@@ -85,62 +135,37 @@ class Space {
     this.verticleCoordinate = verticleCoordinate;
     this.horizontalCoordinate = horizontalCoordinate;
     this.status = "empty";
-    this.up = this.getUp();
-    this.down = this.getDown();
-    this.right = this.getRight();
-    this.left = this.getLeft();
+    this.up = null;
+    this.down = null;
+    this.right = null;
+    this.left = null;
   }
 
   coordinates() {
     return [this.verticleCoordinate, this.horizontalCoordinate];
   }
-
-  // ************************************************************************
-  // This is where I need to do some work. Gotta linnk all these squares up
-  // ***But first***** Write some tests!
-
-  // Do we need a method that takes coordinates and returns the space object?
-  // ************************************************************************
-
-  getUp() {
-    if (this.verticleCoordinate === "A") {
-      return null;
-    }
-    let space = this.board.getSpaceAt("");
-// Current issue is that we don't have an easy way to determine the alphabet letter below the current one. 
-// I'm not really sure where to write that code
-
-    return;
-  }
-
-  getDown() {
-    // **giggity**
-  }
-
-  getRight() {}
-  getLeft() {}
-
-  // ************************************************************************
 }
 
 let Player1Board = new Gameboard("Kevin");
+Player1Board.linkSpaces();
 console.log(Player1Board);
-
 console.log(Player1Board.ships[0]);
-
 let space = Player1Board.getSpaceAt("A", 2);
 console.log(space);
 
 // So we've created an empty gameboard and assigned a name to it.
-// We need to be able to put the pieces on the board next
-// First we need to create the pieces.
-// Then we need to decide where we can put them
-// Then we need to decide where we want to put them
-// Then we need to put them in place
+// We've created all the ship objects
+// After creating the board we link all the squares together
+// Now we need to figure out how to put the pieces on the board
+// Including determining what spaces are eligible and what spaces aren't
+
 
 module.exports = {
   testgameBoardFile,
   testTrue,
   Gameboard,
   Player1Board,
+  alphabet,
+  getPreviousLetter,
+  getNextLetter,
 };
