@@ -21,7 +21,9 @@ test(`findPreviousLetter returns B if given C`, () => {
 });
 
 test('get square above ["C", 4]', () => {
-  const C4 = gameBoard.Player1Board.getSpaceAt(["C", 4]);
-  const B4 = gameBoard.Player1Board.getSpaceAt(["B", 4]);
-  expect(C4.up).toBe(B4);
+  const testGameBoard = new gameBoard.Gameboard("Testies");
+  testGameBoard.linkSpaces();
+  const C4 = testGameBoard.getSpaceAt("C", 4);
+  const A4 = testGameBoard.getSpaceAt("A", 4);
+  expect(C4.up).toEqual(A4.down);
 });

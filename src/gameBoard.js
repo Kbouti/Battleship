@@ -148,14 +148,10 @@ class Space {
 
 let Player1Board = new Gameboard("Kevin");
 Player1Board.linkSpaces();
-console.log(Player1Board);
-console.log(Player1Board.ships[0]);
-let space = Player1Board.getSpaceAt("A", 2);
-console.log(space);
 
 // So we've created an empty gameboard and assigned a name to it.
 // We've created all the ship objects
-// After creating the board we link all the squares together
+// After creating the board we've linked all the squares together
 // Now we need to figure out how to put the pieces on the board
 // Including determining what spaces are eligible and what spaces aren't
 
