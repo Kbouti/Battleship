@@ -24,35 +24,48 @@ class Ship {
 
     if (this.orientation == "horizontal") {
       for (let i = 0; i < shipLength; i++) {
-        if ((currentSpace == null) || (currentSpace.status !== "empty")) {
+        if (currentSpace == null || currentSpace.status !== "empty") {
           moveAllowed = false;
           console.log(`Can't move here`);
           return false;
         } else {
-            currentSpace = currentSpace.right
+          currentSpace = currentSpace.right;
         }
       }
-      console.log(`ship can move here`)
+      console.log(`ship can move here`);
       return true;
-      // make sure there are enough spaces to the right
-      // make sure none of those spaces are occupied by another ship
-      // this.startingSpace = startingSpace;
-      // Update the appropriate space contents
     } else {
-        //orientation is verticle
-        for (let i = 0; i < shipLength; i++) {
-            if ((currentSpace == null) || (currentSpace.status !== "empty")) {
-              moveAllowed = false;
-              console.log(`Can't move here`);
-              return false;
-            } else {
-                currentSpace = currentSpace.down
-            }
-          }
-          console.log(`ship can move here`)
-          return true;
+      //orientation is verticle
+      for (let i = 0; i < shipLength; i++) {
+        if (currentSpace == null || currentSpace.status !== "empty") {
+          moveAllowed = false;
+          console.log(`Can't move here`);
+          return false;
+        } else {
+          currentSpace = currentSpace.down;
+        }
       }
-  } 
+      console.log(`ship can move here`);
+      return true;
+    }
+  }
+
+  placeShipHere(startingSpace, orientation) {
+    // Ok here should exist the logic to associate the ship with the appropriate spaces;
+    this.orientation = orientation;
+    this.startingSpace = startingSpace;
+    let size = this.size;
+    let currentSpace = startingSpace;
+    for (let i = 0; i < size; i++) {
+      currentSpace.status = "occupied";
+      if (orientation === "horizontal") {
+        currentSpace = currentSpace.right;
+      } else {
+        currentSpace = currentSpace.down;
+      }
+    }
+    return;
+  }
 }
 
 module.exports = {
