@@ -127,18 +127,16 @@ class Gameboard {
         let randomSpace = this.getRandomSpace();
         let randomOrientation = this.getRandomOrientation();
         while (ship.canShipMoveHere(randomSpace, randomOrientation) === false){
-            randomSpace = this.getRandomSpace;
-            randomOrientation = this.getRandomOrientation;
+            randomSpace = this.getRandomSpace();
+            randomOrientation = this.getRandomOrientation();
         }
+console.log(`placing ${ship.name} at ${randomSpace.coordinates()} ${randomOrientation}`)
         ship.placeShipHere(randomSpace, randomOrientation);
     }
+    console.log(`Done placing ships for: ${this.playerName}`)
   }
 
-  getOccupiedSpaces() {}
-  getPossibleLocations(size) {
-    // This takes the size of a ship and outputs all possible positions that that piece can go, taking into account the edges of the board and other pieces on the board
-    // Returns a starting space coordinates and either horizontal or verticle orientation
-  }
+
 }
 
 class Space {

@@ -26,26 +26,22 @@ class Ship {
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
           moveAllowed = false;
-          console.log(`Can't move here`);
           return false;
         } else {
           currentSpace = currentSpace.right;
         }
       }
-      console.log(`ship can move here`);
       return true;
     } else {
       //orientation is verticle
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
           moveAllowed = false;
-          console.log(`Can't move here`);
           return false;
         } else {
           currentSpace = currentSpace.down;
         }
       }
-      console.log(`ship can move here`);
       return true;
     }
   }
