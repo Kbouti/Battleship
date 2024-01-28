@@ -108,28 +108,29 @@ class Gameboard {
     return;
   }
 
-  placeShipsRandom() {
-    // For each ship:
-    // select a random space from the spaces array,
-    // select either horizontal or verticle
-    // see if we can move there.
-    // If yes, move there. If no, repeat
+  getRandomOrientation() {
+    let orientation = "horizontal";
+    if (Math.floor(Math.random() * 10) > 4) {
+      orientation = "verticle";
+    }
+    return orientation;
+  }
 
+  getRandomSpace() {
+    let randomSpace = this.spaces[Math.floor(Math.random() * 1000)];
+    return randomSpace;
+  }
 
-    // Maybe I need a smaller function: Get a random space
-
-    let spacesArray = this.spaces;
-
-    for (let i = 0; i < this.ships.length; i++) {
-      let ship = this.ships[i];
-      let randomNumber = Math.floor(Math.random() * 100);
-      let randomSpace = spacesArray[randomNumber];
-      let orientation = "horizontal";
-      let coinFlip = Math.floor(Math.random() * 10);
-      console.log(`coin flip: ${coinFlip}`);
-      if (coinFlip > 4) {
-        orientation = "verticle";
-      }
+  placeShipsRandomly(){
+    for (let i = 0;i<this.ships.length;i++){
+        let ship = this.ships[i];
+        let randomSpace = this.getRandomSpace();
+        let randomOrientation = this.getRandomOrientation();
+        while (ship.canShipMoveHere(randomSpace, randomOrientation) === false){
+            randomSpace = this.getRandomSpace;
+            randomOrientation = this.getRandomOrientation;
+        }
+        ship.placeShipHere(randomSpace, randomOrientation);
     }
   }
 

@@ -27,7 +27,7 @@ console.log(carrier.canShipMoveHere(spaceG5,"horizontal"));
 // We could just loop over the array. .
 
 
-player1Board.placeShipsRandom();
+player1Board.placeShipsRandomly();
 
 
 
