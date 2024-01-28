@@ -21,16 +21,28 @@ const carrier = player1Board.ships[0];
 console.log(carrier);
 
 const spaceG5 = player1Board.getSpaceAt("G",6)
-carrier.canShipMoveHere(spaceG5,"horizontal");
+console.log(carrier.canShipMoveHere(spaceG5,"horizontal"));
 // should ships be an object or an array?
 // maybe we want it to be an object....
 // We could just loop over the array. .
 
 
+player1Board.placeShipsRandom();
 
 
 
+// When game begins: 
+// Select how many players
+// Name players
+// Create gameboard and watcherBoard
+// Each player places their ships on the board
+// Assign a player to take the first turn
+//
 
-// The first thing the game needs to do is esatblish 2 boards (one for each player)
-// We'll focus on logic to do it once, then repeat. 
+
+// Ok, we've created a board and we've created pieces that we can put on the board. 
+// We will need a function that randomly places all the pieces on the board - for when you're playing agains the computer or if you don't want to move your pieces
+// We'll need to create a "watcherBoard" or something - so the player can keep track of their hits and misses
+// We need to "strike" the board, which will either return hit or miss
+// Then we need separate functions to record the hit or miss and move the game forward
 

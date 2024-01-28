@@ -107,12 +107,37 @@ class Gameboard {
     }
     return;
   }
+
+  placeShipsRandom() {
+    // For each ship:
+    // select a random space from the spaces array,
+    // select either horizontal or verticle
+    // see if we can move there.
+    // If yes, move there. If no, repeat
+
+
+    // Maybe I need a smaller function: Get a random space
+
+    let spacesArray = this.spaces;
+
+    for (let i = 0; i < this.ships.length; i++) {
+      let ship = this.ships[i];
+      let randomNumber = Math.floor(Math.random() * 100);
+      let randomSpace = spacesArray[randomNumber];
+      let orientation = "horizontal";
+      let coinFlip = Math.floor(Math.random() * 10);
+      console.log(`coin flip: ${coinFlip}`);
+      if (coinFlip > 4) {
+        orientation = "verticle";
+      }
+    }
+  }
+
   getOccupiedSpaces() {}
   getPossibleLocations(size) {
     // This takes the size of a ship and outputs all possible positions that that piece can go, taking into account the edges of the board and other pieces on the board
     // Returns a starting space coordinates and either horizontal or verticle orientation
   }
-
 }
 
 class Space {
@@ -134,14 +159,11 @@ class Space {
 // ************************************************************************************
 // Export functions:
 
-function createGameboard(playerName){
-    let newBoard = new Gameboard(playerName);
-    newBoard.linkSpaces();
-    return newBoard
+function createGameboard(playerName) {
+  let newBoard = new Gameboard(playerName);
+  newBoard.linkSpaces();
+  return newBoard;
 }
-
-
-
 
 // So we've created an empty gameboard and assigned a name to it.
 // We've created all the ship objects
@@ -149,12 +171,11 @@ function createGameboard(playerName){
 // Now we need to figure out how to put the pieces on the board
 // Including determining what spaces are eligible and what spaces aren't
 
-
 module.exports = {
-    // createGameBoard is the only export that's really necessary, the rest are exported to be tested
+  // createGameBoard is the only export that's really necessary, the rest are exported to be tested
   Gameboard,
   alphabet,
   getPreviousLetter,
   getNextLetter,
-  createGameboard
+  createGameboard,
 };
