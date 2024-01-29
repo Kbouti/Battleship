@@ -1,7 +1,3 @@
-// import {Ship} from './ships'
-// ^ This import statement triggered an error message but seemed to work..
-// but this below got rid of the error statement (woohoo!)
-
 const Ship = require("./ships.js");
 
 // ************************************************************************************
@@ -25,6 +21,11 @@ function getNextLetter(letter) {
 
 // ************************************************************************************
 // Classes:
+
+
+// Currently we've just got gameBoard and spaces
+// I think we'll need to create a secondary board that keeps track of hits and misses. This is different because it doesn't have ships on it. Just a visual representation of the players former moves
+
 
 class Gameboard {
   constructor(playerName) {
@@ -163,6 +164,12 @@ class Gameboard {
   }
 }
 
+class Scoreboard {
+    constructor(playerName){
+        this.playerName = playerName;
+    }
+}
+
 class Space {
   constructor(board, verticleCoordinate, horizontalCoordinate) {
     this.board = board;
@@ -189,6 +196,10 @@ function createGameboard(playerName) {
   return newBoard;
 }
 
+function createScoreboard(playerName){
+// Need logic here to create new scoreboard object. Class is defined above
+}
+
 module.exports = {
   // createGameBoard is the only export that's really necessary, the rest are exported to be tested
   Gameboard,
@@ -196,4 +207,5 @@ module.exports = {
   getPreviousLetter,
   getNextLetter,
   createGameboard,
+  createScoreboard
 };
