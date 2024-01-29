@@ -22,10 +22,8 @@ function getNextLetter(letter) {
 // ************************************************************************************
 // Classes:
 
-
 // Currently we've just got gameBoard and spaces
 // I think we'll need to create a secondary board that keeps track of hits and misses. This is different because it doesn't have ships on it. Just a visual representation of the players former moves
-
 
 class Gameboard {
   constructor(playerName) {
@@ -50,10 +48,9 @@ class Gameboard {
   }
   generateEmptySpaces(board) {
     let spaces = [];
-    // const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     for (let i = 0; i < alphabet.length; i++) {
       for (let j = 1; j < 11; j++) {
-        const newSpace = new Space(board, alphabet[i], j, "empty");
+        const newSpace = new Space(board, alphabet[i], j);
         spaces.push(newSpace);
       }
     }
@@ -147,7 +144,7 @@ class Gameboard {
     }
     let targetSpace = this.getSpaceAt(letter, number);
     if (targetSpace.status === "empty") {
-        console.log(`[${letter},${number}] Miss`)
+      console.log(`[${letter},${number}] Miss`);
       return "Miss";
     } else {
       targetSpace.status = "hit";
@@ -155,19 +152,33 @@ class Gameboard {
       ship.hits++;
       if (ship.hits === ship.size) {
         ship.isSunk = true;
-        console.log(`[${letter},${number}] Hit, you've sunk the enemy's ${ship.name}`);
+        console.log(
+          `[${letter},${number}] Hit, you've sunk the enemy's ${ship.name}`
+        );
         return "Sunk";
       }
-      console.log(`[${letter},${number}] Hit`)
+      console.log(`[${letter},${number}] Hit`);
       return "Hit";
     }
   }
 }
 
 class Scoreboard {
-    constructor(playerName){
-        this.playerName = playerName;
+  constructor(playerName) {
+    this.playerName = playerName;
+    this.spaces = this.generateEmptySpaces();
+  }
+
+  generateEmptySpaces() {
+    let spaces = [];
+    for (let i = 0; i < alphabet.length; i++) {
+      for (let j = 1; j < 11; j++) {
+        const newSpace = new ScoreboardSpace(alphabet[i], j);
+        spaces.push(newSpace);
+      }
     }
+    return spaces;
+  }
 }
 
 class Space {
@@ -187,6 +198,14 @@ class Space {
   }
 }
 
+class ScoreboardSpace {
+  constructor(verticleCoordinate, horizontalCoordinate) {
+    this.verticleCoordinate = verticleCoordinate;
+    this.horizontalCoordinate = horizontalCoordinate;
+    this.status = "empty";
+  }
+}
+
 // ************************************************************************************
 // Export functions:
 
@@ -196,16 +215,18 @@ function createGameboard(playerName) {
   return newBoard;
 }
 
-function createScoreboard(playerName){
-// Need logic here to create new scoreboard object. Class is defined above
+function createScoreboard(playerName) {
+  let newScoreboard = new Scoreboard(playerName);
+  return newScoreboard;
 }
 
 module.exports = {
   // createGameBoard is the only export that's really necessary, the rest are exported to be tested
   Gameboard,
+  Scoreboard,
   alphabet,
   getPreviousLetter,
   getNextLetter,
   createGameboard,
-  createScoreboard
+  createScoreboard,
 };
