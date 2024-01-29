@@ -3,15 +3,10 @@
 // ^+C            (to quit)
 // ************************************************************************************
 
-
 import _, { create } from "lodash";
 import "./style.css";
-import { Gameboard, Space, createGameboard } from "./gameBoard";
+import { Gameboard, Scoreboard, createScoreboard, Space, createGameboard } from "./boards";
 import { Ship, subtract } from "./ships";
-
-
-
-
 
 const player1Board = createGameboard(`player1`);
 // First we create a board
@@ -20,12 +15,11 @@ const player1Board = createGameboard(`player1`);
 const carrier = player1Board.ships[0];
 console.log(carrier);
 
-const spaceG5 = player1Board.getSpaceAt("G",6)
-console.log(carrier.canShipMoveHere(spaceG5,"horizontal"));
+const spaceG5 = player1Board.getSpaceAt("G", 6);
+console.log(carrier.canShipMoveHere(spaceG5, "horizontal"));
 // should ships be an object or an array?
 // maybe we want it to be an object....
 // We could just loop over the array. .
-
 
 player1Board.placeShipsRandomly();
 player1Board.strike("A", 1);
@@ -61,16 +55,13 @@ player1Board.strike("C", 8);
 player1Board.strike("C", 9);
 player1Board.strike("C", 10);
 
-
-
-// When game begins: 
+// When game begins:
 // Select how many players
 // Name players
 // Create gameboard and watcherBoard
 // Each player places their ships on the board
 // Assign a player to take the first turn
 //
-
 
 // On each turn:
 // Ask the player for their target

@@ -1,5 +1,5 @@
-const gameBoard = require("./gameBoard.js");
-const Ship = require("./ships.js");
+const boardsJS = require("./boards.js");
+const shipsJS = require("./ships.js");
 
 // ************************************************************************************
 // Helper functions:
@@ -23,37 +23,36 @@ function getNextLetter(letter) {
 // ************************************************************************************
 // Classes:
 
-class Game{
-    constructor(player1Name, mode, player2Name){
-        this.player1Name = player1Name;
-        this.mode = mode;
-        // Mode will be either Player.v.Computer or Player.v.Player, but regardless we know the name of our two players and so we can create our boards:
-        this.player1Gameboard = gameBoard.createGameboard(player1Name);
-        this.player1Scoreboard = gameBoard.createScoreboard(player1Name)
+class Game {
+  constructor(player1Name, mode, player2Name) {
+    this.player1Name = player1Name;
+    this.mode = mode;
+    // Mode will be either Player.v.Computer or Player.v.Player, but regardless we know the name of our two players and so we can create our boards:
+    this.player1Gameboard = boardsJS.createGameboard(player1Name);
+    this.player1Scoreboard = boardsJS.createScoreboard(player1Name);
 
-        this.player2Gameboard = gameBoard.createGameboard(player2Name);
-        this.player2Scoreboard = gameBoard.createScoreboard(player2Name)
+    this.player2Gameboard = boardsJS.createGameboard(player2Name);
+    this.player2Scoreboard = boardsJS.createScoreboard(player2Name);
 
-        // Next, player1 will place their pieces
-        // We can place them randomly to start, then add functionality to move them around
+    // Next, player1 will place their pieces
+    // We can place them randomly to start, then add functionality to move them around
 
-        // IF PvC place ships randomly on player2 gameboard and proceed to picking turns
+    // IF PvC place ships randomly on player2 gameboard and proceed to picking turns
 
-        // Random even to pick first turn
+    // Random even to pick first turn
 
-        // First turn begins:
+    // First turn begins:
 
-        // Player chooses target spot
+    // Player chooses target spot
 
-        // Strike opponents board
+    // Strike opponents board
 
-        // Check for victory
+    // Check for victory
 
-        // Reveal results to player
+    // Reveal results to player
 
-        // Update player's scoreboard to show hit or miss
-        
-        // Turn switches to next player
+    // Update player's scoreboard to show hit or miss
 
-    }
+    // Turn switches to next player
+  }
 }

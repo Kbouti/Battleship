@@ -1,4 +1,4 @@
-const gameBoard = require("./gameBoard.js");
+const boardsJS = require("./boards.js");
 
 function subtract(a, b) {
   return a - b;
