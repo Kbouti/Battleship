@@ -146,6 +146,7 @@ class Gameboard {
     }
     let targetSpace = this.getSpaceAt(letter, number);
     if (targetSpace.status === "empty") {
+        console.log(`[${letter},${number}] Miss`)
       return "Miss";
     } else {
       targetSpace.status = "hit";
@@ -153,9 +154,10 @@ class Gameboard {
       ship.hits++;
       if (ship.hits === ship.size) {
         ship.isSunk = true;
-        console.log(`Hit, you've sunk the enemy's ${ship.name}`);
+        console.log(`[${letter},${number}] Hit, you've sunk the enemy's ${ship.name}`);
         return "Sunk";
       }
+      console.log(`[${letter},${number}] Hit`)
       return "Hit";
     }
   }

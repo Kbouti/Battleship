@@ -28,6 +28,38 @@ console.log(carrier.canShipMoveHere(spaceG5,"horizontal"));
 
 
 player1Board.placeShipsRandomly();
+player1Board.strike("A", 1);
+player1Board.strike("A", 2);
+player1Board.strike("A", 3);
+player1Board.strike("A", 4);
+player1Board.strike("A", 5);
+player1Board.strike("A", 6);
+player1Board.strike("A", 7);
+player1Board.strike("A", 8);
+player1Board.strike("A", 9);
+player1Board.strike("A", 10);
+
+player1Board.strike("B", 1);
+player1Board.strike("B", 2);
+player1Board.strike("B", 3);
+player1Board.strike("B", 4);
+player1Board.strike("B", 5);
+player1Board.strike("B", 6);
+player1Board.strike("B", 7);
+player1Board.strike("B", 8);
+player1Board.strike("B", 9);
+player1Board.strike("B", 10);
+
+player1Board.strike("C", 1);
+player1Board.strike("C", 2);
+player1Board.strike("C", 3);
+player1Board.strike("C", 4);
+player1Board.strike("C", 5);
+player1Board.strike("C", 6);
+player1Board.strike("C", 7);
+player1Board.strike("C", 8);
+player1Board.strike("C", 9);
+player1Board.strike("C", 10);
 
 
 
@@ -40,11 +72,10 @@ player1Board.placeShipsRandomly();
 //
 
 
-// We've created a board, created ships, and put the ships on the board
-// We'll need to create a "watcherBoard" or something - so the player can keep track of their hits and misses
-// We need to "strike" the board, which will either return hit or miss
-// Then we need separate functions to record the hit or miss and move the game forward
-
-
-// Next up: board.strike() function
-// it will take a letter and a number
+// On each turn:
+// Ask the player for their target
+// Strike the other board
+// Check if the game is over
+// Check if a ship is sunk
+// Report results of turn
+// Change player turn
