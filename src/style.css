@@ -3,3 +3,15 @@
   color: red;
   background: url("./images/dice.png");
 }
+
+
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #003560;
+
+}
+
+#title {
+    
+}

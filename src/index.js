@@ -8,12 +8,12 @@ import "./style.css";
 import { Gameboard, Scoreboard, createScoreboard, Space, createGameboard } from "./boards";
 import { Ship, subtract } from "./ships";
 import {Game} from "./gamePlay";
-import { createElement } from "./domElements";
+import { createElement, buildPage } from "./domElements";
 
 console.log(`Begin`)
 
 
-
+buildPage();
 
 
 

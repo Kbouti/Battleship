@@ -2,25 +2,33 @@
 
 // Need to create the homePage, a form that asks for the users name and how many players
 
-console.log(`something`);
-
 function createElement(type, parentElement, id, classes) {
+  console.log(`create Element triggered`);
   const newElement = document.createElement(type);
-  for (let i = 0; i < classes.length; i++) {
-    newElement.classList.add(classes[i]);
+  console.log(`test1`)
+  if (classes !== null) {
+    console.log(`test2`)
+    for (let i = 0; i < classes.length; i++) {
+      newElement.classList.add(classes[i]);
+    }
   }
   if (id !== null) {
     newElement.setAttribute("id", id);
   }
   parentElement.appendChild(newElement);
   console.log(`done with createElement`);
-  return;
+  return newElement;
 }
 
-const body = document.body;
-createElement("div", body, "id", ["class1", "class2"]);
+
+function buildPage() {
+    const body = document.body;
+    const title = createElement("H1", body, "title", ["title"]);
+    title.innerHTML = "BattleShip";
+}
 
 // *************************************************************************************
 module.exports = {
   createElement,
+  buildPage,
 };
