@@ -12,16 +12,13 @@ class Ship {
     this.isSunk = false;
     this.startingSpace = null;
     this.orientation = "horizontal";
-    // I'm thinking location will be an array of squares
   }
 
   canShipMoveHere(startingSpace, orientation) {
     this.orientation = orientation;
     const shipLength = this.size;
-
     let currentSpace = startingSpace;
     let moveAllowed = true;
-
     if (this.orientation == "horizontal") {
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
@@ -33,7 +30,6 @@ class Ship {
       }
       return true;
     } else {
-      //orientation is verticle
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
           moveAllowed = false;
@@ -47,7 +43,6 @@ class Ship {
   }
 
   placeShipHere(startingSpace, orientation) {
-    // Ok here should exist the logic to associate the ship with the appropriate spaces;
     this.orientation = orientation;
     this.startingSpace = startingSpace;
     let size = this.size;
