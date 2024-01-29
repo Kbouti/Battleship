@@ -22,9 +22,6 @@ function getNextLetter(letter) {
 // ************************************************************************************
 // Classes:
 
-// Currently we've just got gameBoard and spaces
-// I think we'll need to create a secondary board that keeps track of hits and misses. This is different because it doesn't have ships on it. Just a visual representation of the players former moves
-
 class Gameboard {
   constructor(playerName) {
     this.playerName = playerName;

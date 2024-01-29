@@ -33,26 +33,10 @@ class Game {
 
     this.player2Gameboard = boardsJS.createGameboard(player2Name);
     this.player2Scoreboard = boardsJS.createScoreboard(player2Name);
-
-    // Next, player1 will place their pieces
-    // We can place them randomly to start, then add functionality to move them around
-
-    // IF PvC place ships randomly on player2 gameboard and proceed to picking turns
-
-    // Random even to pick first turn
-
-    // First turn begins:
-
-    // Player chooses target spot
-
-    // Strike opponents board
-
-    // Check for victory
-
-    // Reveal results to player
-
-    // Update player's scoreboard to show hit or miss
-
-    // Turn switches to next player
   }
+}
+
+
+module.exports = {
+    Game,
 }
