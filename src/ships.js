@@ -8,7 +8,7 @@ class Ship {
   constructor(name, size) {
     this.name = name;
     this.size = size;
-    this.hits = null;
+    this.hits = 0;
     this.isSunk = false;
     this.startingSpace = null;
     this.orientation = "horizontal";
@@ -54,6 +54,7 @@ class Ship {
     let currentSpace = startingSpace;
     for (let i = 0; i < size; i++) {
       currentSpace.status = "occupied";
+      currentSpace.occupant = this;
       if (orientation === "horizontal") {
         currentSpace = currentSpace.right;
       } else {

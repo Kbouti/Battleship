@@ -40,9 +40,11 @@ player1Board.placeShipsRandomly();
 //
 
 
-// Ok, we've created a board and we've created pieces that we can put on the board. 
-// We will need a function that randomly places all the pieces on the board - for when you're playing agains the computer or if you don't want to move your pieces
+// We've created a board, created ships, and put the ships on the board
 // We'll need to create a "watcherBoard" or something - so the player can keep track of their hits and misses
 // We need to "strike" the board, which will either return hit or miss
 // Then we need separate functions to record the hit or miss and move the game forward
 
+
+// Next up: board.strike() function
+// it will take a letter and a number

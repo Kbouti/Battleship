@@ -121,22 +121,44 @@ class Gameboard {
     return randomSpace;
   }
 
-  placeShipsRandomly(){
-    for (let i = 0;i<this.ships.length;i++){
-        let ship = this.ships[i];
-        let randomSpace = this.getRandomSpace();
-        let randomOrientation = this.getRandomOrientation();
-        while (ship.canShipMoveHere(randomSpace, randomOrientation) === false){
-            randomSpace = this.getRandomSpace();
-            randomOrientation = this.getRandomOrientation();
-        }
-console.log(`placing ${ship.name} at ${randomSpace.coordinates()} ${randomOrientation}`)
-        ship.placeShipHere(randomSpace, randomOrientation);
+  placeShipsRandomly() {
+    for (let i = 0; i < this.ships.length; i++) {
+      let ship = this.ships[i];
+      let randomSpace = this.getRandomSpace();
+      let randomOrientation = this.getRandomOrientation();
+      while (ship.canShipMoveHere(randomSpace, randomOrientation) === false) {
+        randomSpace = this.getRandomSpace();
+        randomOrientation = this.getRandomOrientation();
+      }
+      console.log(
+        `placing ${
+          ship.name
+        } at ${randomSpace.coordinates()} ${randomOrientation}`
+      );
+      ship.placeShipHere(randomSpace, randomOrientation);
     }
-    console.log(`Done placing ships for: ${this.playerName}`)
+    console.log(`Done placing ships for: ${this.playerName}`);
   }
 
-
+  strike(letter, number) {
+    if (!alphabet.includes(letter) || number > 10 || number < 1) {
+      throw new Error(`Attempted to strike an invalid space`);
+    }
+    let targetSpace = this.getSpaceAt(letter, number);
+    if (targetSpace.status === "empty") {
+      return "Miss";
+    } else {
+      targetSpace.status = "hit";
+      let ship = targetSpace.occupant;
+      ship.hits++;
+      if (ship.hits === ship.size) {
+        ship.isSunk = true;
+        console.log(`Hit, you've sunk the enemy's ${ship.name}`);
+        return "Sunk";
+      }
+      return "Hit";
+    }
+  }
 }
 
 class Space {
@@ -145,6 +167,7 @@ class Space {
     this.verticleCoordinate = verticleCoordinate;
     this.horizontalCoordinate = horizontalCoordinate;
     this.status = "empty";
+    this.occupant = null;
     this.up = null;
     this.down = null;
     this.right = null;
@@ -163,12 +186,6 @@ function createGameboard(playerName) {
   newBoard.linkSpaces();
   return newBoard;
 }
-
-// So we've created an empty gameboard and assigned a name to it.
-// We've created all the ship objects
-// After creating the board we've linked all the squares together
-// Now we need to figure out how to put the pieces on the board
-// Including determining what spaces are eligible and what spaces aren't
 
 module.exports = {
   // createGameBoard is the only export that's really necessary, the rest are exported to be tested
