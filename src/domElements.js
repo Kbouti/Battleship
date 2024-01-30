@@ -89,7 +89,7 @@ function buildPage() {
     []
   );
   const modeSelectLabel = createElement(
-    "div",
+    "H3",
     modeSelectContainer,
     "modeSelectLabel",
     []
