@@ -96,33 +96,40 @@ function buildPage() {
   );
   modeSelectLabel.innerHTML = `Select game mode:`;
 
-  const pVcLabel = createElement("label", modeSelectContainer, "pVcLabel", [
+  const pVcContainer = createElement("div", modeSelectContainer, null, [
+    "modeSelectContainer",
+  ]);
+
+  const pVcLabel = createElement("label", pVcContainer, "pVcLabel", [
     "radioLabel",
   ]);
   pVcLabel.setAttribute("for", "pVcRadio");
   pVcLabel.innerHTML = "Player V. Computer";
 
-  const pVcRadio = createElement("input", modeSelectContainer, "pVcRadio", [
+  const pVcRadio = createElement("input", pVcContainer, "pVcRadio", [
     "modeSelectRadio",
   ]);
   pVcRadio.setAttribute("type", "radio");
   pVcRadio.setAttribute("name", "pVcRadio");
 
-  const pVpLabel = createElement("label", modeSelectContainer, "pVpLabel", [
+  const pVpContainer = createElement("div", modeSelectContainer, null, [
+    "modeSelectContainer",
+  ]);
+
+  const pVpLabel = createElement("label", pVpContainer, "pVpLabel", [
     "radioLabel",
   ]);
   pVpLabel.setAttribute("for", "pVcRadio");
   pVpLabel.innerHTML = "Player V. Player";
 
-  const pVpRadio = createElement("input", modeSelectContainer, "pVpRadio", [
+  const pVpRadio = createElement("input", pVpContainer, "pVpRadio", [
     "modeSelectRadio",
   ]);
   pVpRadio.setAttribute("type", "radio");
   pVpRadio.setAttribute("name", "pVpRadio");
 
-
   const beginButton = createElement("button", formFooter, "beginButton", []);
-  beginButton.innerHTML = 'Start Game'
+  beginButton.innerHTML = "Start Game";
 
   // End Form
   // ******************************************************************************************

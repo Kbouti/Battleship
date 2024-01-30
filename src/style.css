@@ -70,3 +70,16 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.modeSelectContainer{
+  display:flex;
+
+  
+  /* justify-content:space-between;
+  width:20% */
+  
+}
+
+#beginButton {
+  margin:auto;
+}
