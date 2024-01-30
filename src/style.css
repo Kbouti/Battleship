@@ -82,3 +82,7 @@ body {
 #beginButton {
   margin:auto;
 }
+
+.hidden {
+  display:none;
+}

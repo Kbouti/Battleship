@@ -4,6 +4,7 @@ const boards = require("./boards");
 function submitForm(event) {
   event.preventDefault();
 
+  const newGameForm = document.getElementById(`newGameForm`);
   const player1Input = document.getElementById("player1Input");
   const player2Input = document.getElementById("player2Input");
   const pVcRadio = document.getElementById("pVcRadio");
@@ -29,12 +30,14 @@ function submitForm(event) {
   }
 
   let newGame = new gamePlay.Game(player1Name, gameMode, player2Name);
-  return newGame;
+  newGameForm.style.visibility = "hidden";
 
   // ***********************************************************************************************************************************************************
-  // Our error occurs when we attempt to run this function, but I commented out everything in the function and it still errors.
-  // So it has something to do with how we're finding or calling this function?
+  // Ok, now we've created a game.
+  // Now that we've created a game object we call game.renderGameBoard and game.renderScoreBoard
   // ***********************************************************************************************************************************************************
+
+  return;
 }
 
 function addEventListeners() {

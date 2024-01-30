@@ -1,5 +1,7 @@
 const boardsJS = require("./boards.js");
 const shipsJS = require("./ships.js");
+const domElements = require("./domElements.js");
+
 
 // ************************************************************************************
 // Helper functions:
@@ -34,6 +36,22 @@ class Game {
     this.player2Gameboard = boardsJS.createGameboard(player2Name);
     this.player2Scoreboard = boardsJS.createScoreboard(player2Name);
   }
+
+
+
+  renderGameBoard(){
+    const body = document.body;
+
+// Maybe we need to write this in domElements
+
+  }
+  
+  renderScoreBoard(){
+  
+  }
+  
+
+
 }
 
 

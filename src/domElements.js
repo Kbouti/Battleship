@@ -137,6 +137,21 @@ function buildPage() {
   // ******************************************************************************************
 }
 
+
+
+
+
+function buildGameBoard(object){
+    const body = document.body;
+    const gameBoard = createElement("div", body, `${object.player1Name}GameBoard`, ["gameBoard"]);
+    // is this one function going to construct both boards, only to hide the other? 
+    // or should this take a more specific argument so we know which player this board belongs to
+}
+
+
+
+
+
 // *************************************************************************************
 module.exports = {
   createElement,
