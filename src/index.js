@@ -9,12 +9,13 @@ import { Gameboard, Scoreboard, createScoreboard, Space, createGameboard } from 
 import { Ship, subtract } from "./ships";
 import {Game} from "./gamePlay";
 import { createElement, buildPage } from "./domElements";
+import { submitForm, addEventListeners } from "./domManipulation";
 
 console.log(`Begin`)
 
 
 buildPage();
-
+addEventListeners();
 
 
 
