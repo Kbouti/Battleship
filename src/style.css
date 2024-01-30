@@ -57,6 +57,7 @@ body {
   display:flex;
   flex-direction: column;
   width:100%;
+  align-items:center;
 }
 
 #formFooter {
@@ -64,6 +65,7 @@ body {
   display:flex;
   flex-direction:column;
   justify-content: center;
+  align-items:center;
 }
 
 #modeSelectLabel {
