@@ -110,7 +110,8 @@ function buildPage() {
     "modeSelectRadio",
   ]);
   pVcRadio.setAttribute("type", "radio");
-  pVcRadio.setAttribute("name", "pVcRadio");
+  pVcRadio.setAttribute("name", "modeSelectRadio");
+  pVcRadio.setAttribute("checked", "true")
 
   const pVpContainer = createElement("div", modeSelectContainer, null, [
     "modeSelectContainer",
@@ -126,7 +127,7 @@ function buildPage() {
     "modeSelectRadio",
   ]);
   pVpRadio.setAttribute("type", "radio");
-  pVpRadio.setAttribute("name", "pVpRadio");
+  pVpRadio.setAttribute("name", "modeSelectRadio");
 
   const beginButton = createElement("button", formFooter, "beginButton", []);
   beginButton.innerHTML = "Start Game";
