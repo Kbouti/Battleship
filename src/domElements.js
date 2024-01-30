@@ -82,6 +82,47 @@ function buildPage() {
   player2Input.setAttribute("placeholder", "Admiral A.I.");
 
   const formFooter = createElement(`div`, newGameForm, "formFooter", []);
+  const modeSelectContainer = createElement(
+    "div",
+    formFooter,
+    "modeSelectContainer",
+    []
+  );
+  const modeSelectLabel = createElement(
+    "div",
+    modeSelectContainer,
+    "modeSelectLabel",
+    []
+  );
+  modeSelectLabel.innerHTML = `Select game mode:`;
+
+  const pVcLabel = createElement("label", modeSelectContainer, "pVcLabel", [
+    "radioLabel",
+  ]);
+  pVcLabel.setAttribute("for", "pVcRadio");
+  pVcLabel.innerHTML = "Player V. Computer";
+
+  const pVcRadio = createElement("input", modeSelectContainer, "pVcRadio", [
+    "modeSelectRadio",
+  ]);
+  pVcRadio.setAttribute("type", "radio");
+  pVcRadio.setAttribute("name", "pVcRadio");
+
+  const pVpLabel = createElement("label", modeSelectContainer, "pVpLabel", [
+    "radioLabel",
+  ]);
+  pVpLabel.setAttribute("for", "pVcRadio");
+  pVpLabel.innerHTML = "Player V. Player";
+
+  const pVpRadio = createElement("input", modeSelectContainer, "pVpRadio", [
+    "modeSelectRadio",
+  ]);
+  pVpRadio.setAttribute("type", "radio");
+  pVpRadio.setAttribute("name", "pVpRadio");
+
+
+  const beginButton = createElement("button", formFooter, "beginButton", []);
+  beginButton.innerHTML = 'Start Game'
 
   // End Form
   // ******************************************************************************************
