@@ -39,7 +39,7 @@ class Game {
 
 
 
-  renderGameBoard(){
+  render(gameboard){
     const body = document.body;
 
 // Maybe we need to write this in domElements

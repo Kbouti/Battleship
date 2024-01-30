@@ -35,6 +35,13 @@ function submitForm(event) {
   // ***********************************************************************************************************************************************************
   // Ok, now we've created a game.
   // Now that we've created a game object we call game.renderGameBoard and game.renderScoreBoard
+
+  // maybe:
+  // renderGameBoard(newGame.player1Gameboard);
+  // renderGameBoard(newGame.player2Gameboard);
+
+  // ..? ahhhh but they don't want us writing more functions. So maybe it's gotta be game.player1GameBoard.render()?
+  // or game.render(player1gameBoard)
   // ***********************************************************************************************************************************************************
 
   return;
