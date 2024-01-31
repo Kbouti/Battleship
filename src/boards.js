@@ -144,7 +144,7 @@ class Gameboard {
     if (targetSpace.status === "empty") {
       console.log(`[${letter},${number}] Miss`);
       return "Miss";
-    } else {
+    } else if (targetSpace.status === "occupied") {
       targetSpace.status = "hit";
       let ship = targetSpace.occupant;
       ship.hits++;
@@ -161,6 +161,17 @@ class Gameboard {
   }
 
   render() {
+    // This is render 1.0
+    // render 2.0 should:
+    // First check to see if a gameboard dom unit exists for this gameboard.
+    // If true, remove it.
+    // Then, create a grid with dom elements including a visual representation of where the ships are
+
+    if (document.getElementById(`${this.playerName}GameBoard`) !== null) {
+      const gameBoard = document.getElementById(`${this.playerName}GameBoard`);
+      gameBoard.remove();
+    }
+
     const body = document.body;
     const gameBoard = createElement(
       "div",
@@ -191,6 +202,19 @@ class Gameboard {
           "boardSpace",
           `space${j}${i}`,
         ]);
+        console.log(this);
+        console.log(`j: ${j}`);
+        console.log(`i: ${i}`);
+        const space = this.getSpaceAt(alphabet[j], i);
+        if (space.status == "empty") {
+          newSpace.classList.add("empty");
+        }
+        if (space.status == "occupied") {
+          newSpace.classList.add("occupied");
+        }
+        if (space.status == "hit") {
+          newSpace.classList.add("hit");
+        }
       }
     }
   }

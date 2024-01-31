@@ -38,7 +38,14 @@ class Game {
   }
 
 
+beginMatch(){
+  this.player1Gameboard.placeShipsRandomly();
 
+  this.player1Gameboard.render();
+  // Ok but shouldn't render take into account where the ships are?
+  // 
+
+}
 
 
 

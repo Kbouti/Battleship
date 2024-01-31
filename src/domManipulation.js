@@ -28,20 +28,9 @@ function submitForm(event) {
   } else {
     gameMode = "pVp";
   }
-
   let newGame = new gamePlay.Game(player1Name, gameMode, player2Name);
-  newGameForm.style.visibility = "hidden";
-
   newGameForm.remove();
-
-  newGame.player1Gameboard.render();
-  // ***********************************************************************************************************************************************************
-
-  // OK -- On form submit we hide the form and create the grid;
-  // I also need to style the grid -- And copy to make scoreboards
-
-  // ***********************************************************************************************************************************************************
-
+  newGame.beginMatch();
   return;
 }
 
