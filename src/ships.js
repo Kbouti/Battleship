@@ -73,6 +73,11 @@ render(){
   // Each ship knows it's orientation and how many spaces it needs to span
   // They still need to be stretch to cover the appropriate number of spaces
 
+
+// We're havving an issue with how we apply the class.
+// Our carrier was set to verticle but got the horizontal class
+
+
 }
 
 }
