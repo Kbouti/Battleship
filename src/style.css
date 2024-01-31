@@ -116,22 +116,22 @@ body {
   /* The actual spaces in play */
 }
 
-.empty1 {
+.oceanBlue1 {
   background-color: var(--blue1);
 }
-.empty2 {
+.oceanBlue2 {
   background-color: var(--blue2);
 }
-.empty3 {
+.oceanBlue3 {
   background-color: var(--blue3);
 }
-.empty4 {
+.oceanBlue4 {
   background-color: var(--blue4);
 }
-.empty5 {
+.oceanBlue5 {
   background-color: var(--blue5);
 }
-.empty6 {
+.oceanBlue6 {
   background-color: var(--blue6);
 }
 
