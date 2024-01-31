@@ -224,6 +224,17 @@ class Gameboard {
 
     // Ok. At this point we have our board and our legend.
     // Next we need to apply the boardSpace class to the actual spaces in play
+
+    for (let i = 12; i < 122; i++) {
+      if (squares[i].classList.contains("boardLegend") == false) {
+        squares[i].classList.add("boardSpace");
+      }
+    }
+
+    // Next we need to render the ships
+    // in V1 we just gave the space a different class if it was occupied by a ship, instead I think we wanna create and place a div
+    // Do we still need unique classnames for each square? Me starting to thinks not
+    // What we need is properly defined grid areas
   }
 }
 
