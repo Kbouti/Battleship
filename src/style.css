@@ -1,14 +1,21 @@
 
-.hello {
-  color: red;
-  background: url("./images/dice.png");
+
+:root{
+  --blue1: #57b7ff;
+  --blue2: #47b0ff;
+  --blue3: #0e97ff;
+  --blue4: #0090fc;
+  --blue5: #006fc3;
+  --blue6: #0066b3;
+--darkBlue: #001b30;
 }
+
 
 
 body {
   padding: 0px;
   margin: 0px;
-  background-color: #003560;
+  background-color: var(--darkBlue);
   display: flex;
   flex-direction: column;
   justify-content:center;
@@ -95,6 +102,10 @@ body {
 
 .onTheBoard{
   /* Every space on gameboard or scoreboard */
+
+  width: 20px;
+  height: 20px;
+
 }
 
 .boardLegend{
@@ -105,17 +116,31 @@ body {
   /* The actual spaces in play */
 }
 
-.empty {
-  background-color: aqua;
-  width: 20px;
-  height: 20px;
+.empty1 {
+  background-color: var(--blue1);
 }
+.empty2 {
+  background-color: var(--blue2);
+}
+.empty3 {
+  background-color: var(--blue3);
+}
+.empty4 {
+  background-color: var(--blue4);
+}
+.empty5 {
+  background-color: var(--blue5);
+}
+.empty6 {
+  background-color: var(--blue6);
+}
+
+
+
+
 
 .occupied {
 background-color: rgb(180, 180, 180);
-  width: 20px;
-  height: 20px;
-
 }
 
 .hit{

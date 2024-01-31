@@ -207,7 +207,28 @@ class Gameboard {
         console.log(`i: ${i}`);
         const space = this.getSpaceAt(alphabet[j], i);
         if (space.status == "empty") {
-          newSpace.classList.add("empty");
+          let randomNum = Math.floor(Math.random() * 10);
+          let remainder = randomNum % 6;
+          console.log(randomNum);
+          console.log(`remainder: ${remainder}`);
+          if (remainder == 0) {
+            newSpace.classList.add(`empty1`);
+          }
+          if (remainder == 1) {
+            newSpace.classList.add(`empty2`);
+          }
+          if (remainder == 2) {
+            newSpace.classList.add(`empty3`);
+          }
+          if (remainder == 3) {
+            newSpace.classList.add(`empty4`);
+          }
+          if (remainder == 4) {
+            newSpace.classList.add(`empty5`);
+          }
+          if (remainder == 5) {
+            newSpace.classList.add(`empty5`);
+          }
         }
         if (space.status == "occupied") {
           newSpace.classList.add("occupied");
