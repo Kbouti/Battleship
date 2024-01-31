@@ -24,6 +24,7 @@ addEventListeners();
 // When game begins:
 // Select how many players
 // Name players
+// Make sure names aren't the same
 // Create Game
 // Create gameboard and watcherBoard
 // Each player places their ships on the board

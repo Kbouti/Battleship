@@ -86,3 +86,22 @@ body {
 .hidden {
   display:none;
 }
+
+.gameBoardGrid{
+  display:grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+}
+
+.onTheBoard{
+  /* Every space on gameboard or scoreboard */
+}
+
+.boardLegend{
+/* The 1, 2, 3 and A, B, C squares at the top and left of the chart */
+}
+
+.boardSpace{
+  /* The actual spaces in play */
+}
+
