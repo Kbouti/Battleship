@@ -160,28 +160,41 @@ class Gameboard {
     }
   }
 
+  render() {
+    const body = document.body;
+    const gameBoard = createElement(
+      "div",
+      body,
+      `${gameBoard.playerName}GameBoard`,
+      ["gameBoardGrid"]
+    );
+    const blankCornerSpace = createElement("div", gameBoard, null, [
+      ".onTheBoard",
+    ]);
+    for (let i = 1; i < 11; i++) {
+      const newSpace = createElement("div", gameBoard, null, [
+        "ontheBoard",
+        "boardLegend",
+      ]);
+      newSpace.innerHTML = i;
+    }
 
+    for (let j = 0; j < alphabet.length; j++) {
+      const legend = createElement("div", gameBoard, null, [
+        "onTheBoard",
+        "boardLegend",
+      ]);
+      legend.innerHTML = alphabet[j];
 
-render(){
-  const body = document.body;
-  const gameBoard = createElement("div", body, `${gameBoard.playerName}GameBoard`, ["gameBoardGrid"]);
-  const blankCornerSpace = createElement('div', gameBoard, null, [".onTheBoard"]);
-  for (let i = 1;i<11;i++){
-    const newSpace = createElement("div", gameBoard, null, ["ontheBoard", "boardLegend"])
-    newSpace.innerHTML = i;
+      for (let i = 1; i < 11; i++) {
+        const newSpace = createElement("div", gameBoard, null, [
+          "ontheBoard",
+          "boardSpace",
+          `space${j}${i}`,
+        ]);
+      }
+    }
   }
-
-  for (let j = 0;j<alphabet.length;j++){
-    const legend = createElement("div", gameBoard, null, ["onTheBoard", "boardLegend"])
-    legend.innerHTML = alphabet[j];
-  }
-
-
-for (let i = 1;i<11;i++){
-  const newSpace = createElement("div", gameBoard, null, ["ontheBoard", "boardSpace", `spaceA${i}`]);
-}
-
-
 }
 
 class Scoreboard {

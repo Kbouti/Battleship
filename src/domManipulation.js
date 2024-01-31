@@ -32,6 +32,9 @@ function submitForm(event) {
   let newGame = new gamePlay.Game(player1Name, gameMode, player2Name);
   newGameForm.style.visibility = "hidden";
 
+
+
+  newGame.player1Gameboard.render();
   // ***********************************************************************************************************************************************************
   // Ok, now we've created a game.
   // Now that we've created a game object we call game.renderGameBoard and game.renderScoreBoard
