@@ -220,15 +220,27 @@ class Gameboard {
       thisSquare.innerHTML = alphabet[index];
       index++;
     }
-    for (let i = 12; i < 111; i++) {
+
+    // This creates an array of coordinates used to apply unique class names
+    let squareNamesArray = [];
+    for (let i = 0; i < alphabet.length; i++) {
+      let letter = alphabet[i];
+      for (let j = 1; j < 11; j++) {
+        squareNamesArray.push(`${letter}${j}`);
+      }
+    }
+
+    for (let i = 12; i < 122; i++) {
       if (squares[i].classList.contains("boardLegend") == false) {
-        squares[i].classList.add("boardSpace");
+        const coordinate = squareNamesArray[0];
+        squares[i].classList.add("boardSpace", coordinate);
+        squareNamesArray.shift();
       }
     }
 
     // Next we need to render the ships
     // in V1 we just gave the space a different class if it was occupied by a ship, instead I think we wanna create and place a div
-    // Do we still need unique classnames for each square? Me starting to thinks not
+    // Do we still need unique classnames for each square? Me starting to thinks maybe yes
     // What we need is properly defined grid areas
 
     console.log(`On to render ships:`);
@@ -245,6 +257,8 @@ class Gameboard {
 
       // Ok now we're gotten the data from each ship that we need to render the ships.
       // Next we need to make div elements to represent them
+
+      const shipDiv = createElement("div", gameBoard, null, ["ship"]);
     }
   }
 }

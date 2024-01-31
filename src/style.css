@@ -1,16 +1,12 @@
-
-
-:root{
+:root {
   --blue1: #26a2ff;
   --blue2: #1e9eff;
   --blue3: #169bff;
   --blue4: #0e97ff;
   --blue5: #0694ff;
   --blue6: #0090fc;
---darkBlue: #001b30;
+  --darkBlue: #001b30;
 }
-
-
 
 body {
   padding: 0px;
@@ -18,16 +14,15 @@ body {
   background-color: var(--darkBlue);
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
-  position:relative;
-
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 #header {
-  display:flex;
-  flex-grow:.7;
-  justify-content:center;
+  display: flex;
+  flex-grow: 0.7;
+  justify-content: center;
   background-color: #003560;
   color: gray;
 }
@@ -37,23 +32,22 @@ body {
   height: 60vh;
   background-color: rgb(180, 180, 180);
   border-radius: 10px;
-  display:flex;
-  flex-direction:column;
-  align-content:center;
-  
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 #formContent {
-  display:flex;
+  display: flex;
   flex-direction: row;
-  flex-grow:1;
+  flex-grow: 1;
 }
 
-#newGameFormHeader{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-content:center;
+#newGameFormHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 #newGameTitle {
@@ -61,18 +55,18 @@ body {
 }
 
 .formContentHalf {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width:100%;
-  align-items:center;
+  width: 100%;
+  align-items: center;
 }
 
 #formFooter {
-  flex-grow:.7;
-  display:flex;
-  flex-direction:column;
+  flex-grow: 0.7;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 #modeSelectLabel {
@@ -80,55 +74,59 @@ body {
   justify-content: center;
 }
 
-.modeSelectContainer{
-  display:flex;
-  justify-content:space-between;
-  width: 10rem;  
+.modeSelectContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
 }
 
 #beginButton {
-  margin:auto;
+  margin: auto;
 }
 
 .hidden {
-  display:none;
+  display: none;
 }
 
-.gameBoardGrid{
-  display:grid;
+.gameBoardGrid {
+  display: grid;
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(11, 1fr);
-  display:relative;
+  display: relative;
+
+  /*   
+If we want to name the gridlines that can be done with:
+  grid-template-columns: [verticleLegend] 1fr [column1] 1fr[column2] 1fr[column3] 1fr[column4] 1fr[column5] 1fr[column6] 1fr[column7] 1fr[column8] 1fr[column9] 1fr[column10] 1fr;
+  grid-template-rows: [horizontalLegend] 1fr [row1] 1fr [row2] 1fr [row3] 1fr [row4] 1fr [row5] 1fr [row6] 1fr [row7] 1fr [row8] 1fr [row9] 1fr [row10] 1fr; */
 }
 
-.setGameBoard{
+.setGameBoard {
   /* Used when we're setting the gameboard - it becomes larger and centered in the screen.
   Once the gameboard is set, it will move down to make room for scoreBoard */
-  position:absolute;
-  top:200%;
-  height:60vh;
-  width:60vh;
+  position: absolute;
+  top: 200%;
+  height: 60vh;
+  width: 60vh;
 }
 
-.onTheBoard{
+.onTheBoard {
   /* Every space on gameboard or scoreboard */
   /* currently using px but we'll need to fix that */
   /* width: 20px;
   height: 20px; */
-  margin:0;
-  padding:0;
-
+  margin: 0;
+  padding: 0;
 }
 
-.boardLegend{
-  color:white;
-  display:flex;
+.boardLegend {
+  color: white;
+  display: flex;
   justify-content: center;
   align-items: center;
-/* The 1, 2, 3 and A, B, C squares at the top and left of the chart */
+  /* The 1, 2, 3 and A, B, C squares at the top and left of the chart */
 }
 
-.boardSpace{
+.boardSpace {
   /* The actual spaces in play */
 }
 
@@ -151,18 +149,15 @@ body {
   background-color: var(--blue6);
 }
 
-
-.ship{
-  
+.ship {
+  background-color: grey;
+  border: 3px solid black;
+  position: absolute;
 }
-
-
-
 
 .occupied {
-background-color: rgb(180, 180, 180);
+  background-color: rgb(180, 180, 180);
 }
 
-.hit{
-
+.hit {
 }
