@@ -180,7 +180,7 @@ class Gameboard {
       "div",
       body,
       `${this.playerName}GameBoard`,
-      ["gameBoardGrid"]
+      ["gameBoardGrid", "setGameBoard"]
     );
 
     for (let i = 0; i < 121; i++) {
@@ -214,18 +214,13 @@ class Gameboard {
       thisSquare.innerHTML = i;
     }
     let index = 0;
-
     for (let i = 11; i < 111; i += 11) {
       let thisSquare = squares[i];
       thisSquare.classList.add("boardLegend");
       thisSquare.innerHTML = alphabet[index];
       index++;
     }
-
-    // Ok. At this point we have our board and our legend.
-    // Next we need to apply the boardSpace class to the actual spaces in play
-
-    for (let i = 12; i < 122; i++) {
+    for (let i = 12; i < 111; i++) {
       if (squares[i].classList.contains("boardLegend") == false) {
         squares[i].classList.add("boardSpace");
       }
@@ -235,6 +230,22 @@ class Gameboard {
     // in V1 we just gave the space a different class if it was occupied by a ship, instead I think we wanna create and place a div
     // Do we still need unique classnames for each square? Me starting to thinks not
     // What we need is properly defined grid areas
+
+    console.log(`On to render ships:`);
+
+    const ships = this.ships;
+    for (let i = 0; i < ships.length; i++) {
+      const startingCoordinates = ships[i].startingSpace.coordinates();
+      const orientation = ships[i].orientation;
+      const shipSize = ships[i].size;
+
+      console.log(`startingCoordinates: ${startingCoordinates}`);
+      console.log(`orientation: ${orientation}`);
+      console.log(`shipSize: ${shipSize}`);
+
+      // Ok now we're gotten the data from each ship that we need to render the ships.
+      // Next we need to make div elements to represent them
+    }
   }
 }
 

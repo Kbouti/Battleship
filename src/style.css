@@ -98,13 +98,23 @@ body {
   display:grid;
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(11, 1fr);
+  display:relative;
+}
+
+.setGameBoard{
+  /* Used when we're setting the gameboard - it becomes larger and centered in the screen.
+  Once the gameboard is set, it will move down to make room for scoreBoard */
+  position:absolute;
+  top:200%;
+  height:60vh;
+  width:60vh;
 }
 
 .onTheBoard{
   /* Every space on gameboard or scoreboard */
   /* currently using px but we'll need to fix that */
-  width: 20px;
-  height: 20px;
+  /* width: 20px;
+  height: 20px; */
   margin:0;
   padding:0;
 
@@ -141,6 +151,10 @@ body {
   background-color: var(--blue6);
 }
 
+
+.ship{
+  
+}
 
 
 
