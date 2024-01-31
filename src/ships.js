@@ -1,5 +1,5 @@
 const boardsJS = require("./boards.js");
-const domElements = require("./domElements.js");
+const {createElement} = require("./domElements.js");
 
 function subtract(a, b) {
   return a - b;
@@ -13,6 +13,7 @@ class Ship {
     this.isSunk = false;
     this.startingSpace = null;
     this.orientation = "Horizontal";
+    this.shipClass = this.name + this.orientation;
   }
 
   canShipMoveHere(startingSpace, orientation) {
@@ -63,13 +64,15 @@ class Ship {
 
 render(){
 
-  const shipClass = ``
+  const targetCoordinates = this.startingSpace.coordinates();
+  const targetClass = targetCoordinates.join("");
+  const targetDiv = document.getElementsByClassName(targetClass);
+  const ship = createElement("div", targetDiv[0], null, ["ship", this.shipClass])
 
-  const gameBoard = document.getElementById(`GameBoard`);
-  const ship = domElements.createElement("div", gameBoard, null, ["ship", this.name])
+  // Here we have successfully placed shipDivs on the board. 
+  // Each ship knows it's orientation and how many spaces it needs to span
+  // They still need to be stretch to cover the appropriate number of spaces
 
-  // So a ship has been created of the appropriate class
-  // Now we have to move it onto the grid
 }
 
 }

@@ -261,7 +261,10 @@ class Gameboard {
 
     // maybe we're about to write a method on ships....
 
-    console.log(`destroyer size: ${destroyer.size}`);
+
+for (let i = 0;i < this.ships.length;i++){
+  this.ships[i].render();
+}
 
     // Ok in order to place the ship in a square div we need to get a reference to that div using the coordinates
     // const carrierDiv = createElement("div", )
