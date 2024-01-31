@@ -155,6 +155,50 @@ If we want to name the gridlines that can be done with:
   position: absolute;
 }
 
+.CarrierHorizontal {
+  /* size 5 */
+}
+
+.BattleshipHorizontal {
+  /* size 4 */
+}
+
+.SubmarineHorizontal {
+  /* size 3 */
+}
+
+.CruiserHorizontal {
+  /* size 3 */
+}
+
+.DestroyerHorizontal {
+  /* size 2 */
+}
+
+
+.CarrierVerticle {
+  /* size 5 */
+}
+
+.BattleshipVerticle {
+  /* size 4 */
+}
+
+.SubmarineVerticle {
+  /* size 3 */
+}
+
+.CruiserVerticle {
+  /* size 3 */
+}
+
+.DestroyerVerticle {
+  /* size 2 */
+}
+
+
+
+
 .occupied {
   background-color: rgb(180, 180, 180);
 }

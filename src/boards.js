@@ -105,9 +105,9 @@ class Gameboard {
   }
 
   getRandomOrientation() {
-    let orientation = "horizontal";
+    let orientation = "Horizontal";
     if (Math.floor(Math.random() * 10) > 4) {
-      orientation = "verticle";
+      orientation = "Verticle";
     }
     return orientation;
   }
@@ -258,6 +258,8 @@ class Gameboard {
     const submarine = this.ships[2];
     const cruiser = this.ships[3];
     const destroyer = this.ships[4];
+
+    // maybe we're about to write a method on ships....
 
     console.log(`destroyer size: ${destroyer.size}`);
 
