@@ -165,14 +165,10 @@ class Gameboard {
     // If true, remove it.
     // Then, create a grid with dom elements including a visual representation of where the ships are
 
-
-// Changes needed:
-// All squares, even oppupied spaces and legends should have ocean blbue background
-// Determine a color for legend characters with enough contrast
-// Instead of an "occupied" class, I think we need ship objects to lay on top of the board. 
-
-
-
+    // Changes needed:
+    // All squares, even oppupied spaces and legends should have ocean blbue background
+    // Determine a color for legend characters with enough contrast
+    // Instead of an "occupied" class, I think we need ship objects to lay on top of the board.
 
     if (document.getElementById(`${this.playerName}GameBoard`) !== null) {
       const gameBoard = document.getElementById(`${this.playerName}GameBoard`);
@@ -187,103 +183,48 @@ class Gameboard {
       ["gameBoardGrid"]
     );
 
-      for (let i = 0;i< 121; i++){
-        let newSpace = createElement("div", gameBoard, null, ["onTheBoard"]);
-        let randomNum = Math.floor(Math.random() * 10);
-        let remainder = randomNum % 6;
-        if (remainder == 0) {
-          newSpace.classList.add(`oceanBlue1`);
-        }
-        if (remainder == 1) {
-          newSpace.classList.add(`oceanBlue2`);
-        }
-        if (remainder == 2) {
-          newSpace.classList.add(`oceanBlue3`);
-        }
-        if (remainder == 3) {
-          newSpace.classList.add(`oceanBlue4`);
-        }
-        if (remainder == 4) {
-          newSpace.classList.add(`oceanBlue5`);
-        }
-        if (remainder == 5) {
-          newSpace.classList.add(`oceanBlue5`);
-        }
+    for (let i = 0; i < 121; i++) {
+      let newSpace = createElement("div", gameBoard, null, ["onTheBoard"]);
+      let randomNum = Math.floor(Math.random() * 10);
+      let remainder = randomNum % 6;
+      if (remainder == 0) {
+        newSpace.classList.add(`oceanBlue1`);
       }
-      // Ok, we've made our square, now we need to create the legend
-      // We're also gonna need a way to put ships on it. Perhaps we name out grid lines? 
+      if (remainder == 1) {
+        newSpace.classList.add(`oceanBlue2`);
+      }
+      if (remainder == 2) {
+        newSpace.classList.add(`oceanBlue3`);
+      }
+      if (remainder == 3) {
+        newSpace.classList.add(`oceanBlue4`);
+      }
+      if (remainder == 4) {
+        newSpace.classList.add(`oceanBlue5`);
+      }
+      if (remainder == 5) {
+        newSpace.classList.add(`oceanBlue5`);
+      }
+    }
+    const squares = document.querySelectorAll(".onTheBoard");
+    console.log(`squares.length: ${squares.length}`);
+    for (let i = 1; i < 11; i++) {
+      let thisSquare = squares[i];
+      thisSquare.classList.add("boardLegend");
+      thisSquare.innerHTML = i;
+    }
+    let index = 0;
 
-      const squares = document.querySelectorAll(".onTheBoard");
-      console.log(`squares.length: ${squares.length}`);
-      // Boom, now we're got an array of all the elements
-
-
-
+    for (let i = 11; i < 111; i += 11) {
+      let thisSquare = squares[i];
+      thisSquare.classList.add("boardLegend");
+      thisSquare.innerHTML = alphabet[index];
+      index++;
     }
 
-
-
-
-  //   const blankCornerSpace = createElement("div", gameBoard, null, [
-  //     ".onTheBoard", "oceanBlue2"
-  //   ]);
-  //   for (let i = 1; i < 11; i++) {
-  //     const newSpace = createElement("div", gameBoard, null, [
-  //       "ontheBoard",
-  //       "boardLegend",
-  //     ]);
-  //     newSpace.innerHTML = i;
-  //   }
-  //   for (let j = 0; j < alphabet.length; j++) {
-  //     const legend = createElement("div", gameBoard, null, [
-  //       "onTheBoard",
-  //       "boardLegend",
-  //     ]);
-  //     legend.innerHTML = alphabet[j];
-
-  //     for (let i = 1; i < 11; i++) {
-  //       const newSpace = createElement("div", gameBoard, null, [
-  //         "ontheBoard",
-  //         "boardSpace",
-  //         `space${j}${i}`,
-  //       ]);
-  //       console.log(this);
-  //       console.log(`j: ${j}`);
-  //       console.log(`i: ${i}`);
-  //       const space = this.getSpaceAt(alphabet[j], i);
-  //       if (space.status == "empty") {
-  //         let randomNum = Math.floor(Math.random() * 10);
-  //         let remainder = randomNum % 6;
-  //         console.log(randomNum);
-  //         console.log(`remainder: ${remainder}`);
-  //         if (remainder == 0) {
-  //           newSpace.classList.add(`empty1`);
-  //         }
-  //         if (remainder == 1) {
-  //           newSpace.classList.add(`empty2`);
-  //         }
-  //         if (remainder == 2) {
-  //           newSpace.classList.add(`empty3`);
-  //         }
-  //         if (remainder == 3) {
-  //           newSpace.classList.add(`empty4`);
-  //         }
-  //         if (remainder == 4) {
-  //           newSpace.classList.add(`empty5`);
-  //         }
-  //         if (remainder == 5) {
-  //           newSpace.classList.add(`empty5`);
-  //         }
-  //       }
-  //       if (space.status == "occupied") {
-  //         newSpace.classList.add("occupied");
-  //       }
-  //       if (space.status == "hit") {
-  //         newSpace.classList.add("hit");
-  //       }
-  //     }
-  //   }
-  // }
+    // Ok. At this point we have our board and our legend.
+    // Next we need to apply the boardSpace class to the actual spaces in play
+  }
 }
 
 class Scoreboard {
