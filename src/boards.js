@@ -206,8 +206,9 @@ class Gameboard {
         newSpace.classList.add(`oceanBlue5`);
       }
     }
+
     const squares = document.querySelectorAll(".onTheBoard");
-    console.log(`squares.length: ${squares.length}`);
+
     for (let i = 1; i < 11; i++) {
       let thisSquare = squares[i];
       thisSquare.classList.add("boardLegend");
@@ -220,7 +221,7 @@ class Gameboard {
       thisSquare.innerHTML = alphabet[index];
       index++;
     }
-
+    console.log(`test1`);
     // This creates an array of coordinates used to apply unique class names
     let squareNamesArray = [];
     for (let i = 0; i < alphabet.length; i++) {
@@ -230,14 +231,21 @@ class Gameboard {
       }
     }
 
-    for (let i = 12; i < 122; i++) {
-      if (squares[i].classList.contains("boardLegend") == false) {
+    console.log(`test2`);
+
+    for (let i = 12; i < 121; i++) {
+      let square = squares[i];
+      if (square.classList.contains("boardLegend") == false) {
         const coordinate = squareNamesArray[0];
-        squares[i].classList.add("boardSpace", coordinate);
+        square.classList.add("boardSpace");
+        square.classList.add(coordinate);
         squareNamesArray.shift();
+
       }
     }
 
+
+    console.log(`test3`);
     // Next we need to render the ships
     // in V1 we just gave the space a different class if it was occupied by a ship, instead I think we wanna create and place a div
     // Do we still need unique classnames for each square? Me starting to thinks maybe yes
@@ -245,21 +253,33 @@ class Gameboard {
 
     console.log(`On to render ships:`);
 
-    const ships = this.ships;
-    for (let i = 0; i < ships.length; i++) {
-      const startingCoordinates = ships[i].startingSpace.coordinates();
-      const orientation = ships[i].orientation;
-      const shipSize = ships[i].size;
+    const carrier = this.ships[0];
+    const battleship = this.ships[1];
+    const submarine = this.ships[2];
+    const cruiser = this.ships[3];
+    const destroyer = this.ships[4];
 
-      console.log(`startingCoordinates: ${startingCoordinates}`);
-      console.log(`orientation: ${orientation}`);
-      console.log(`shipSize: ${shipSize}`);
+    console.log(`destroyer size: ${destroyer.size}`);
 
-      // Ok now we're gotten the data from each ship that we need to render the ships.
-      // Next we need to make div elements to represent them
+    // Ok in order to place the ship in a square div we need to get a reference to that div using the coordinates
+    // const carrierDiv = createElement("div", )
 
-      const shipDiv = createElement("div", gameBoard, null, ["ship"]);
-    }
+
+    // const ships = this.ships;
+    // for (let i = 0; i < ships.length; i++) {
+    //   const startingCoordinates = ships[i].startingSpace.coordinates();
+    //   const orientation = ships[i].orientation;
+    //   const shipSize = ships[i].size;
+
+    //   console.log(`startingCoordinates: ${startingCoordinates}`);
+    //   console.log(`orientation: ${orientation}`);
+    //   console.log(`shipSize: ${shipSize}`);
+
+    //   // Ok now we're gotten the data from each ship that we need to render the ships.
+    //   // Next we need to make div elements to represent them
+
+    //   const shipDiv = createElement("div", gameBoard, null, ["ship"]);
+    // }
   }
 }
 
