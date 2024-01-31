@@ -36,15 +36,11 @@ function submitForm(event) {
 
   newGame.player1Gameboard.render();
   // ***********************************************************************************************************************************************************
-  // Ok, now we've created a game.
-  // Now that we've created a game object we call game.renderGameBoard and game.renderScoreBoard
 
-  // maybe:
-  // renderGameBoard(newGame.player1Gameboard);
-  // renderGameBoard(newGame.player2Gameboard);
+// OK -- On form submit we hide the form and create the grid;
+// I want to remove the form from the dom completely, as it's still taking up space. 
+// I also need to style the grid -- And copy to make scoreboards
 
-  // ..? ahhhh but they don't want us writing more functions. So maybe it's gotta be game.player1GameBoard.render()?
-  // or game.render(player1gameBoard)
   // ***********************************************************************************************************************************************************
 
   return;

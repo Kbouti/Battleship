@@ -1,9 +1,3 @@
-// idk if we need to import any functions yet
-
-// const { create } = require("lodash");
-// ^^Where did this come from? 
-
-// Need to create the homePage, a form that asks for the users name and how many players
 
 function createElement(type, parentElement, id, classes) {
   const newElement = document.createElement(type);
@@ -135,21 +129,6 @@ function buildPage() {
 
   // End Form
   // ******************************************************************************************
-}
-
-
-
-
-
-function buildGameBoard(gameBoard){
-    // This takes a specific gameboard Object and creates the associated Dom element
-
-    const body = document.body;
-    const gameBoard = createElement("div", body, `${gameBoard.playerName}GameBoard`, ["gameBoard"]);
-// use grid here
-
-
-
 }
 
 

@@ -165,7 +165,7 @@ class Gameboard {
     const gameBoard = createElement(
       "div",
       body,
-      `${gameBoard.playerName}GameBoard`,
+      `${this.playerName}GameBoard`,
       ["gameBoardGrid"]
     );
     const blankCornerSpace = createElement("div", gameBoard, null, [
@@ -178,7 +178,6 @@ class Gameboard {
       ]);
       newSpace.innerHTML = i;
     }
-
     for (let j = 0; j < alphabet.length; j++) {
       const legend = createElement("div", gameBoard, null, [
         "onTheBoard",
@@ -213,6 +212,10 @@ class Scoreboard {
     }
     return spaces;
   }
+
+  render() {
+    // We can copy most of this from gameboard.render, but we'll want to take a closer look at the classes
+  }
 }
 
 class Space {
@@ -242,6 +245,8 @@ class ScoreboardSpace {
 
 // ************************************************************************************
 // Export functions:
+
+// (These could maybe have been written as methods)
 
 function createGameboard(playerName) {
   let newBoard = new Gameboard(playerName);
