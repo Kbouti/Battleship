@@ -32,14 +32,13 @@ function submitForm(event) {
   let newGame = new gamePlay.Game(player1Name, gameMode, player2Name);
   newGameForm.style.visibility = "hidden";
 
-
+  newGameForm.remove();
 
   newGame.player1Gameboard.render();
   // ***********************************************************************************************************************************************************
 
-// OK -- On form submit we hide the form and create the grid;
-// I want to remove the form from the dom completely, as it's still taking up space. 
-// I also need to style the grid -- And copy to make scoreboards
+  // OK -- On form submit we hide the form and create the grid;
+  // I also need to style the grid -- And copy to make scoreboards
 
   // ***********************************************************************************************************************************************************
 
