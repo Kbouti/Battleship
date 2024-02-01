@@ -93,7 +93,7 @@ body {
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(11, 1fr);
   display: relative;
-
+/* grid-template-areas: "overlap" */
   /*   
 If we want to name the gridlines that can be done with:
   grid-template-columns: [verticleLegend] 1fr [column1] 1fr[column2] 1fr[column3] 1fr[column4] 1fr[column5] 1fr[column6] 1fr[column7] 1fr[column8] 1fr[column9] 1fr[column10] 1fr;
@@ -117,7 +117,7 @@ If we want to name the gridlines that can be done with:
   margin: 0;
   padding: 0;
   z-index: -1;
-
+position:relative;
 }
 
 .boardLegend {
@@ -166,9 +166,8 @@ If we want to name the gridlines that can be done with:
 .ship {
   background-color: grey;
   border: 3px solid black;
-
-z-index: 2;
-
+  z-index: 2;
+  /* position:absolute; */
   /* position: absolute; */
   /* width: 20px;
   height:20px; */

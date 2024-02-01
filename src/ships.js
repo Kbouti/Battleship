@@ -1,5 +1,5 @@
 const boardsJS = require("./boards.js");
-const {createElement} = require("./domElements.js");
+const { createElement } = require("./domElements.js");
 
 function subtract(a, b) {
   return a - b;
@@ -13,7 +13,11 @@ class Ship {
     this.isSunk = false;
     this.startingSpace = null;
     this.orientation = "Horizontal";
-    this.shipClass = this.name + this.orientation;
+  }
+
+  getShipClass() {
+    let shipClass = this.name + this.orientation;
+    return shipClass;
   }
 
   canShipMoveHere(startingSpace, orientation) {
@@ -61,25 +65,23 @@ class Ship {
     return;
   }
 
+  render() {
+    const targetCoordinates = this.startingSpace.coordinates();
+    const targetClass = targetCoordinates.join("");
+    const targetDiv = document.getElementsByClassName(targetClass);
+    const ship = createElement("div", targetDiv[0], null, [
+      "ship",
+      this.getShipClass(),
+    ]);
 
-render(){
+    // Here we have successfully placed shipDivs on the board.
+    // Each ship knows it's orientation and how many spaces it needs to span
+    // They still need to be stretch to cover the appropriate number of spaces
 
-  const targetCoordinates = this.startingSpace.coordinates();
-  const targetClass = targetCoordinates.join("");
-  const targetDiv = document.getElementsByClassName(targetClass);
-  const ship = createElement("div", targetDiv[0], null, ["ship", this.shipClass])
-
-  // Here we have successfully placed shipDivs on the board. 
-  // Each ship knows it's orientation and how many spaces it needs to span
-  // They still need to be stretch to cover the appropriate number of spaces
-
-
-// We're havving an issue with how we apply the class.
-// Our carrier was set to verticle but got the horizontal class
-// The problem is how it's stacking the divs. Attempted  to use z index to solve it but it's not working
-
-}
-
+    // We're havving an issue with how we apply the class.
+    // Our carrier was set to verticle but got the horizontal class
+    // The problem is how it's stacking the divs. Attempted  to use z index to solve it but it's not working
+  }
 }
 
 module.exports = {
