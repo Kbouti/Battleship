@@ -66,20 +66,31 @@ class Ship {
   }
 
   render() {
+    const GameBoard = document.getElementById("GameBoard");
     const targetCoordinates = this.startingSpace.coordinates();
     const targetClass = targetCoordinates.join("");
     const targetDiv = document.getElementsByClassName(targetClass);
-    const ship = createElement("div", targetDiv[0], null, [
+// targetDiv actually returns a nodelist with one element, so if we're putting it in the square we'll actually use targetDiv[0] as the destination
+
+
+
+    const ship = createElement("div", GameBoard, null, [
       "ship",
       this.getShipClass(),
     ]);
 
+// Ok, we've put these in the grid container but since they don't want to overlap they end up underneatch the gridBoard
+// So now we have to move them in the grid??
+
+// I was using the coordinates to put the element into a given square
+// Maybe instead I can use the coordinates to the grid area
+
+
+
+
     // Here we have successfully placed shipDivs on the board.
     // Each ship knows it's orientation and how many spaces it needs to span
     // They still need to be stretch to cover the appropriate number of spaces
-
-    // We're havving an issue with how we apply the class.
-    // Our carrier was set to verticle but got the horizontal class
     // The problem is how it's stacking the divs. Attempted  to use z index to solve it but it's not working
   }
 }

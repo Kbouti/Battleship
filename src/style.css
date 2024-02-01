@@ -88,16 +88,16 @@ body {
   display: none;
 }
 
-.gameBoardGrid {
+.GameBoard {
   display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  grid-template-rows: repeat(11, 1fr);
-  display: relative;
-/* grid-template-areas: "overlap" */
+  position: relative;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
   /*   
 If we want to name the gridlines that can be done with:
   grid-template-columns: [verticleLegend] 1fr [column1] 1fr[column2] 1fr[column3] 1fr[column4] 1fr[column5] 1fr[column6] 1fr[column7] 1fr[column8] 1fr[column9] 1fr[column10] 1fr;
-  grid-template-rows: [horizontalLegend] 1fr [row1] 1fr [row2] 1fr [row3] 1fr [row4] 1fr [row5] 1fr [row6] 1fr [row7] 1fr [row8] 1fr [row9] 1fr [row10] 1fr; */
+  grid-template-rows: [horizontalLegend] 1fr [rowA] 1fr [rowB] 1fr [rowC] 1fr [rowD] 1fr [rowE] 1fr [rowF] 1fr [rowG] 1fr [rowH] 1fr [rowI] 1fr [rowJ] 1fr; */
 }
 
 .setGameBoard {
@@ -109,6 +109,31 @@ If we want to name the gridlines that can be done with:
   width: 60vh;
 }
 
+.backgroundContainer {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  position: relative;
+  grid-area: 1/1;
+}
+
+.gameGridContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  grid-area: 1/1;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: [verticleLegend] 1fr [column1] 1fr[column2] 1fr[column3] 1fr[column4] 1fr[column5] 1fr[column6] 1fr[column7] 1fr[column8] 1fr[column9] 1fr[column10] 1fr;
+  grid-template-rows: [horizontalLegend] 1fr [rowA] 1fr [rowB] 1fr [rowC] 1fr [rowD] 1fr [rowE] 1fr [rowF] 1fr [rowG] 1fr [rowH] 1fr [rowI] 1fr [rowJ] 1fr;
+
+}
+
+.oceanSpace {
+}
+
 .onTheBoard {
   /* Every space on gameboard or scoreboard */
   /* currently using px but we'll need to fix that */
@@ -117,7 +142,7 @@ If we want to name the gridlines that can be done with:
   margin: 0;
   padding: 0;
   z-index: -1;
-position:relative;
+  position: relative;
 }
 
 .boardLegend {
@@ -130,37 +155,32 @@ position:relative;
 
 .boardSpace {
   /* The actual spaces in play */
+  z-index: 1;
 }
 
 .oceanBlue1 {
   background-color: var(--blue1);
   /* z-index: 1; */
-
 }
 .oceanBlue2 {
   background-color: var(--blue2);
   /* z-index: 1; */
-
 }
 .oceanBlue3 {
   background-color: var(--blue3);
   /* z-index: 1; */
-
 }
 .oceanBlue4 {
   background-color: var(--blue4);
   /* z-index: 1; */
-
 }
 .oceanBlue5 {
   background-color: var(--blue5);
   /* z-index: 1; */
-
 }
 .oceanBlue6 {
   background-color: var(--blue6);
   /* z-index: 1; */
-
 }
 
 .ship {
@@ -173,11 +193,13 @@ position:relative;
   height:20px; */
 }
 
+/* // Ok I think it's because the ships are inside the squares. They should be inside the board */
+
 .CarrierHorizontal {
   /* size 5 */
 
-width: 500%;
-height: 100%;
+  width: 500%;
+  height: 100%;
 
   grid-template-rows: span 5;
   grid-template-columns: span 1;
@@ -188,7 +210,6 @@ height: 100%;
 
   width: 400%;
   height: 100%;
-  
 
   grid-template-rows: span 4;
   grid-template-columns: span 1;
@@ -197,7 +218,7 @@ height: 100%;
 .SubmarineHorizontal {
   /* size 3 */
   width: 300%;
-height: 100%;
+  height: 100%;
 
   grid-template-rows: span 3;
   grid-template-columns: span 1;
@@ -207,7 +228,7 @@ height: 100%;
   /* size 3 */
   width: 300%;
   height: 100%;
-  
+
   grid-template-rows: span 3;
   grid-template-columns: span 1;
 }
@@ -216,7 +237,7 @@ height: 100%;
   /* size 2 */
   width: 200%;
   height: 100%;
-  
+
   grid-template-rows: span 2;
   grid-template-columns: span 1;
 }
@@ -225,7 +246,7 @@ height: 100%;
   /* size 5 */
   width: 100%;
   height: 500%;
-  
+
   grid-template-rows: span 1;
   grid-template-columns: span 5;
 }

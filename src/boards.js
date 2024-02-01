@@ -161,30 +161,25 @@ class Gameboard {
   }
 
   render() {
-    // First check to see if a gameboard dom unit exists for this gameboard.
-    // If true, remove it.
-    // Then, create a grid with dom elements including a visual representation of where the ships are
-
-    // Changes needed:
-    // All squares, even oppupied spaces and legends should have ocean blbue background
-    // Determine a color for legend characters with enough contrast
-    // Instead of an "occupied" class, I think we need ship objects to lay on top of the board.
-
+// Checks if a GameBoard already exists, if so removes it
     if (document.getElementById(`${this.playerName}GameBoard`) !== null) {
-      const gameBoard = document.getElementById(`${this.playerName}GameBoard`);
-      gameBoard.remove();
+      const GameBoard = document.getElementById(`${this.playerName}GameBoard`);
+      GameBoard.remove();
     }
 
+    // Create GameBoard (parent container for background and grid)
     const body = document.body;
-    const gameBoard = createElement(
+    const GameBoard = createElement(
       "div",
       body,
       `${this.playerName}GameBoard`,
-      ["gameBoardGrid", "setGameBoard"]
+      ["GameBoard", "setGameBoard"]
     );
 
+// Create backgroundContainer and populate with colored squares
+const backgroundContainer  = createElement("div", GameBoard, null, ["backgroundContainer"]);
     for (let i = 0; i < 121; i++) {
-      let newSpace = createElement("div", gameBoard, null, ["onTheBoard"]);
+      let newSpace = createElement("div", backgroundContainer, null, ["oceanSpace"]);
       let randomNum = Math.floor(Math.random() * 10);
       let remainder = randomNum % 6;
       if (remainder == 0) {
@@ -207,64 +202,79 @@ class Gameboard {
       }
     }
 
-    const squares = document.querySelectorAll(".onTheBoard");
+    // Now we create gameGridContainer. This will contain our legend, and it's where we'll place our ships
+const gameGridContainer = createElement("div", GameBoard, null, ["gameGridContainer"]);
 
-    for (let i = 1; i < 11; i++) {
-      let thisSquare = squares[i];
-      thisSquare.classList.add("boardLegend");
-      thisSquare.innerHTML = i;
-    }
-    let index = 0;
-    for (let i = 11; i < 111; i += 11) {
-      let thisSquare = squares[i];
-      thisSquare.classList.add("boardLegend");
-      thisSquare.innerHTML = alphabet[index];
-      index++;
-    }
-    console.log(`test1`);
+for (let i = 0;i<121;i++){
+  const newSquare = createElement("div", gameGridContainer, null, ["gridSquare"]);
+}
+
+console.log(gameGridContainer);
+console.log(gameGridContainer.childNodes);
+
+const squares = gameGridContainer.childNodes
+// squares is now a list of all the divs in gameGridContainer
+
+
+
+    // const squares = document.querySelectorAll(".onTheBoard");
+
+    // for (let i = 1; i < 11; i++) {
+    //   let thisSquare = squares[i];
+    //   thisSquare.classList.add("boardLegend");
+    //   thisSquare.innerHTML = i;
+    // }
+    // let index = 0;
+    // for (let i = 11; i < 111; i += 11) {
+    //   let thisSquare = squares[i];
+    //   thisSquare.classList.add("boardLegend");
+    //   thisSquare.innerHTML = alphabet[index];
+    //   index++;
+    // }
+    // console.log(`test1`);
     // This creates an array of coordinates used to apply unique class names
-    let squareNamesArray = [];
-    for (let i = 0; i < alphabet.length; i++) {
-      let letter = alphabet[i];
-      for (let j = 1; j < 11; j++) {
-        squareNamesArray.push(`${letter}${j}`);
-      }
-    }
+    // let squareNamesArray = [];
+    // for (let i = 0; i < alphabet.length; i++) {
+    //   let letter = alphabet[i];
+    //   for (let j = 1; j < 11; j++) {
+    //     squareNamesArray.push(`${letter}${j}`);
+    //   }
+    // }
 
-    console.log(`test2`);
+    // console.log(`test2`);
 
-    for (let i = 12; i < 121; i++) {
-      let square = squares[i];
-      if (square.classList.contains("boardLegend") == false) {
-        const coordinate = squareNamesArray[0];
-        square.classList.add("boardSpace");
-        square.classList.add(coordinate);
-        squareNamesArray.shift();
+    // for (let i = 12; i < 121; i++) {
+    //   let square = squares[i];
+    //   if (square.classList.contains("boardLegend") == false) {
+    //     const coordinate = squareNamesArray[0];
+    //     square.classList.add("boardSpace");
+    //     square.classList.add(coordinate);
+    //     squareNamesArray.shift();
 
-      }
-    }
+    //   }
+    // }
 
 
-    console.log(`test3`);
+    // console.log(`test3`);
     // Next we need to render the ships
     // in V1 we just gave the space a different class if it was occupied by a ship, instead I think we wanna create and place a div
     // Do we still need unique classnames for each square? Me starting to thinks maybe yes
     // What we need is properly defined grid areas
 
-    console.log(`On to render ships:`);
+    // console.log(`On to render ships:`);
 
-    const carrier = this.ships[0];
-    const battleship = this.ships[1];
-    const submarine = this.ships[2];
-    const cruiser = this.ships[3];
-    const destroyer = this.ships[4];
+    // const carrier = this.ships[0];
+    // const battleship = this.ships[1];
+    // const submarine = this.ships[2];
+    // const cruiser = this.ships[3];
+    // const destroyer = this.ships[4];
 
     // maybe we're about to write a method on ships....
 
 
-for (let i = 0;i < this.ships.length;i++){
-  this.ships[i].render();
-}
+// for (let i = 0;i < this.ships.length;i++){
+//   this.ships[i].render();
+// }
 
     // Ok in order to place the ship in a square div we need to get a reference to that div using the coordinates
     // const carrierDiv = createElement("div", )
