@@ -214,23 +214,24 @@ console.log(gameGridContainer.childNodes);
 
 const squares = gameGridContainer.childNodes
 // squares is now a list of all the divs in gameGridContainer
+    for (let i = 1; i < 11; i++) {
+      let thisSquare = squares[i];
+      thisSquare.classList.add("boardLegend");
+      thisSquare.innerHTML = i;
+    }
+  
 
 
 
-    // const squares = document.querySelectorAll(".onTheBoard");
 
-    // for (let i = 1; i < 11; i++) {
-    //   let thisSquare = squares[i];
-    //   thisSquare.classList.add("boardLegend");
-    //   thisSquare.innerHTML = i;
-    // }
-    // let index = 0;
-    // for (let i = 11; i < 111; i += 11) {
-    //   let thisSquare = squares[i];
-    //   thisSquare.classList.add("boardLegend");
-    //   thisSquare.innerHTML = alphabet[index];
-    //   index++;
-    // }
+
+    let index = 0;
+    for (let i = 11; i < 111; i += 11) {
+      let thisSquare = squares[i];
+      thisSquare.classList.add("boardLegend");
+      thisSquare.innerHTML = alphabet[index];
+      index++;
+    }
     // console.log(`test1`);
     // This creates an array of coordinates used to apply unique class names
     // let squareNamesArray = [];
