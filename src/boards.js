@@ -232,28 +232,26 @@ const squares = gameGridContainer.childNodes
       thisSquare.innerHTML = alphabet[index];
       index++;
     }
-    // console.log(`test1`);
     // This creates an array of coordinates used to apply unique class names
-    // let squareNamesArray = [];
-    // for (let i = 0; i < alphabet.length; i++) {
-    //   let letter = alphabet[i];
-    //   for (let j = 1; j < 11; j++) {
-    //     squareNamesArray.push(`${letter}${j}`);
-    //   }
-    // }
+    let squareNamesArray = [];
+    for (let i = 0; i < alphabet.length; i++) {
+      let letter = alphabet[i];
+      for (let j = 1; j < 11; j++) {
+        squareNamesArray.push(`${letter}${j}`);
+      }
+    }
 
     // console.log(`test2`);
 
-    // for (let i = 12; i < 121; i++) {
-    //   let square = squares[i];
-    //   if (square.classList.contains("boardLegend") == false) {
-    //     const coordinate = squareNamesArray[0];
-    //     square.classList.add("boardSpace");
-    //     square.classList.add(coordinate);
-    //     squareNamesArray.shift();
-
-    //   }
-    // }
+    for (let i = 12; i < 121; i++) {
+      let square = squares[i];
+      if (square.classList.contains("boardLegend") == false) {
+        const coordinate = squareNamesArray[0];
+        square.classList.add("boardSpace");
+        square.classList.add(coordinate);
+        squareNamesArray.shift();
+      }
+    }
 
 
     // console.log(`test3`);
@@ -264,18 +262,18 @@ const squares = gameGridContainer.childNodes
 
     // console.log(`On to render ships:`);
 
-    // const carrier = this.ships[0];
-    // const battleship = this.ships[1];
-    // const submarine = this.ships[2];
-    // const cruiser = this.ships[3];
-    // const destroyer = this.ships[4];
+    const carrier = this.ships[0];
+    const battleship = this.ships[1];
+    const submarine = this.ships[2];
+    const cruiser = this.ships[3];
+    const destroyer = this.ships[4];
 
     // maybe we're about to write a method on ships....
 
 
-// for (let i = 0;i < this.ships.length;i++){
-//   this.ships[i].render();
-// }
+for (let i = 0;i < this.ships.length;i++){
+  this.ships[i].render();
+}
 
     // Ok in order to place the ship in a square div we need to get a reference to that div using the coordinates
     // const carrierDiv = createElement("div", )
