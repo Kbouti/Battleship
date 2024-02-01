@@ -76,7 +76,7 @@ render(){
 
 // We're havving an issue with how we apply the class.
 // Our carrier was set to verticle but got the horizontal class
-
+// The problem is how it's stacking the divs. Attempted  to use z index to solve it but it's not working
 
 }
 

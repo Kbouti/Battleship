@@ -116,6 +116,8 @@ If we want to name the gridlines that can be done with:
   height: 20px; */
   margin: 0;
   padding: 0;
+  z-index: -1;
+
 }
 
 .boardLegend {
@@ -132,26 +134,41 @@ If we want to name the gridlines that can be done with:
 
 .oceanBlue1 {
   background-color: var(--blue1);
+  /* z-index: 1; */
+
 }
 .oceanBlue2 {
   background-color: var(--blue2);
+  /* z-index: 1; */
+
 }
 .oceanBlue3 {
   background-color: var(--blue3);
+  /* z-index: 1; */
+
 }
 .oceanBlue4 {
   background-color: var(--blue4);
+  /* z-index: 1; */
+
 }
 .oceanBlue5 {
   background-color: var(--blue5);
+  /* z-index: 1; */
+
 }
 .oceanBlue6 {
   background-color: var(--blue6);
+  /* z-index: 1; */
+
 }
 
 .ship {
   background-color: grey;
   border: 3px solid black;
+
+z-index: 2;
+
   /* position: absolute; */
   /* width: 20px;
   height:20px; */
