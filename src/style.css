@@ -95,7 +95,7 @@ body {
   grid-template-rows: 1fr;
 }
 
-.setGameBoard {
+.setMode {
   /* Used when we're setting the gameboard - it becomes larger and centered in the screen.
   Once the gameboard is set, it will move down to make room for scoreBoard */
   position: absolute;
@@ -103,6 +103,14 @@ body {
   height: 60vh;
   width: 60vh;
 }
+
+.playMode{
+/* Once the board has been set and we need to fit two boards on the screen */
+height: 30vh;
+width: 30vh;
+
+}
+
 
 .backgroundContainer {
   width: 100%;

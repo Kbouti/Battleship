@@ -49,6 +49,13 @@ class Game {
     );
     acceptBoardButton.innerHTML = "Begin";
 
+    const gameBoard = document.getElementById(`${this.player1Name}GameBoard`);
+    acceptBoardButton.addEventListener("click", () => {
+      gameBoard.classList.remove("setMode");
+      gameBoard.classList.add("playMode");
+      acceptBoardButton.remove();
+    });
+
     // Ok. We've rendered the gameBoard.
     // We've got the gameboard enlarged and centered on the screen so the player can move their pieces.
     // We'll probably come back to that move pieces logic

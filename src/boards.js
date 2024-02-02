@@ -173,7 +173,7 @@ class Gameboard {
       "div",
       body,
       `${this.playerName}GameBoard`,
-      ["GameBoard", "setGameBoard"]
+      ["GameBoard", "setMode"]
     );
 
     // Create backgroundContainer and populate with colored squares
