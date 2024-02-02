@@ -108,7 +108,7 @@ body {
 /* Once the board has been set and we need to fit two boards on the screen */
 height: 30vh;
 width: 30vh;
-
+margin: 20px;
 }
 
 
@@ -142,7 +142,7 @@ width: 30vh;
 
 
 .boardLegend {
-  color: white;
+  color: rgb(209, 209, 209);
   display: flex;
   justify-content: center;
   align-items: center;

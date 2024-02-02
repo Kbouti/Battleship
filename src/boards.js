@@ -274,7 +274,7 @@ class Scoreboard {
   }
 
   render() {
-    // Create GameBoard (parent container for background and grid)
+    // Create ScoreBoard (parent container for background and grid)
     const body = document.body;
     const ScoreBoard = createElement(
       "div",
@@ -313,11 +313,39 @@ class Scoreboard {
       }
     }
 
+const squares = backgroundContainer.childNodes;
 
+    // Assign legend squares
+    for (let i = 1; i < 11; i++) {
+      let thisSquare = squares[i];
+      thisSquare.classList.add("boardLegend");
+      thisSquare.innerHTML = i;
+    }
+    let index = 0;
+    for (let i = 11; i < 111; i += 11) {
+      let thisSquare = squares[i];
+      thisSquare.classList.add("boardLegend");
+      thisSquare.innerHTML = alphabet[index];
+      index++;
+    }
 
-
-
-
+    // Assign unique classnames to each square
+    let squareNamesArray = [];
+    for (let i = 0; i < alphabet.length; i++) {
+      let letter = alphabet[i];
+      for (let j = 1; j < 11; j++) {
+        squareNamesArray.push(`${letter}${j}`);
+      }
+    }
+    for (let i = 12; i < 121; i++) {
+      let square = squares[i];
+      if (square.classList.contains("boardLegend") == false) {
+        const coordinate = squareNamesArray[0];
+        square.classList.add("boardSpace");
+        square.classList.add(coordinate);
+        squareNamesArray.shift();
+      }
+    }
   }
 }
 
