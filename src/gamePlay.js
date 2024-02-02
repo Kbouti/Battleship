@@ -37,10 +37,12 @@ class Game {
   }
 
   beginMatch() {
+domElements.playerLabel(this.player1Name);
+
+
+
     this.player1Gameboard.placeShipsRandomly();
-
     this.player1Scoreboard.render();
-
     this.player1Gameboard.render();
 
     const body = document.body;

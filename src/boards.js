@@ -1,6 +1,7 @@
 const { createElement } = require("./domElements.js");
 const Ship = require("./ships.js");
 
+
 // ************************************************************************************
 // Helper functions:
 

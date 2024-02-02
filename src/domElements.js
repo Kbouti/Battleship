@@ -131,7 +131,19 @@ function buildPage() {
   // ******************************************************************************************
 }
 
+function playerLabel(playerName){
+    const header = document.getElementById("header");
 
+    const currentLabel = document.getElementsByClassName("playerNameLabel");
+    console.log(currentLabel);
+    if (currentLabel.length > 0){
+        currentLabel[0].remove();
+    }
+
+    const playerNameLabel = createElement("H2", header, `${playerName}Label`, ["playerNameLabel"]);
+    playerNameLabel.innerHTML = playerName;
+
+}
 
 
 
@@ -139,4 +151,5 @@ function buildPage() {
 module.exports = {
   createElement,
   buildPage,
+  playerLabel
 };
