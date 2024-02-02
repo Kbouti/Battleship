@@ -65,23 +65,16 @@ class Ship {
     return;
   }
 
-  render() {
-    const GameBoard = document.getElementById("GameBoard");
+  render(playerName) {
+    const GameBoard = document.getElementById(`${playerName}GameBoard`);
     const targetCoordinates = this.startingSpace.coordinates();
     const targetClass = targetCoordinates.join("");
-    const targetDiv = document.getElementsByClassName(targetClass);
+    const targetDiv = GameBoard.getElementsByClassName(targetClass);
 // targetDiv actually returns a nodelist with one element, so we're using targetDiv[0]
     const ship = createElement("div", targetDiv[0], null, [
       "ship",
       this.getShipClass(),
     ]);
-
-
-// ********************************************************************************
-// Ok this is working but my concern is that the above searchies the entire document for matching classes when there could be a match on another gameBoard. 
-// instead of searching document.(...) we need to get THIS gameboard.childNodes...
-// ********************************************************************************
-
   }
 }
 

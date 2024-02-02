@@ -161,7 +161,7 @@ class Gameboard {
   }
 
   render() {
-// Checks if a GameBoard already exists, if so removes it
+    // Check if a GameBoard already exists, if so remove it
     if (document.getElementById(`${this.playerName}GameBoard`) !== null) {
       const GameBoard = document.getElementById(`${this.playerName}GameBoard`);
       GameBoard.remove();
@@ -176,10 +176,14 @@ class Gameboard {
       ["GameBoard", "setGameBoard"]
     );
 
-// Create backgroundContainer and populate with colored squares
-const backgroundContainer  = createElement("div", GameBoard, null, ["backgroundContainer"]);
+    // Create backgroundContainer and populate with colored squares
+    const backgroundContainer = createElement("div", GameBoard, null, [
+      "backgroundContainer",
+    ]);
     for (let i = 0; i < 121; i++) {
-      let newSpace = createElement("div", backgroundContainer, null, ["oceanSpace"]);
+      let newSpace = createElement("div", backgroundContainer, null, [
+        "oceanSpace",
+      ]);
       let randomNum = Math.floor(Math.random() * 10);
       let remainder = randomNum % 6;
       if (remainder == 0) {
@@ -202,29 +206,23 @@ const backgroundContainer  = createElement("div", GameBoard, null, ["backgroundC
       }
     }
 
-    // Now we create gameGridContainer. This will contain our legend, and it's where we'll place our ships
-const gameGridContainer = createElement("div", GameBoard, null, ["gameGridContainer"]);
+    // Create gridContainer for legend and game squares
+    const gameGridContainer = createElement("div", GameBoard, null, [
+      "gameGridContainer",
+    ]);
+    for (let i = 0; i < 121; i++) {
+      const newSquare = createElement("div", gameGridContainer, null, [
+        "gridSquare",
+      ]);
+    }
+    const squares = gameGridContainer.childNodes;
 
-for (let i = 0;i<121;i++){
-  const newSquare = createElement("div", gameGridContainer, null, ["gridSquare"]);
-}
-
-console.log(gameGridContainer);
-console.log(gameGridContainer.childNodes);
-
-const squares = gameGridContainer.childNodes
-// squares is now a list of all the divs in gameGridContainer
+    // Assign legend squares
     for (let i = 1; i < 11; i++) {
       let thisSquare = squares[i];
       thisSquare.classList.add("boardLegend");
       thisSquare.innerHTML = i;
     }
-  
-
-
-
-
-
     let index = 0;
     for (let i = 11; i < 111; i += 11) {
       let thisSquare = squares[i];
@@ -232,7 +230,8 @@ const squares = gameGridContainer.childNodes
       thisSquare.innerHTML = alphabet[index];
       index++;
     }
-    // This creates an array of coordinates used to apply unique class names
+
+    // Assign unique classnames to each square
     let squareNamesArray = [];
     for (let i = 0; i < alphabet.length; i++) {
       let letter = alphabet[i];
@@ -240,9 +239,6 @@ const squares = gameGridContainer.childNodes
         squareNamesArray.push(`${letter}${j}`);
       }
     }
-
-    // console.log(`test2`);
-
     for (let i = 12; i < 121; i++) {
       let square = squares[i];
       if (square.classList.contains("boardLegend") == false) {
@@ -253,47 +249,10 @@ const squares = gameGridContainer.childNodes
       }
     }
 
-
-    // console.log(`test3`);
-    // Next we need to render the ships
-    // in V1 we just gave the space a different class if it was occupied by a ship, instead I think we wanna create and place a div
-    // Do we still need unique classnames for each square? Me starting to thinks maybe yes
-    // What we need is properly defined grid areas
-
-    // console.log(`On to render ships:`);
-
-    const carrier = this.ships[0];
-    const battleship = this.ships[1];
-    const submarine = this.ships[2];
-    const cruiser = this.ships[3];
-    const destroyer = this.ships[4];
-
-    // maybe we're about to write a method on ships....
-
-
-for (let i = 0;i < this.ships.length;i++){
-  this.ships[i].render();
-}
-
-    // Ok in order to place the ship in a square div we need to get a reference to that div using the coordinates
-    // const carrierDiv = createElement("div", )
-
-
-    // const ships = this.ships;
-    // for (let i = 0; i < ships.length; i++) {
-    //   const startingCoordinates = ships[i].startingSpace.coordinates();
-    //   const orientation = ships[i].orientation;
-    //   const shipSize = ships[i].size;
-
-    //   console.log(`startingCoordinates: ${startingCoordinates}`);
-    //   console.log(`orientation: ${orientation}`);
-    //   console.log(`shipSize: ${shipSize}`);
-
-    //   // Ok now we're gotten the data from each ship that we need to render the ships.
-    //   // Next we need to make div elements to represent them
-
-    //   const shipDiv = createElement("div", gameBoard, null, ["ship"]);
-    // }
+    //Render each ship:
+    for (let i = 0; i < this.ships.length; i++) {
+      this.ships[i].render(this.playerName);
+    }
   }
 }
 

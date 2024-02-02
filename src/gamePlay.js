@@ -2,7 +2,6 @@ const boardsJS = require("./boards.js");
 const shipsJS = require("./ships.js");
 const domElements = require("./domElements.js");
 
-
 // ************************************************************************************
 // Helper functions:
 
@@ -37,21 +36,22 @@ class Game {
     this.player2Scoreboard = boardsJS.createScoreboard(player2Name);
   }
 
+  beginMatch() {
+    this.player1Gameboard.placeShipsRandomly();
+    this.player1Gameboard.render();
 
-beginMatch(){
-  this.player1Gameboard.placeShipsRandomly();
+    // Ok. We've rendered the gameBoard.
+    // We've got the gameboard enlarged and centered on the screen so the player can move their pieces.
+    // We'll probably come back to that move pieces logic
 
-  this.player1Gameboard.render();
-  // Ok but shouldn't render take into account where the ships are?
-  // 
+    // Next we need to check what game mode.
+    // If pVc, generate computer gameboard.
 
+    // Coin flip to determine who goes first
+    // Resize the gameBoard and display scoreBoard
+  }
 }
-
-
-
-}
-
 
 module.exports = {
-    Game,
-}
+  Game,
+};
