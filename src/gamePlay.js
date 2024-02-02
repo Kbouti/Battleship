@@ -40,15 +40,25 @@ class Game {
     this.player1Gameboard.placeShipsRandomly();
     this.player1Gameboard.render();
 
+    const body = document.body;
+    const acceptBoardButton = domElements.createElement(
+      "button",
+      body,
+      "acceptBoardButton",
+      ["button"]
+    );
+    acceptBoardButton.innerHTML = "Begin";
+
     // Ok. We've rendered the gameBoard.
     // We've got the gameboard enlarged and centered on the screen so the player can move their pieces.
     // We'll probably come back to that move pieces logic
 
-    // Next we need to check what game mode.
+    // We need to check what game mode.
     // If pVc, generate computer gameboard.
 
-    // Coin flip to determine who goes first
-    // Resize the gameBoard and display scoreBoard
+    // When submit button clicked:
+    // Change gameBoard class and reveal scoreBoard
+    // Perform coin flip, assign turn
   }
 }
 
