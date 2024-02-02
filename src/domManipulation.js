@@ -2,6 +2,8 @@ const gamePlay = require("./gamePlay");
 const boards = require("./boards");
 
 function submitForm(event) {
+// We could/should maybe add a conttrol on the form so it doesn't accept names with spaces
+
   event.preventDefault();
 
   const newGameForm = document.getElementById(`newGameForm`);
@@ -14,15 +16,21 @@ function submitForm(event) {
   let gameMode = null;
 
   if (player1Input.value == null) {
-    player1Name = "Player 1";
+    player1Name = "Player_1";
   } else {
     player1Name = player1Input.value;
   }
   if (player2Input.value == null) {
-    player2Name = "Player 2";
+    player2Name = "Player_2";
   } else {
     player2Name = player2Input.value;
   }
+
+  if (player1Name == player2Name){
+    player1Name = "Player_1";
+    player2Name = "Player_2";
+  }
+
   if (pVcRadio.checked == true) {
     gameMode = "pVc";
   } else {
