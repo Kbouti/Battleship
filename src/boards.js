@@ -274,7 +274,50 @@ class Scoreboard {
   }
 
   render() {
-    // We can copy most of this from gameboard.render, but we'll want to take a closer look at the classes
+    // Create GameBoard (parent container for background and grid)
+    const body = document.body;
+    const ScoreBoard = createElement(
+      "div",
+      body,
+      `${this.playerName}ScoreBoard`,
+      ["ScoreBoard", "hidden"]
+    );
+
+    // Create backgroundContainer and populate with colored squares
+    const backgroundContainer = createElement("div", ScoreBoard, null, [
+      "backgroundContainer",
+    ]);
+    for (let i = 0; i < 121; i++) {
+      let newSpace = createElement("div", backgroundContainer, null, [
+        "oceanSpace",
+      ]);
+      let randomNum = Math.floor(Math.random() * 10);
+      let remainder = randomNum % 6;
+      if (remainder == 0) {
+        newSpace.classList.add(`oceanBlue1`);
+      }
+      if (remainder == 1) {
+        newSpace.classList.add(`oceanBlue2`);
+      }
+      if (remainder == 2) {
+        newSpace.classList.add(`oceanBlue3`);
+      }
+      if (remainder == 3) {
+        newSpace.classList.add(`oceanBlue4`);
+      }
+      if (remainder == 4) {
+        newSpace.classList.add(`oceanBlue5`);
+      }
+      if (remainder == 5) {
+        newSpace.classList.add(`oceanBlue5`);
+      }
+    }
+
+
+
+
+
+
   }
 }
 

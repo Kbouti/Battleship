@@ -38,6 +38,9 @@ class Game {
 
   beginMatch() {
     this.player1Gameboard.placeShipsRandomly();
+
+    this.player1Scoreboard.render();
+
     this.player1Gameboard.render();
 
     const body = document.body;
@@ -49,23 +52,31 @@ class Game {
     );
     acceptBoardButton.innerHTML = "Begin";
 
-    const gameBoard = document.getElementById(`${this.player1Name}GameBoard`);
+    const player1GameBoard = document.getElementById(`${this.player1Name}GameBoard`);
+    const player1ScoreBoard = document.getElementById(`${this.player1Name}ScoreBoard`);
+
+
+if (this.mode === "pVc"){
+  // Player vs computer...
     acceptBoardButton.addEventListener("click", () => {
-      gameBoard.classList.remove("setMode");
-      gameBoard.classList.add("playMode");
+      player1GameBoard.classList.remove("setMode");
+      player1ScoreBoard.classList.remove("hidden");
+      player1GameBoard.classList.add("playMode");
+      player1ScoreBoard.classList.add("playMode");
       acceptBoardButton.remove();
     });
 
-    // Ok. We've rendered the gameBoard.
-    // We've got the gameboard enlarged and centered on the screen so the player can move their pieces.
-    // We'll probably come back to that move pieces logic
 
-    // We need to check what game mode.
-    // If pVc, generate computer gameboard.
 
-    // When submit button clicked:
-    // Change gameBoard class and reveal scoreBoard
-    // Perform coin flip, assign turn
+
+
+
+
+  } else if (this.mode === "pVp"){
+    // Player vs Player....
+  } else {
+    throw new Error("Game mode is neither pVc or pVp")
+  }
   }
 }
 
