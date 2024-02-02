@@ -172,18 +172,21 @@ body {
   border: 3px solid black;
   z-index: 2;
   border-radius: 10px;
+  position:relative;
+  left: 7%;
+  top:7%;
 }
 
 
 .CarrierHorizontal {
   /* size 5 */
-  width: 450%;
+  width: 470%;
   height: 70%;
 }
 
 .BattleshipHorizontal {
   /* size 4 */
-  width: 360%;
+  width: 370%;
   height: 70%;
 }
 
@@ -201,20 +204,20 @@ body {
 
 .DestroyerHorizontal {
   /* size 2 */
-  width: 180%;
+  width: 170%;
   height: 70%;
 }
 
 .CarrierVerticle {
   /* size 5 */
   width: 70%;
-  height: 450%;
+  height: 470%;
 }
 
 .BattleshipVerticle {
   /* size 4 */
   width: 70%;
-  height: 360%;
+  height: 370%;
 }
 
 .SubmarineVerticle {
@@ -232,7 +235,7 @@ body {
 .DestroyerVerticle {
   /* size 2 */
   width: 70%;
-  height: 180%;
+  height: 170%;
 }
 
 .occupied {
