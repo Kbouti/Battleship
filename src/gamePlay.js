@@ -108,6 +108,12 @@ class Game {
       message = `You lost the coin flip. Your opponenet will strike first.`;
     }
     console.log(message);
+
+    const messageBox = document.getElementById("messageBox");
+    messageBox.classList.remove("hidden");
+    messageBox.classList.add("flex");
+
+    messageBox.innerHTML = message;
 // ******************************************************************************
 // We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
 // ******************************************************************************

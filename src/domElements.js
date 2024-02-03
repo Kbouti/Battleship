@@ -127,6 +127,10 @@ function buildPage() {
   const beginButton = createElement("button", formFooter, "beginButton", []);
   beginButton.innerHTML = "Start Game";
 
+
+
+const messageBox = createElement("div", body, "messageBox", ["hidden"]);
+
   // End Form
   // ******************************************************************************************
 }
