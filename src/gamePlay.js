@@ -28,6 +28,7 @@ class Game {
   constructor(player1Name, mode, player2Name) {
     this.player1Name = player1Name;
     this.mode = mode;
+    this.turn = null;
     // Mode will be either Player.v.Computer or Player.v.Player, but regardless we know the name of our two players and so we can create our boards:
     this.player1Gameboard = boardsJS.createGameboard(player1Name);
     this.player1Scoreboard = boardsJS.createScoreboard(player1Name);
@@ -37,10 +38,7 @@ class Game {
   }
 
   beginMatch() {
-domElements.playerLabel(this.player1Name);
-
-
-
+    domElements.playerLabel(this.player1Name);
     this.player1Gameboard.placeShipsRandomly();
     this.player1Scoreboard.render();
     this.player1Gameboard.render();
@@ -54,31 +52,48 @@ domElements.playerLabel(this.player1Name);
     );
     acceptBoardButton.innerHTML = "Begin";
 
-    const player1GameBoard = document.getElementById(`${this.player1Name}GameBoard`);
-    const player1ScoreBoard = document.getElementById(`${this.player1Name}ScoreBoard`);
+    const player1GameBoard = document.getElementById(
+      `${this.player1Name}GameBoard`
+    );
+    const player1ScoreBoard = document.getElementById(
+      `${this.player1Name}ScoreBoard`
+    );
 
+    this.coinFlip();
 
-if (this.mode === "pVc"){
-  // Player vs computer...
-    acceptBoardButton.addEventListener("click", () => {
-      player1GameBoard.classList.remove("setMode");
-      player1ScoreBoard.classList.remove("hidden");
-      player1GameBoard.classList.add("playMode");
-      player1ScoreBoard.classList.add("playMode");
-      acceptBoardButton.remove();
-    });
+    if (this.mode === "pVc") {
+      // Player vs computer...
+      acceptBoardButton.addEventListener("click", () => {
+        player1GameBoard.classList.remove("setMode");
+        player1ScoreBoard.classList.remove("hidden");
+        player1GameBoard.classList.add("playMode");
+        player1ScoreBoard.classList.add("playMode");
+        acceptBoardButton.remove();
 
-
-
-
-
-
-
-  } else if (this.mode === "pVp"){
-    // Player vs Player....
-  } else {
-    throw new Error("Game mode is neither pVc or pVp")
+        if (this.turn == "player1") {
+          console.log(`Player 1 goes first`);
+        } else if (this.turn == "player2") {
+          console.log("player 2 goes first");
+        } else {
+          throw new Error("First turn couldn't be determined");
+        }
+      });
+    } else if (this.mode === "pVp") {
+      // Player vs Player....
+    } else {
+      throw new Error("Game mode is neither pVc or pVp");
+    }
   }
+
+  coinFlip() {
+    const num = Math.floor(Math.random() * 100);
+    if (num > 49) {
+      this.turn = "player1";
+    } else if (num < 50) {
+      this.turn = "player2";
+    } else {
+      throw new Error("Coin flip indeterminate");
+    }
   }
 }
 
