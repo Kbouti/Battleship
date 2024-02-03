@@ -69,15 +69,19 @@ class Game {
         player1GameBoard.classList.add("playMode");
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
-
-        if (this.turn == "player1") {
-          console.log(`Player 1 goes first`);
-        } else if (this.turn == "player2") {
-          console.log("player 2 goes first");
-        } else {
-          throw new Error("First turn couldn't be determined");
-        }
       });
+
+      this.messageFirstTurn();
+      // ************************************************************************
+      // Ok, at this point we're prepared to start the game. We've determined who starts first.
+      // We need to initiate a while loop so players will take turns striking until someone has won the game.
+
+
+
+
+
+      // ************************************************************************
+      // We'll come back to this later
     } else if (this.mode === "pVp") {
       // Player vs Player....
     } else {
@@ -94,6 +98,19 @@ class Game {
     } else {
       throw new Error("Coin flip indeterminate");
     }
+  }
+
+  messageFirstTurn() {
+    let message;
+    if (this.turn == "player1") {
+      message = `You won the coin flip! It's your turn first. Click a square to strike`;
+    } else if (this.turn == "player2") {
+      message = `You lost the coin flip. Your opponenet will strike first.`;
+    }
+    console.log(message);
+// ******************************************************************************
+// We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
+// ******************************************************************************
   }
 }
 
