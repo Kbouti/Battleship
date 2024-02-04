@@ -160,15 +160,15 @@ body {
   grid-template-rows: repeat(11, 1fr);
 }
 
-
-
-.active {
-  /* To be used when it's player's turn to click and strike a space */
+.activeBoard{
+  border:3px solid yellow;
 }
 
-.active:hover{
-  border-color: yellow;
+.activeSquare:hover{
+  background-color: yellowgreen;
+
 }
+
 
 
 

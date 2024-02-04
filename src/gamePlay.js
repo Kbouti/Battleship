@@ -58,6 +58,15 @@ class Game {
     console.log(`activatePlayer1 function triggered`);
     // We'll need to indicate that the player can select a square in scoreBoard by clicking on it
     const scoreBoard = document.getElementById(`${this.player1Name}ScoreBoard`);
+    scoreBoard.classList.add("activeBoard");
+
+    const scoreBoardBackground = scoreBoard.childNodes[0];
+    const squares = scoreBoardBackground.childNodes;
+    console.log(squares);
+    for (let i = 0;i < squares.length;i++){
+      squares[i].classList.add("activeSquare");
+    }
+
   }
 
   activatePlayer2() {
@@ -82,7 +91,7 @@ class Game {
       paint(this.player1Gameboard, randomSquare);
     }
 
-    this.activateplayer1();
+    this.activatePlayer1();
     return;
   }
 
@@ -108,8 +117,6 @@ class Game {
       `${this.player1Name}ScoreBoard`
     );
 
-    this.coinFlip();
-
     if (this.mode === "pVc") {
       // Player vs computer...
       acceptBoardButton.addEventListener("click", () => {
@@ -121,7 +128,15 @@ class Game {
         this.messageFirstTurn();
       });
 
-      // I think we need to strike next, and end the strike method with a check if game is comlpete. Then either swith turns or end the game
+
+      this.coinFlip();
+
+
+// I don't like the timing of the messageFirstTurn in compared with activating player 1 and 2. 
+//  We'll need a set timeout so the player can see that the computer is going first, have the computer strike, and THEN let it be their turn>
+// As is the active class is set as soon as the player is told it's the computer's turn
+
+
 
       if (this.turn === "player1") {
         this.activatePlayer1();
@@ -131,20 +146,9 @@ class Game {
         throw new Error(`Could not determine current player`);
       }
 
-      // while (this.checkForWin() === false) {
-      // This loop will run forever until we produce strike function that changes turns
-      // }
 
-      // ************************************************************************
-      // While the game is not over {
-      // if it's player1's turn, allow player 1 to strike.
-      // If it's player2's turn, allow player 2 to strike
-      // Make sure to toggle turn at the end of each strike function
-
-      // ************************************************************************
-      // We'll come back to this later
     } else if (this.mode === "pVp") {
-      // Player vs Player....
+      // Player vs Player....   We'll come back to this later
     } else {
       throw new Error("Game mode is neither pVc or pVp");
     }
