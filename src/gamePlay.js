@@ -54,17 +54,32 @@ class Game {
   }
   //  We'll still need a function to handle what happens when winning conditions are met.
 
+  activatePlayer1() {
+    console.log(`activatePlayer1 function triggered`);
+  }
+
+  activatePlayer2() {
+    console.log(`activatePlayer2 function triggered`);
+    // We need to guess a random square and strike it on player 1's board
+    const randomA = Math.floor(Math.random() * 10);
+    const randomB = Math.floor(Math.random() * 10) + 1;
+
+    const randomSquare = [];
+    randomSquare.push(alphabet[randomA]);
+    randomSquare.push(randomB);
+
+    console.log(randomSquare);
+
+    let result = this.player1Gameboard.strike(randomSquare[0], randomSquare[1]);
 
 
-activatePlayer1(){
-console.log(`activatePlayer1 function triggered`);
-}
-
-activatePlayer2(){
-  console.log(`activatePlayer2 function triggered`);
-}
+// At this point we've struck player1's board with a random space. 
+// Result is either hit or miss. 
+// We need a function that takes result and manipulates the dom accordingly
 
 
+
+  }
 
   beginMatch() {
     domElements.playerLabel(this.player1Name);
@@ -101,21 +116,24 @@ activatePlayer2(){
         this.messageFirstTurn();
       });
 
-      while (this.checkForWin() === false) {
-        // This loop will run forever until we produce strike function that changes turns
-        if (this.turn === "player1") {
-          this.activatePlayer1();
-        } else if (this.turn === "player2") {
-          this.activatePlayer2();
-        } else { 
-          throw new Error(`Could not determine current player`);
-        }
+      // I think we need to strike next, and end the strike method with a check if game is comlpete. Then either swith turns or end the game
+
+      if (this.turn === "player1") {
+        this.activatePlayer1();
+      } else if (this.turn === "player2") {
+        this.activatePlayer2();
+      } else {
+        throw new Error(`Could not determine current player`);
       }
+
+      // while (this.checkForWin() === false) {
+      // This loop will run forever until we produce strike function that changes turns
+      // }
 
       // ************************************************************************
       // While the game is not over {
       // if it's player1's turn, allow player 1 to strike.
-      // If it's player2's turn, allow player 2 to strike 
+      // If it's player2's turn, allow player 2 to strike
       // Make sure to toggle turn at the end of each strike function
 
       // ************************************************************************
@@ -145,7 +163,6 @@ activatePlayer2(){
     } else if (this.turn == "player2") {
       message = `You lost the coin flip. Your opponenet will strike first.`;
     }
-    console.log(message);
 
     const messageBox = document.getElementById("messageBox");
     messageBox.classList.remove("hidden");
