@@ -101,6 +101,8 @@ body {
   border:3px solid black;
   z-index: 3;
   padding:20px;
+  font-size:36px;
+
 }
 
 .flex {
@@ -157,6 +159,18 @@ body {
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(11, 1fr);
 }
+
+
+
+.active {
+  /* To be used when it's player's turn to click and strike a space */
+}
+
+.active:hover{
+  border-color: yellow;
+}
+
+
 
 .oceanSpace {
   /* The blue squares in the background div */

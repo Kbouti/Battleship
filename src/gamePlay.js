@@ -27,6 +27,7 @@ function getNextLetter(letter) {
 class Game {
   constructor(player1Name, mode, player2Name) {
     this.player1Name = player1Name;
+    this.player2Name = player2Name;
     this.mode = mode;
     this.turn = null;
     // Mode will be either Player.v.Computer or Player.v.Player, but regardless we know the name of our two players and so we can create our boards:
@@ -69,12 +70,21 @@ class Game {
         player1GameBoard.classList.add("playMode");
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
-      });
 
-      this.messageFirstTurn();
+        this.messageFirstTurn();
+      });
       // ************************************************************************
       // Ok, at this point we're prepared to start the game. We've determined who starts first.
       // We need to initiate a while loop so players will take turns striking until someone has won the game.
+
+// **Method or property needed to check if the game is over*
+// While the game is not over {
+// if it's player1's turn, allow player 1 to strike.
+
+      // To allow player to strike, maybe we need a "activatePlayer" function which activates event listeners on the board for hover affect and to get playerChoice input
+      // perhaps an "ActivatePlayer1" and an activatePlayer2 function. Activate player 2 will act as the computer if play mode is pVc
+
+// else if it's player 2's turn (computer) strike a random spot and update the board  
 
 
 
@@ -114,6 +124,14 @@ class Game {
     messageBox.classList.add("flex");
 
     messageBox.innerHTML = message;
+
+    function messageDisolve(){
+      messageBox.classList.add("hidden");
+      messageBox.classList.remove("flex");
+    
+    }
+
+    setTimeout(messageDisolve, 3500)
 // ******************************************************************************
 // We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
 // ******************************************************************************
