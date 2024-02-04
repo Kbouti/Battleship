@@ -2,7 +2,7 @@ const gamePlay = require("./gamePlay");
 const boards = require("./boards");
 
 function submitForm(event) {
-// We could/should maybe add a conttrol on the form so it doesn't accept names with spaces
+  // We could/should maybe add a conttrol on the form so it doesn't accept names with spaces
 
   event.preventDefault();
 
@@ -26,7 +26,7 @@ function submitForm(event) {
     player2Name = player2Input.value;
   }
 
-  if (player1Name == player2Name){
+  if (player1Name == player2Name) {
     player1Name = "Player_1";
     player2Name = "Player_2";
   }
@@ -47,6 +47,13 @@ function addEventListeners() {
   console.log(`adding Event listeners`);
   newGameForm.addEventListener(`submit`, submitForm);
 }
+
+function paintMiss(board, space) {
+  // board will be a reference to the gameboard or scoreboard object
+  // space will come as an array ["A", 5]
+}
+
+function paintHit(board, space) {}
 
 module.exports = {
   submitForm,

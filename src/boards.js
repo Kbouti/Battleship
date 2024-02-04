@@ -288,6 +288,18 @@ class Scoreboard {
     return spaces;
   }
 
+  getSpaceAt(verticleCoordinate, horizontalCoordinate) {
+    // Returns a space object for the given coordinates
+    for (let i = 0; i < this.spaces.length; i++) {
+      if (
+        this.spaces[i].verticleCoordinate === verticleCoordinate &&
+        this.spaces[i].horizontalCoordinate === horizontalCoordinate
+      ) {
+        return this.spaces[i];
+      }
+    }
+  }
+
   render() {
     // Create ScoreBoard (parent container for background and grid)
     const body = document.body;

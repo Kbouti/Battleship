@@ -56,6 +56,8 @@ class Game {
 
   activatePlayer1() {
     console.log(`activatePlayer1 function triggered`);
+    // We'll need to indicate that the player can select a square in scoreBoard by clicking on it
+    const scoreBoard = document.getElementById(`${this.player1Name}ScoreBoard`);
   }
 
   activatePlayer2() {
@@ -63,7 +65,6 @@ class Game {
     // We need to guess a random square and strike it on player 1's board
     const randomA = Math.floor(Math.random() * 10);
     const randomB = Math.floor(Math.random() * 10) + 1;
-
     const randomSquare = [];
     randomSquare.push(alphabet[randomA]);
     randomSquare.push(randomB);
@@ -72,13 +73,17 @@ class Game {
 
     let result = this.player1Gameboard.strike(randomSquare[0], randomSquare[1]);
 
+    if (result == "hit") {
+      paintHit(this.player1Gameboard, randomSquare);
+      // Check for win
+    }
 
-// At this point we've struck player1's board with a random space. 
-// Result is either hit or miss. 
-// We need a function that takes result and manipulates the dom accordingly
+    if (result == "miss") {
+      paint(this.player1Gameboard, randomSquare);
+    }
 
-
-
+    this.activateplayer1();
+    return;
   }
 
   beginMatch() {
