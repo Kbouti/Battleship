@@ -30,6 +30,8 @@ class Game {
     this.player2Name = player2Name;
     this.mode = mode;
     this.turn = null;
+    this.gameIsOver = false;
+    this.winner = null;
     // Mode will be either Player.v.Computer or Player.v.Player, but regardless we know the name of our two players and so we can create our boards:
     this.player1Gameboard = boardsJS.createGameboard(player1Name);
     this.player1Scoreboard = boardsJS.createScoreboard(player1Name);
@@ -37,6 +39,21 @@ class Game {
     this.player2Gameboard = boardsJS.createGameboard(player2Name);
     this.player2Scoreboard = boardsJS.createScoreboard(player2Name);
   }
+
+  checkForWin() {
+    if (this.player1Gameboard.allShipsSunk() === true) {
+      this.gameIsOver = true;
+      this.winner = this.player2Name;
+      return true;
+    } else if (this.player2Gameboard.allShipsSunk() === true) {
+      this.gameIsOver = true;
+      this.winner = this.player1Name;
+      return true;
+    }
+    return false;
+  }
+
+  //  We'll still need a function to handle what happens when winning conditions are met.
 
   beginMatch() {
     domElements.playerLabel(this.player1Name);
@@ -77,18 +94,14 @@ class Game {
       // Ok, at this point we're prepared to start the game. We've determined who starts first.
       // We need to initiate a while loop so players will take turns striking until someone has won the game.
 
-// **Method or property needed to check if the game is over*
-// While the game is not over {
-// if it's player1's turn, allow player 1 to strike.
+      // **Method or property needed to check if the game is over*
+      // While the game is not over {
+      // if it's player1's turn, allow player 1 to strike.
 
       // To allow player to strike, maybe we need a "activatePlayer" function which activates event listeners on the board for hover affect and to get playerChoice input
       // perhaps an "ActivatePlayer1" and an activatePlayer2 function. Activate player 2 will act as the computer if play mode is pVc
 
-// else if it's player 2's turn (computer) strike a random spot and update the board  
-
-
-
-
+      // else if it's player 2's turn (computer) strike a random spot and update the board
 
       // ************************************************************************
       // We'll come back to this later
@@ -125,16 +138,15 @@ class Game {
 
     messageBox.innerHTML = message;
 
-    function messageDisolve(){
+    function messageDisolve() {
       messageBox.classList.add("hidden");
       messageBox.classList.remove("flex");
-    
     }
 
-    setTimeout(messageDisolve, 3500)
-// ******************************************************************************
-// We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
-// ******************************************************************************
+    setTimeout(messageDisolve, 3500);
+    // ******************************************************************************
+    // We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
+    // ******************************************************************************
   }
 }
 
