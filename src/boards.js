@@ -1,7 +1,6 @@
 const { createElement } = require("./domElements.js");
 const Ship = require("./ships.js");
 
-
 // ************************************************************************************
 // Helper functions:
 
@@ -255,6 +254,21 @@ class Gameboard {
       this.ships[i].render(this.playerName);
     }
   }
+
+  allShipsSunk() {
+    let sunkCount = 0;
+    for (let i = 0; i < this.ships.length; i++) {
+      if (this.ships[i].isSunk === true) {
+        sunkCount++;
+      }
+      if (sunkCount === 5) {
+        return true;
+      }
+      return false;
+      {
+      }
+    }
+  }
 }
 
 class Scoreboard {
@@ -314,7 +328,7 @@ class Scoreboard {
       }
     }
 
-const squares = backgroundContainer.childNodes;
+    const squares = backgroundContainer.childNodes;
 
     // Assign legend squares
     for (let i = 1; i < 11; i++) {
