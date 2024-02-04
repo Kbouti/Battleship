@@ -52,8 +52,19 @@ class Game {
     }
     return false;
   }
-
   //  We'll still need a function to handle what happens when winning conditions are met.
+
+
+
+activatePlayer1(){
+console.log(`activatePlayer1 function triggered`);
+}
+
+activatePlayer2(){
+  console.log(`activatePlayer2 function triggered`);
+}
+
+
 
   beginMatch() {
     domElements.playerLabel(this.player1Name);
@@ -87,21 +98,25 @@ class Game {
         player1GameBoard.classList.add("playMode");
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
-
         this.messageFirstTurn();
       });
-      // ************************************************************************
-      // Ok, at this point we're prepared to start the game. We've determined who starts first.
-      // We need to initiate a while loop so players will take turns striking until someone has won the game.
 
-      // **Method or property needed to check if the game is over*
+      while (this.checkForWin() === false) {
+        // This loop will run forever until we produce strike function that changes turns
+        if (this.turn === "player1") {
+          this.activatePlayer1();
+        } else if (this.turn === "player2") {
+          this.activatePlayer2();
+        } else { 
+          throw new Error(`Could not determine current player`);
+        }
+      }
+
+      // ************************************************************************
       // While the game is not over {
       // if it's player1's turn, allow player 1 to strike.
-
-      // To allow player to strike, maybe we need a "activatePlayer" function which activates event listeners on the board for hover affect and to get playerChoice input
-      // perhaps an "ActivatePlayer1" and an activatePlayer2 function. Activate player 2 will act as the computer if play mode is pVc
-
-      // else if it's player 2's turn (computer) strike a random spot and update the board
+      // If it's player2's turn, allow player 2 to strike 
+      // Make sure to toggle turn at the end of each strike function
 
       // ************************************************************************
       // We'll come back to this later
