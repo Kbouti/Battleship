@@ -91,12 +91,6 @@ class Gameboard {
         console.log(spaces.length);
 
         const targetString = `${target[0]}${target[1]}`
-
-        // ********************************************************************************
-        console.log(spaces[0]);
-        //This output 121. Not what we wanted. These are not the objects we think they are, investigate and make sure we're getting a reference to the space data we want
-        // ********************************************************************************
-
         for (let j = 0; j < spaces.length; j++) {
           console.log(spaces[j].classList);
           if (spaces[j].classList.contains(targetString)) {
