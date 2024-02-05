@@ -81,14 +81,22 @@ class Game {
     console.log(randomSquare);
 
     let result = this.player1Gameboard.strike(randomSquare[0], randomSquare[1]);
-
-    if (result == "hit") {
-      paintHit(this.player1Gameboard, randomSquare);
+console.log(`result of strike: ${result}`);
+    if (result == "Hit") {
+      console.log(`caught a hit`);
+      this.player1Gameboard.paintHit(randomSquare);
+      // paintHit(this.player1Gameboard, randomSquare);
       // Check for win
     }
 
-    if (result == "miss") {
-      paint(this.player1Gameboard, randomSquare);
+    if (result == "Miss") {
+      console.log(`caught a miss`);
+      this.player1Gameboard.paintMiss(randomSquare);
+    }
+    else {
+      console.log(`error pending`);
+      console.log(`result should be hit or miss. result: ${result}`);
+      throw new Error(`Could not determine hit or miss`);
     }
 
     this.activatePlayer1();

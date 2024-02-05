@@ -44,6 +44,78 @@ class Gameboard {
     ships.push(destroyer);
     return ships;
   }
+
+  paintHit(target) {
+    console.log(`paintHit called on target: ${target}`);
+    const board = document.getElementById(`${this.playerName}GameBoard`);
+    const boardChildren = board.childNodes;
+    for (let i = 0; i < boardChildren.length; i++) {
+      if (boardChildren[i].classList.contains("gameGridContainer")) {
+        console.log(`found gameGridContainer`);
+        const gameGridContainer = boardChildren[i];
+
+        let spaces = gameGridContainer.childNodes;
+        console.log(`target[0]: ${target[0]}, target[1]: ${target[1]}`);
+        console.log(`spaces: ${spaces}`);
+        console.log(spaces.length);
+
+        // ********************************************************************************
+        console.log(spaces[0]);
+        //This output 121. Not what we wanted. These are not the objects we think they are, investigate and make sure we're getting a reference to the space data we want
+        // ********************************************************************************
+
+        for (let j = 0; j < spaces.length; j++) {
+          console.log(spaces[i].verticleCoordinate);
+          console.log(spaces[i].horizontalCoordinate);
+
+          if (
+            spaces[j].verticleCoordinate == target[0] &&
+            spaces[j].horizontalCoordinate == target[1]
+          ) {
+            console.log(`found target space. `);
+            const pin = createElement("div", spaces[j], null, ["pin", "hit"]);
+          }
+        }
+      }
+    }
+  }
+
+  paintMiss(target) {
+    console.log(`paintMiss called on target: ${target}`);
+    const board = document.getElementById(`${this.playerName}GameBoard`);
+    const boardChildren = board.childNodes;
+    for (let i = 0; i < boardChildren.length; i++) {
+      if (boardChildren[i].classList.contains("gameGridContainer")) {
+        console.log(`found gameGridContainer`);
+        const gameGridContainer = boardChildren[i];
+
+        let spaces = gameGridContainer.childNodes;
+        console.log(`target[0]: ${target[0]}, target[1]: ${target[1]}`);
+        console.log(`spaces: ${spaces}`);
+        console.log(spaces.length);
+
+        // ********************************************************************************
+        console.log(spaces[0]);
+        //This output 121. Not what we wanted. These are not the objects we think they are, investigate and make sure we're getting a reference to the space data we want
+        // ********************************************************************************
+
+        for (let j = 0; j < spaces.length; j++) {
+          console.log(spaces[j].verticleCoordinate);
+          console.log(spaces[j].horizontalCoordinate);
+          //we're getting undefined here
+
+          if (
+            spaces[j].verticleCoordinate == target[0] &&
+            spaces[j].horizontalCoordinate == target[1]
+          ) {
+            console.log(`Found target space`);
+            const pin = createElement("div", spaces[j], null, ["pin", "miss"]);
+          }
+        }
+      }
+    }
+  }
+
   generateEmptySpaces(board) {
     let spaces = [];
     for (let i = 0; i < alphabet.length; i++) {

@@ -169,8 +169,19 @@ body {
 
 }
 
+.pin{
+  height:90%;
+  width: 90%;
+  z-index:5;
+}
 
+.hit{
+  background-color: red;
+}
 
+.miss{
+  background-color: white;
+}
 
 .oceanSpace {
   /* The blue squares in the background div */

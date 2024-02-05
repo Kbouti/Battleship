@@ -51,6 +51,11 @@ function addEventListeners() {
 function paintMiss(board, space) {
   // board will be a reference to the gameboard or scoreboard object
   // space will come as an array ["A", 5]
+
+// My mental confusion here is that this function handle both scoreBoard and gameBoard
+// Maybe these should be methods on gameBoard and scoreBoard class
+
+
 }
 
 function paintHit(board, space) {}
