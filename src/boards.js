@@ -330,6 +330,48 @@ class Scoreboard {
     this.spaces = this.generateEmptySpaces();
   }
 
+
+  paintHit(target) {
+    console.log(`paintHit called on target: ${target}`);
+    const board = document.getElementById(`${this.playerName}ScoreBoard`);
+    const boardChildren = board.childNodes;
+    const targetString = `${target[0]}${target[1]}`;
+    for (let i = 0; i < boardChildren.length; i++) {
+      if (boardChildren[i].classList.contains("backgroundContainer")) {
+        const scoreboard = boardChildren[i];
+        let spaces = scoreboard.childNodes;
+        for (let j = 0; j < spaces.length; j++) {
+          if (spaces[j].classList.contains(targetString)) {
+            const pin = createElement("div", spaces[j], null, ["pin", "hit"]);
+          }
+        }
+      }
+    }
+    return;
+  }
+
+  paintMiss(target) {
+    console.log(`paintMiss called on target: ${target}`);
+    const board = document.getElementById(`${this.playerName}ScoreBoard`);
+    const boardChildren = board.childNodes;
+    const targetString = `${target[0]}${target[1]}`;
+    for (let i = 0; i < boardChildren.length; i++) {
+      if (boardChildren[i].classList.contains("backgroundContainer")) {
+        const scoreboard = boardChildren[i];
+        let spaces = scoreboard.childNodes;
+        for (let j = 0; j < spaces.length; j++) {
+          if (spaces[j].classList.contains(targetString)) {
+            const pin = createElement("div", spaces[j], null, ["pin", "miss"]);
+          }
+        }
+      }
+    }
+    return;
+  }
+
+
+
+
   generateEmptySpaces() {
     let spaces = [];
     for (let i = 0; i < alphabet.length; i++) {

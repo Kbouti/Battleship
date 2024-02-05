@@ -38,7 +38,7 @@ function submitForm(event) {
   }
   let newGame = new gamePlay.Game(player1Name, gameMode, player2Name);
   newGameForm.remove();
-  newGame.beginMatch();
+  newGame.beginMatch(newGame);
   return;
 }
 

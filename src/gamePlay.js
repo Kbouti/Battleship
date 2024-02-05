@@ -54,15 +54,15 @@ class Game {
   }
   //  We'll still need a function to handle what happens when winning conditions are met.
 
-  activatePlayer1() {
+  activatePlayer1(game) {
     console.log(`activatePlayer1 function triggered`);
     // We'll need to indicate that the player can select a square in scoreBoard by clicking on it
-    const scoreBoard = document.getElementById(`${this.player1Name}ScoreBoard`);
+    const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
     scoreBoard.classList.add("activeBoard");
     const scoreBoardBackground = scoreBoard.childNodes[0];
     const squares = scoreBoardBackground.childNodes;
 
-const player2Gameboard = this.player2Gameboard;
+const player2Gameboard = game.player2Gameboard;
 
     for (let i = 0; i < squares.length; i++) {
       squares[i].classList.add("activeSquare");
@@ -72,16 +72,30 @@ const player2Gameboard = this.player2Gameboard;
 let targetSquareArray = targetSquare.split("");
 console.log(`targetSquareArray: ${targetSquareArray}`);
         // This is getting the format it wants for target square. Lets change format here to match strike function
-        player2Gameboard.strike(player2Gameboard, targetSquareArray[0], targetSquareArray[1]);
+        let result = player2Gameboard.strike(player2Gameboard, targetSquareArray[0], targetSquareArray[1]);
 
-        // We need to handle the strike still. Indicate results on dom
-        // Then change turns
+        if (result == "hit"){
+          console.log(`caught a hit`);
+          game.player1Scoreboard.paintHit(targetSquare);
+        } else if (result == "miss"){
+          console.log(`caught a miss`);
+          game.player1Scoreboard.paintMiss(targetSquare);
+        } else if (result == "sunk"){
+          console.log(`Sunk a ship!`);
+          game.player1Scoreboard.paintHit(targetSquare);
 
+// Check if the game is over, message the player to let them know they sunk a ship
+
+        } else {
+          throw new Error(`Could not determine results of player1 strike. result: ${result}`);
+        }
+
+game.activatePlayer2(game);
       })
     }
   }
 
-  activatePlayer2() {
+  activatePlayer2(game) {
     console.log(`activatePlayer2 function triggered`);
     // We need to guess a random square and strike it on player 1's board
     const randomA = Math.floor(Math.random() * 10);
@@ -92,38 +106,37 @@ console.log(`targetSquareArray: ${targetSquareArray}`);
 
     console.log(randomSquare);
 
-    let result = this.player1Gameboard.strike(this.player1Gameboard, randomSquare[0], randomSquare[1]);
+    let result = game.player1Gameboard.strike(game.player1Gameboard, randomSquare[0], randomSquare[1]);
     console.log(`result of strike: ${result}`);
 
     if (result == "hit") {
       console.log(`caught a hit`);
-      this.player1Gameboard.paintHit(randomSquare);
+      game.player1Gameboard.paintHit(randomSquare);
     }
 
     else if (result == "miss") {
       console.log(`caught a miss`);
-      this.player1Gameboard.paintMiss(randomSquare);
+      game.player1Gameboard.paintMiss(randomSquare);
     }
 
     else if (result == "sunk") {
       console.log(`Sunk a ship`);
-      this.player1Gameboard.paintHit(randomSquare);
-      // Report sunnken ship and check for win
+      game.player1Gameboard.paintHit(randomSquare);
+      // Report sunken ship and check for win
+
     } else {
-      console.log(`error pending`);
-      console.log(`result should be hit, miss, or sunk. result: ${result}`);
-      throw new Error(`Could not determine strike result`);
+      throw new Error(`Could not determine strike result. result: ${result}`);
     }
 
-    this.activatePlayer1();
+    game.activatePlayer1(game);
     return;
   }
 
-  beginMatch() {
-    domElements.playerLabel(this.player1Name);
-    this.player1Gameboard.placeShipsRandomly();
-    this.player1Scoreboard.render();
-    this.player1Gameboard.render();
+  beginMatch(game) {
+    domElements.playerLabel(game.player1Name);
+    game.player1Gameboard.placeShipsRandomly();
+    game.player1Scoreboard.render();
+    game.player1Gameboard.render();
 
     const body = document.body;
     const acceptBoardButton = domElements.createElement(
@@ -135,13 +148,13 @@ console.log(`targetSquareArray: ${targetSquareArray}`);
     acceptBoardButton.innerHTML = "Begin";
 
     const player1GameBoard = document.getElementById(
-      `${this.player1Name}GameBoard`
+      `${game.player1Name}GameBoard`
     );
     const player1ScoreBoard = document.getElementById(
-      `${this.player1Name}ScoreBoard`
+      `${game.player1Name}ScoreBoard`
     );
 
-    if (this.mode === "pVc") {
+    if (game.mode === "pVc") {
       // Player vs computer...
       acceptBoardButton.addEventListener("click", () => {
         player1GameBoard.classList.remove("setMode");
@@ -149,23 +162,23 @@ console.log(`targetSquareArray: ${targetSquareArray}`);
         player1GameBoard.classList.add("playMode");
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
-        this.messageFirstTurn();
+        game.messageFirstTurn();
       });
 
-      this.coinFlip();
+      game.coinFlip();
 
       // I don't like the timing of the messageFirstTurn in compared with activating player 1 and 2.
       //  We'll need a set timeout so the player can see that the computer is going first, have the computer strike, and THEN let it be their turn>
       // As is the active class is set as soon as the player is told it's the computer's turn
 
-      if (this.turn === "player1") {
-        this.activatePlayer1();
-      } else if (this.turn === "player2") {
-        this.activatePlayer2();
+      if (game.turn === "player1") {
+        game.activatePlayer1(game);
+      } else if (game.turn === "player2") {
+        game.activatePlayer2(game);
       } else {
         throw new Error(`Could not determine current player`);
       }
-    } else if (this.mode === "pVp") {
+    } else if (game.mode === "pVp") {
       // Player vs Player....   We'll come back to this later
     } else {
       throw new Error("Game mode is neither pVc or pVp");
@@ -202,7 +215,7 @@ console.log(`targetSquareArray: ${targetSquareArray}`);
       messageBox.classList.remove("flex");
     }
 
-    setTimeout(messageDisolve, 3500);
+    setTimeout(messageDisolve, 2000);
     // ******************************************************************************
     // We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
     // ******************************************************************************
