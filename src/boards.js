@@ -103,6 +103,14 @@ console.log(`horizontalTarget: ${horizontalCoordinate}`);
       if (
         this.spaces[i].verticleCoordinate === verticleCoordinate &&
         this.spaces[i].horizontalCoordinate === horizontalCoordinate
+
+// *************************************************************************************
+// I believe our current issue is that this.spaces isn't working because the context of this. has changed now that it's called by an event listener
+// We can pass "board" as an argument to this function, but then we also need to find every time it's used and make sure it's getting board as an argument
+// *************************************************************************************
+
+
+
       ) {
         return this.spaces[i];
       }
