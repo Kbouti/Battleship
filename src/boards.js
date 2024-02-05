@@ -93,36 +93,27 @@ class Gameboard {
     }
     return spaces;
   }
-  getSpaceAt( verticleCoordinate, horizontalCoordinate) {
+  getSpaceAt(board, verticleCoordinate, horizontalCoordinate) {
     // Returns a space object for the given coordinates
-    console.log(`getSpaceAt triggered`);
-console.log(`verticleTarget: ${verticleCoordinate}`);
-console.log(`horizontalTarget: ${horizontalCoordinate}`);
-
-    for (let i = 0; i < this.spaces.length; i++) {
+    for (let i = 0; i < board.spaces.length; i++) {
       if (
-        this.spaces[i].verticleCoordinate === verticleCoordinate &&
-        this.spaces[i].horizontalCoordinate === horizontalCoordinate
-
-// *************************************************************************************
-// I believe our current issue is that this.spaces isn't working because the context of this. has changed now that it's called by an event listener
-// We can pass "board" as an argument to this function, but then we also need to find every time it's used and make sure it's getting board as an argument
-// *************************************************************************************
-
-
-
+        board.spaces[i].verticleCoordinate == verticleCoordinate &&
+        board.spaces[i].horizontalCoordinate == horizontalCoordinate
       ) {
         return this.spaces[i];
       }
-    } throw new Error(`getSpaceAt did not find the target space`)
+    }
+    throw new Error(`getSpaceAt did not find the target space`);
   }
-  linkSpaces() {
+
+  linkSpaces(board) {
     // This function establishes left/right and up/down references between all squares. It should be run immedietely after generating squares
     for (let i = 0; i < this.spaces.length; i++) {
       if (this.spaces[i].verticleCoordinate === "A") {
         this.spaces[i].up = null;
       } else {
-        this.spaces[i].up = this.getSpaceAt(
+        this.spaces[i].up = board.getSpaceAt(
+          board,
           getPreviousLetter(this.spaces[i].verticleCoordinate),
           this.spaces[i].horizontalCoordinate
         );
@@ -130,7 +121,8 @@ console.log(`horizontalTarget: ${horizontalCoordinate}`);
       if (this.spaces[i].verticleCoordinate === "J") {
         this.spaces[i].down = null;
       } else {
-        this.spaces[i].down = this.getSpaceAt(
+        this.spaces[i].down = board.getSpaceAt(
+          board,
           getNextLetter(this.spaces[i].verticleCoordinate),
           this.spaces[i].horizontalCoordinate
         );
@@ -138,7 +130,8 @@ console.log(`horizontalTarget: ${horizontalCoordinate}`);
       if (this.spaces[i].horizontalCoordinate === 1) {
         this.spaces[i].left = null;
       } else {
-        this.spaces[i].left = this.getSpaceAt(
+        this.spaces[i].left = board.getSpaceAt(
+          board,
           this.spaces[i].verticleCoordinate,
           this.spaces[i].horizontalCoordinate - 1
         );
@@ -146,7 +139,8 @@ console.log(`horizontalTarget: ${horizontalCoordinate}`);
       if (this.spaces[i].horizontalCoordinate === 10) {
         this.spaces[i].right = null;
       } else {
-        this.spaces[i].right = this.getSpaceAt(
+        this.spaces[i].right = board.getSpaceAt(
+          board,
           this.spaces[i].verticleCoordinate,
           this.spaces[i].horizontalCoordinate + 1
         );
@@ -187,16 +181,14 @@ console.log(`horizontalTarget: ${horizontalCoordinate}`);
     console.log(`Done placing ships for: ${this.playerName}`);
   }
 
-  strike(letter, number) {
-
+  strike(board, letter, number) {
     console.log(`Strike activated for ${letter},${number}`);
 
     if (!alphabet.includes(letter) || number > 10 || number < 1) {
       throw new Error(`Attempted to strike an invalid space`);
     }
-    let targetSpace = this.getSpaceAt(letter, number);
+    let targetSpace = board.getSpaceAt(board, letter, number);
     console.log(`targetSpace: ${targetSpace}`);
-
 
     if (targetSpace.status === "empty") {
       console.log(`[${letter},${number}] Miss`);
@@ -214,7 +206,11 @@ console.log(`horizontalTarget: ${horizontalCoordinate}`);
       }
       console.log(`[${letter},${number}] Hit`);
       return "hit";
-    } else {throw new Error(`targetSpace.status neither empty or occupied. targetSpace.status: ${targetSpace.status}`)}
+    } else {
+      throw new Error(
+        `targetSpace.status neither empty or occupied. targetSpace.status: ${targetSpace.status}`
+      );
+    }
   }
 
   render() {
@@ -345,16 +341,17 @@ class Scoreboard {
     return spaces;
   }
 
-  getSpaceAt(verticleCoordinate, horizontalCoordinate) {
+  getSpaceAt(board, verticleCoordinate, horizontalCoordinate) {
     // Returns a space object for the given coordinates
-    for (let i = 0; i < this.spaces.length; i++) {
+    for (let i = 0; i < board.spaces.length; i++) {
       if (
-        this.spaces[i].verticleCoordinate === verticleCoordinate &&
-        this.spaces[i].horizontalCoordinate === horizontalCoordinate
+        board.spaces[i].verticleCoordinate == verticleCoordinate &&
+        board.spaces[i].horizontalCoordinate == horizontalCoordinate
       ) {
         return this.spaces[i];
       }
     }
+    throw new Error(`getSpaceAt did not find the target space`);
   }
 
   render() {
@@ -465,7 +462,7 @@ class ScoreboardSpace {
 
 function createGameboard(playerName) {
   let newBoard = new Gameboard(playerName);
-  newBoard.linkSpaces();
+  newBoard.linkSpaces(newBoard);
   return newBoard;
 }
 

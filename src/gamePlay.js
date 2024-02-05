@@ -72,7 +72,7 @@ const player2Gameboard = this.player2Gameboard;
 let targetSquareArray = targetSquare.split("");
 console.log(`targetSquareArray: ${targetSquareArray}`);
         // This is getting the format it wants for target square. Lets change format here to match strike function
-        player2Gameboard.strike(targetSquareArray[0], targetSquareArray[1]);
+        player2Gameboard.strike(player2Gameboard, targetSquareArray[0], targetSquareArray[1]);
 
         // We need to handle the strike still. Indicate results on dom
         // Then change turns
@@ -92,7 +92,7 @@ console.log(`targetSquareArray: ${targetSquareArray}`);
 
     console.log(randomSquare);
 
-    let result = this.player1Gameboard.strike(randomSquare[0], randomSquare[1]);
+    let result = this.player1Gameboard.strike(this.player1Gameboard, randomSquare[0], randomSquare[1]);
     console.log(`result of strike: ${result}`);
 
     if (result == "hit") {
