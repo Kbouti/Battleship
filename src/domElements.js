@@ -10,7 +10,7 @@ function createElement(type, parentElement, id, classes) {
     newElement.setAttribute("id", id);
   }
   parentElement.appendChild(newElement);
-  console.log(`done with createElement`);
+//   console.log(`done with createElement`);
   return newElement;
 }
 

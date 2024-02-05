@@ -122,6 +122,14 @@ class Game {
 
     console.log(randomSquare);
 
+// ****************************************************************************************************
+// ****************************************************************************************************
+// We still need some kind of catch here to make sure the computer doesn't pick a square that's already been played
+// ****************************************************************************************************
+// ****************************************************************************************************
+
+
+
     let result = game.player1Gameboard.strike(
       game.player1Gameboard,
       randomSquare[0],
@@ -177,6 +185,9 @@ class Game {
         player1GameBoard.classList.add("playMode");
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
+
+game.player2Gameboard.placeShipsRandomly();
+
         game.messageFirstTurn();
       });
 
