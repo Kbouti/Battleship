@@ -61,8 +61,23 @@ class Game {
     scoreBoard.classList.add("activeBoard");
     const scoreBoardBackground = scoreBoard.childNodes[0];
     const squares = scoreBoardBackground.childNodes;
+
+const player2Gameboard = this.player2Gameboard;
+
     for (let i = 0; i < squares.length; i++) {
       squares[i].classList.add("activeSquare");
+      squares[i].addEventListener("click", function(){
+        const targetSquare = this.classList[3];
+        console.log(`striking player2 ${targetSquare}`);
+let targetSquareArray = targetSquare.split("");
+console.log(`targetSquareArray: ${targetSquareArray}`);
+        // This is getting the format it wants for target square. Lets change format here to match strike function
+        player2Gameboard.strike(targetSquareArray[0], targetSquareArray[1]);
+
+        // We need to handle the strike still. Indicate results on dom
+        // Then change turns
+
+      })
     }
   }
 
@@ -85,12 +100,12 @@ class Game {
       this.player1Gameboard.paintHit(randomSquare);
     }
 
-    if (result == "miss") {
+    else if (result == "miss") {
       console.log(`caught a miss`);
       this.player1Gameboard.paintMiss(randomSquare);
     }
 
-    if (result == "sunk") {
+    else if (result == "sunk") {
       console.log(`Sunk a ship`);
       this.player1Gameboard.paintHit(randomSquare);
       // Report sunnken ship and check for win
