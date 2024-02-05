@@ -58,6 +58,7 @@ class Gameboard {
         console.log(`target[0]: ${target[0]}, target[1]: ${target[1]}`);
         console.log(`spaces: ${spaces}`);
         console.log(spaces.length);
+        const targetString = `${target[0]}${target[1]}`
 
         // ********************************************************************************
         console.log(spaces[0]);
@@ -65,14 +66,9 @@ class Gameboard {
         // ********************************************************************************
 
         for (let j = 0; j < spaces.length; j++) {
-          console.log(spaces[i].verticleCoordinate);
-          console.log(spaces[i].horizontalCoordinate);
-
-          if (
-            spaces[j].verticleCoordinate == target[0] &&
-            spaces[j].horizontalCoordinate == target[1]
-          ) {
-            console.log(`found target space. `);
+          console.log(spaces[j].classList);
+          if (spaces[j].classList.contains(targetString)) {
+            console.log(`Found target space`);
             const pin = createElement("div", spaces[j], null, ["pin", "hit"]);
           }
         }
@@ -94,20 +90,16 @@ class Gameboard {
         console.log(`spaces: ${spaces}`);
         console.log(spaces.length);
 
+        const targetString = `${target[0]}${target[1]}`
+
         // ********************************************************************************
         console.log(spaces[0]);
         //This output 121. Not what we wanted. These are not the objects we think they are, investigate and make sure we're getting a reference to the space data we want
         // ********************************************************************************
 
         for (let j = 0; j < spaces.length; j++) {
-          console.log(spaces[j].verticleCoordinate);
-          console.log(spaces[j].horizontalCoordinate);
-          //we're getting undefined here
-
-          if (
-            spaces[j].verticleCoordinate == target[0] &&
-            spaces[j].horizontalCoordinate == target[1]
-          ) {
+          console.log(spaces[j].classList);
+          if (spaces[j].classList.contains(targetString)) {
             console.log(`Found target space`);
             const pin = createElement("div", spaces[j], null, ["pin", "miss"]);
           }

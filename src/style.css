@@ -170,9 +170,10 @@ body {
 }
 
 .pin{
-  height:90%;
-  width: 90%;
+  height:70%;
+  width: 70%;
   z-index:5;
+  border-radius:50%;
 }
 
 .hit{
