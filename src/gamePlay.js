@@ -59,14 +59,11 @@ class Game {
     // We'll need to indicate that the player can select a square in scoreBoard by clicking on it
     const scoreBoard = document.getElementById(`${this.player1Name}ScoreBoard`);
     scoreBoard.classList.add("activeBoard");
-
     const scoreBoardBackground = scoreBoard.childNodes[0];
     const squares = scoreBoardBackground.childNodes;
-    console.log(squares);
-    for (let i = 0;i < squares.length;i++){
+    for (let i = 0; i < squares.length; i++) {
       squares[i].classList.add("activeSquare");
     }
-
   }
 
   activatePlayer2() {
@@ -81,22 +78,26 @@ class Game {
     console.log(randomSquare);
 
     let result = this.player1Gameboard.strike(randomSquare[0], randomSquare[1]);
-console.log(`result of strike: ${result}`);
-    if (result == "Hit") {
+    console.log(`result of strike: ${result}`);
+
+    if (result == "hit") {
       console.log(`caught a hit`);
       this.player1Gameboard.paintHit(randomSquare);
-      // paintHit(this.player1Gameboard, randomSquare);
-      // Check for win
     }
 
-    if (result == "Miss") {
+    if (result == "miss") {
       console.log(`caught a miss`);
       this.player1Gameboard.paintMiss(randomSquare);
     }
-    else {
+
+    if (result == "sunk") {
+      console.log(`Sunk a ship`);
+      this.player1Gameboard.paintHit(randomSquare);
+      // Report sunnken ship and check for win
+    } else {
       console.log(`error pending`);
-      console.log(`result should be hit or miss. result: ${result}`);
-      throw new Error(`Could not determine hit or miss`);
+      console.log(`result should be hit, miss, or sunk. result: ${result}`);
+      throw new Error(`Could not determine strike result`);
     }
 
     this.activatePlayer1();
@@ -136,15 +137,11 @@ console.log(`result of strike: ${result}`);
         this.messageFirstTurn();
       });
 
-
       this.coinFlip();
 
-
-// I don't like the timing of the messageFirstTurn in compared with activating player 1 and 2. 
-//  We'll need a set timeout so the player can see that the computer is going first, have the computer strike, and THEN let it be their turn>
-// As is the active class is set as soon as the player is told it's the computer's turn
-
-
+      // I don't like the timing of the messageFirstTurn in compared with activating player 1 and 2.
+      //  We'll need a set timeout so the player can see that the computer is going first, have the computer strike, and THEN let it be their turn>
+      // As is the active class is set as soon as the player is told it's the computer's turn
 
       if (this.turn === "player1") {
         this.activatePlayer1();
@@ -153,8 +150,6 @@ console.log(`result of strike: ${result}`);
       } else {
         throw new Error(`Could not determine current player`);
       }
-
-
     } else if (this.mode === "pVp") {
       // Player vs Player....   We'll come back to this later
     } else {
