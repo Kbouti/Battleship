@@ -62,36 +62,52 @@ class Game {
     const scoreBoardBackground = scoreBoard.childNodes[0];
     const squares = scoreBoardBackground.childNodes;
 
-const player2Gameboard = game.player2Gameboard;
+    const player2Gameboard = game.player2Gameboard;
 
     for (let i = 0; i < squares.length; i++) {
       squares[i].classList.add("activeSquare");
-      squares[i].addEventListener("click", function(){
+      squares[i].addEventListener("click", function () {
         const targetSquare = this.classList[3];
         console.log(`striking player2 ${targetSquare}`);
-let targetSquareArray = targetSquare.split("");
-console.log(`targetSquareArray: ${targetSquareArray}`);
-        // This is getting the format it wants for target square. Lets change format here to match strike function
-        let result = player2Gameboard.strike(player2Gameboard, targetSquareArray[0], targetSquareArray[1]);
 
-        if (result == "hit"){
+// ********************************************************************************
+// ********************************************************************************
+// First major problem:
+// our split function below splits the coordinate 10 into 1,0. We gotta figure out another way around the format issue
+// ********************************************************************************
+// ********************************************************************************
+
+
+        let targetSquareArray = targetSquare.split("");
+
+
+        console.log(`targetSquareArray: ${targetSquareArray}`);
+        // This is getting the format it wants for target square. Lets change format here to match strike function
+        let result = player2Gameboard.strike(
+          player2Gameboard,
+          targetSquareArray[0],
+          targetSquareArray[1]
+        );
+
+        if (result == "hit") {
           console.log(`caught a hit`);
           game.player1Scoreboard.paintHit(targetSquare);
-        } else if (result == "miss"){
+        } else if (result == "miss") {
           console.log(`caught a miss`);
           game.player1Scoreboard.paintMiss(targetSquare);
-        } else if (result == "sunk"){
+        } else if (result == "sunk") {
           console.log(`Sunk a ship!`);
           game.player1Scoreboard.paintHit(targetSquare);
 
-// Check if the game is over, message the player to let them know they sunk a ship
-
+          // Check if the game is over, message the player to let them know they sunk a ship
         } else {
-          throw new Error(`Could not determine results of player1 strike. result: ${result}`);
+          throw new Error(
+            `Could not determine results of player1 strike. result: ${result}`
+          );
         }
 
-game.activatePlayer2(game);
-      })
+        game.activatePlayer2(game);
+      });
     }
   }
 
@@ -106,24 +122,23 @@ game.activatePlayer2(game);
 
     console.log(randomSquare);
 
-    let result = game.player1Gameboard.strike(game.player1Gameboard, randomSquare[0], randomSquare[1]);
+    let result = game.player1Gameboard.strike(
+      game.player1Gameboard,
+      randomSquare[0],
+      randomSquare[1]
+    );
     console.log(`result of strike: ${result}`);
 
     if (result == "hit") {
       console.log(`caught a hit`);
       game.player1Gameboard.paintHit(randomSquare);
-    }
-
-    else if (result == "miss") {
+    } else if (result == "miss") {
       console.log(`caught a miss`);
       game.player1Gameboard.paintMiss(randomSquare);
-    }
-
-    else if (result == "sunk") {
+    } else if (result == "sunk") {
       console.log(`Sunk a ship`);
       game.player1Gameboard.paintHit(randomSquare);
       // Report sunken ship and check for win
-
     } else {
       throw new Error(`Could not determine strike result. result: ${result}`);
     }
