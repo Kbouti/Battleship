@@ -70,16 +70,19 @@ class Game {
         const targetSquare = this.classList[3];
         console.log(`striking player2 ${targetSquare}`);
 
-// ********************************************************************************
-// ********************************************************************************
-// First major problem:
-// our split function below splits the coordinate 10 into 1,0. We gotta figure out another way around the format issue
-// ********************************************************************************
-// ********************************************************************************
-
+        // ********************************************************************************
+        // ********************************************************************************
+        // First major problem:
+        // our split function below splits the coordinate 10 into 1,0. We gotta figure out another way around the format issue
+        // ********************************************************************************
+        // ********************************************************************************
 
         let targetSquareArray = targetSquare.split("");
 
+        // if(targetSquareArray.length > 2){
+        //   targetSquareArray = [targetSquareArray[0], `${targetSquareArray[1]}${targetSquareArray[2]}`]
+        // }
+        // ^This didn't work
 
         console.log(`targetSquareArray: ${targetSquareArray}`);
         // This is getting the format it wants for target square. Lets change format here to match strike function
@@ -105,10 +108,12 @@ class Game {
             `Could not determine results of player1 strike. result: ${result}`
           );
         }
-
         game.activatePlayer2(game);
+return;
       });
+
     }
+    return;
   }
 
   activatePlayer2(game) {
@@ -120,15 +125,13 @@ class Game {
     randomSquare.push(alphabet[randomA]);
     randomSquare.push(randomB);
 
-    console.log(randomSquare);
+    console.log(`random targeteSquare: ${randomSquare}`);
 
-// ****************************************************************************************************
-// ****************************************************************************************************
-// We still need some kind of catch here to make sure the computer doesn't pick a square that's already been played
-// ****************************************************************************************************
-// ****************************************************************************************************
-
-
+    // ****************************************************************************************************
+    // ****************************************************************************************************
+    // We still need some kind of catch here to make sure the computer doesn't pick a square that's already been played
+    // ****************************************************************************************************
+    // ****************************************************************************************************
 
     let result = game.player1Gameboard.strike(
       game.player1Gameboard,
@@ -186,7 +189,7 @@ class Game {
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
 
-game.player2Gameboard.placeShipsRandomly();
+        game.player2Gameboard.placeShipsRandomly();
 
         game.messageFirstTurn();
       });
