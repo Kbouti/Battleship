@@ -118,7 +118,9 @@ return;
 
   activatePlayer2(game) {
     console.log(`activatePlayer2 function triggered`);
-    // We need to guess a random square and strike it on player 1's board
+
+    // Maybe we need a variable to store all of player2's moves? We can use that to make sure computer doesn't attempt to duplicate a move
+
     const randomA = Math.floor(Math.random() * 10);
     const randomB = Math.floor(Math.random() * 10) + 1;
     const randomSquare = [];
@@ -192,6 +194,8 @@ return;
         game.player2Gameboard.placeShipsRandomly();
 
         game.messageFirstTurn();
+        // I think we'll want to adjust the timing of this^^
+        //
       });
 
       game.coinFlip();
