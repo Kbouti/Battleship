@@ -109,9 +109,8 @@ class Game {
           );
         }
         game.activatePlayer2(game);
-return;
+        return;
       });
-
     }
     return;
   }
@@ -193,24 +192,18 @@ return;
 
         game.player2Gameboard.placeShipsRandomly();
 
+        game.coinFlip();
+
+        if (game.turn === "player1") {
+          game.activatePlayer1(game);
+        } else if (game.turn === "player2") {
+          game.activatePlayer2(game);
+        } else {
+          throw new Error(`Could not determine current player`);
+        }
+
         game.messageFirstTurn();
-        // I think we'll want to adjust the timing of this^^
-        //
       });
-
-      game.coinFlip();
-
-      // I don't like the timing of the messageFirstTurn in compared with activating player 1 and 2.
-      //  We'll need a set timeout so the player can see that the computer is going first, have the computer strike, and THEN let it be their turn>
-      // As is the active class is set as soon as the player is told it's the computer's turn
-
-      if (game.turn === "player1") {
-        game.activatePlayer1(game);
-      } else if (game.turn === "player2") {
-        game.activatePlayer2(game);
-      } else {
-        throw new Error(`Could not determine current player`);
-      }
     } else if (game.mode === "pVp") {
       // Player vs Player....   We'll come back to this later
     } else {
@@ -240,18 +233,12 @@ return;
     const messageBox = document.getElementById("messageBox");
     messageBox.classList.remove("hidden");
     messageBox.classList.add("flex");
-
     messageBox.innerHTML = message;
-
     function messageDisolve() {
       messageBox.classList.add("hidden");
       messageBox.classList.remove("flex");
     }
-
     setTimeout(messageDisolve, 2000);
-    // ******************************************************************************
-    // We need to create a dom element to display this message. I'm kinda thinking that function can/should be written in domManipulation then we just call it here
-    // ******************************************************************************
   }
 }
 
