@@ -184,19 +184,24 @@ class Gameboard {
   strike(board, letter, number) {
     console.log(`Strike activated for ${letter},${number}`);
 
+    //status should be empty in order to get here, but it's logging "miss"
+
+
     if (!alphabet.includes(letter) || number > 10 || number < 1) {
       throw new Error(`Attempted to strike an invalid space`);
     }
-    let targetSpace = board.getSpaceAt(board, letter, number);
-    console.log(`targetSpace: ${targetSpace}`);
+    let strikeTarget = board.getSpaceAt(board, letter, number);
+    console.log(`strikeTarget: ${strikeTarget}`);
+    console.log(`strikeTargetStatus: ${strikeTarget.status}`);
 
-    if (targetSpace.status === "empty") {
+
+    if (strikeTarget.status === "empty") {
       console.log(`[${letter},${number}] Miss`);
-      targetSpace.status = "miss"
+      strikeTarget.status = "miss"
       return "miss";
-    } else if (targetSpace.status === "occupied") {
-      targetSpace.status = "hit";
-      let ship = targetSpace.occupant;
+    } else if (strikeTarget.status === "occupied") {
+      strikeTarget.status = "hit";
+      let ship = strikeTarget.occupant;
       ship.hits++;
       if (ship.hits === ship.size) {
         ship.isSunk = true;
@@ -209,7 +214,7 @@ class Gameboard {
       return "hit";
     } else {
       throw new Error(
-        `targetSpace.status neither empty or occupied. targetSpace.status: ${targetSpace.status}`
+        `strikeTarget.status neither empty or occupied. strikeTarget.status: ${strikeTarget.status}`
       );
     }
   }
