@@ -192,6 +192,7 @@ class Gameboard {
 
     if (targetSpace.status === "empty") {
       console.log(`[${letter},${number}] Miss`);
+      targetSpace.status = "miss"
       return "miss";
     } else if (targetSpace.status === "occupied") {
       targetSpace.status = "hit";

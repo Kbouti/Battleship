@@ -26,16 +26,16 @@ function getNextLetter(letter) {
 
 class Game {
   constructor(player1Name, mode, player2Name) {
-    this.player1Name = player1Name;
-    this.player2Name = player2Name;
     this.mode = mode;
     this.turn = null;
     this.gameIsOver = false;
     this.winner = null;
-    // Mode will be either Player.v.Computer or Player.v.Player, but regardless we know the name of our two players and so we can create our boards:
+
+    this.player1Name = player1Name;
     this.player1Gameboard = boardsJS.createGameboard(player1Name);
     this.player1Scoreboard = boardsJS.createScoreboard(player1Name);
 
+    this.player2Name = player2Name;
     this.player2Gameboard = boardsJS.createGameboard(player2Name);
     this.player2Scoreboard = boardsJS.createScoreboard(player2Name);
   }
@@ -61,7 +61,6 @@ class Game {
     scoreBoard.classList.add("activeBoard");
     const scoreBoardBackground = scoreBoard.childNodes[0];
     const squares = scoreBoardBackground.childNodes;
-
     const player2Gameboard = game.player2Gameboard;
 
     for (let i = 0; i < squares.length; i++) {
@@ -71,10 +70,7 @@ class Game {
         console.log(`striking player2 ${targetSquare}`);
 
         // ********************************************************************************
-        // ********************************************************************************
-        // First major problem:
         // our split function below splits the coordinate 10 into 1,0. We gotta figure out another way around the format issue
-        // ********************************************************************************
         // ********************************************************************************
 
         let targetSquareArray = targetSquare.split("");
@@ -83,6 +79,17 @@ class Game {
         //   targetSquareArray = [targetSquareArray[0], `${targetSquareArray[1]}${targetSquareArray[2]}`]
         // }
         // ^This didn't work
+
+        let targetSpace = player2Gameboard.getSpaceAt(
+          player2Gameboard,
+          targetSquareArray[0],
+          targetSquareArray[1]
+        );
+        let targetSpaceStatus = targetSpace.status;
+        if (targetSpaceStatus == "hit" || targetSpaceStatus == "miss") {
+          console.log(`player1 attempted a duplicate strike`);
+          return;
+        }
 
         console.log(`targetSquareArray: ${targetSquareArray}`);
         // This is getting the format it wants for target square. Lets change format here to match strike function
