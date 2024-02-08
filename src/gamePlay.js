@@ -74,33 +74,31 @@ class Game {
     game.turn = "player1";
     console.log(`game.turn: ${game.turn}`);
 
-    // We'll need to indicate that the player can select a square in scoreBoard by clicking on it
-
-    // OKKKKK
-    // I think we need to add a UNIQUE event listener to each square. Each square will call strike on it's unique coordinates.
-
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
     scoreBoard.classList.add("activeBoard");
-    const scoreBoardBackground = scoreBoard.childNodes[0];
     const player2Gameboard = game.player2Gameboard;
 
     const gameSquares = scoreBoard.querySelectorAll(`.boardSpace`);
 
-    console.log(`gameSquares.length: ${gameSquares.length}`);
     const coordinatesList = getCoordinatesList();
 
     for (let i = 0; i < gameSquares.length; i++) {
-      console.log(gameSquares[i]);
-      console.log(coordinatesList[i]);
 
-      let targetLetter = coordinatesList[i][0];
-      let targetNumber = coordinatesList[i][1];
+      gameSquares[i].classList.add("activeSquare");
 
-      gameSquares[i].addEventListener("click", function () {
-if (game.turn == "player2"){
-  console.log(`player1 tried to go when it wasn't their turn`);
-  return;
-}
+      gameSquares[i].addEventListener("click", function (event) {
+        console.log(`player1 click event triggered`);
+        event.stopPropagation();
+        if (game.turn == "player2") {
+          console.log(`player1 tried to go when it wasn't their turn`);
+          return;
+        }
+
+        let targetLetter = coordinatesList[i][0];
+        let targetNumber = coordinatesList[i][1];
+
+        console.log(`targetLetter: ${targetLetter}`);
+        console.log(`targetNumberr: ${targetNumber}`);
 
         let targetSpace = player2Gameboard.getSpaceAt(
           player2Gameboard,
@@ -108,80 +106,61 @@ if (game.turn == "player2"){
           targetNumber
         );
 
-        console.log(`targetSpace status: ${targetSpace.status}`);
+        let targetSpaceStatus = targetSpace.status;
+
+        console.log(`targetSpace status: ${targetSpaceStatus}`);
+
+        if (targetSpaceStatus == "hit" || targetSpaceStatus == "miss") {
+          console.log(`Player1 attempting a duplicate strike, not allowing`);
+          return;
+        }
+
+        let result = player2Gameboard.strike(
+          player2Gameboard,
+          targetLetter,
+          targetNumber
+        );
+
+        console.log(`strike result: ${result}`);
+
+        let targetSquare = "";
+        targetSquare += targetLetter;
+        targetSquare += targetNumber;
+
+        console.log(`targetSquare: ${targetSquare}`);
+
+        if (result == "hit") {
+          console.log(`caught a hit`);
+          game.player1Scoreboard.paintHit(targetSquare);
+        } else if (result == "miss") {
+          console.log(`caught a miss`);
+          game.player1Scoreboard.paintMiss(targetSquare);
+        } else if (result == "sunk") {
+          console.log(`Sunk a ship!`);
+          game.player1Scoreboard.paintHit(targetSquare);
+
+          // Check if the game is over, message the player to let them know they sunk a ship
+        } else {
+          throw new Error(
+            `Could not determine results of player1 strike. result: ${result}`
+          );
+        }
+
+        targetSquare = "";
+        targetSpace = null;
+
+        scoreBoard.classList.remove("activeBoard");
+
+        for (let i = 0; i < gameSquares.length; i++) {
+          gameSquares[i].classList.remove("activeSquare");
+        }
+
+        game.activatePlayer2(game);
+        return;
       });
     }
+    return;
   }
-
-  //   squares[i].classList.add("activeSquare");
-  //   squares[i].addEventListener("click", function () {
-  //     console.log(this);
-
-  //     let targetSquare = this.classList[3];
-  //     console.log(`click activated, striking player2 ${targetSquare}`);
-  //     targetSquareArray = targetSquare.split("");
-
-  //     let targetSpace = player2Gameboard.getSpaceAt(
-  //       player2Gameboard,
-  //       targetSquareArray[0],
-  //       targetSquareArray[1]
-  //     );
-
-  //     console.log(`targetSpace: ${targetSpace}`);
-  //     console.log(`checking if space has been struck`);
-  //     let status = targetSpace.status;
-  //     console.log(`status: ${status}`);
-
-  //     if (targetSpace.Status == "hit" || targetSpace.Status == "miss") {
-  //       console.log(`player1 attempted a duplicate strike`);
-
-  //       console.log(`targetSpace: ${targetSpace}`);
-  //       console.log(`targetSpace.status: ${targetSpace.status}`);
-  //       targetSquareArray = [];
-
-  //       console.log(`targetSquareArray: ${targetSquareArray}`);
-
-  //       return;
-  //     }
-  //     console.log(`targetSpace has not been struck`);
-  //     console.log(`targetSpace.status: ${targetSpace.status}`);
-
-  //     // Somehow targetSpace is already miss when call the second player 1 click
-  //     // Some issue with the reference? It's logging "miss" then i ask if it's "miss" and it says it's not. Then when it gets called in Strike it's already "miss" before we change it from empty
-
-  //     console.log(`targetSquareArray: ${targetSquareArray}`);
-  //     // This is getting the format it wants for target square. Lets change format here to match strike function
-  //     let result = player2Gameboard.strike(
-  //       player2Gameboard,
-  //       targetSquareArray[0],
-  //       targetSquareArray[1]
-  //     );
-  //     console.log(`result: ${result}`);
-  //     if (result == "hit") {
-  //       console.log(`caught a hit`);
-  //       game.player1Scoreboard.paintHit(targetSquare);
-  //     } else if (result == "miss") {
-  //       console.log(`caught a miss`);
-  //       game.player1Scoreboard.paintMiss(targetSquare);
-  //     } else if (result == "sunk") {
-  //       console.log(`Sunk a ship!`);
-  //       game.player1Scoreboard.paintHit(targetSquare);
-
-  //       // Check if the game is over, message the player to let them know they sunk a ship
-  //     } else {
-  //       throw new Error(
-  //         `Could not determine results of player1 strike. result: ${result}`
-  //       );
-  //     }
-  //     game.activatePlayer2(game);
-  //     return;
-  //   });
-  // }
-
-  // targetSquareArray = [];
-
-  // return;
-  // }
 
   activatePlayer2(game) {
     console.log(`********************************************`);
@@ -193,9 +172,9 @@ if (game.turn == "player2"){
 
     // Maybe we need a variable to store all of player2's moves? We can use that to make sure computer doesn't attempt to duplicate a move
 
-    const randomA = Math.floor(Math.random() * 10);
-    const randomB = Math.floor(Math.random() * 10) + 1;
-    const randomSquare = [];
+    let randomA = Math.floor(Math.random() * 10);
+    let randomB = Math.floor(Math.random() * 10) + 1;
+    let randomSquare = [];
     randomSquare.push(alphabet[randomA]);
     randomSquare.push(randomB);
 
