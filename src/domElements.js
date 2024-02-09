@@ -23,6 +23,7 @@ function buildPage() {
   // ******************************************************************************************
   // Form:
   const newGameForm = createElement("form", body, "newGameForm", []);
+  newGameForm.setAttribute("autocomplete", "off");
   const formHeader = createElement("div", newGameForm, "newGameFormHeader", []);
   const formTitle = createElement("H2", formHeader, "newGameTitle", ["form"]);
   formTitle.innerHTML = `New Game`;
