@@ -69,6 +69,7 @@ class Game {
   activatePlayer1(game) {
     console.log(`********************************************`);
     console.log(`activatePlayer1 function triggered`);
+    domElements.setSubTitle(`${game.player1Name}, your turn`);
 
     console.log(`game.turn: ${game.turn}`);
     game.turn = "player1";
@@ -159,6 +160,8 @@ class Game {
         }
         game.turn = "player2";
         console.log(`setting timeout for activatePlayer2`);
+        domElements.setSubTitle(`${game.player2Name} Turn`);
+
         setTimeout(() => {
           game.activatePlayer2(game);
         }, 1500);
@@ -171,6 +174,7 @@ class Game {
   activatePlayer2(game) {
     console.log(`********************************************`);
     console.log(`activatePlayer2 function triggered`);
+    // domElements.setSubTitle(`${game.player2Name} Turn`);
 
     console.log(`game.turn: ${game.turn}`);
     game.turn = "player2";
@@ -242,7 +246,7 @@ class Game {
   }
 
   beginMatch(game) {
-    domElements.playerLabel(game.player1Name);
+    // domElements.setSubTitle(game.player1Name);
     game.player1Gameboard.placeShipsRandomly();
     game.player1Scoreboard.render();
     game.player1Gameboard.render();
@@ -279,6 +283,7 @@ class Game {
         if (game.turn === "player1") {
           game.activatePlayer1(game);
         } else if (game.turn === "player2") {
+          domElements.setSubTitle(`${game.player2Name} Turn`);
           setTimeout(() => {
             game.activatePlayer2(game);
           }, 2250);

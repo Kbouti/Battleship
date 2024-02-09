@@ -1,4 +1,3 @@
-
 function createElement(type, parentElement, id, classes) {
   const newElement = document.createElement(type);
   if (classes !== null) {
@@ -10,7 +9,7 @@ function createElement(type, parentElement, id, classes) {
     newElement.setAttribute("id", id);
   }
   parentElement.appendChild(newElement);
-//   console.log(`done with createElement`);
+  //   console.log(`done with createElement`);
   return newElement;
 }
 
@@ -19,6 +18,8 @@ function buildPage() {
   const header = createElement(`div`, body, "header", []);
   const title = createElement("H1", header, "title", ["title"]);
   title.innerHTML = "Battleship";
+
+  const subTitle = createElement("H2", header, "subTitle", []);
   // ******************************************************************************************
   // Form:
   const newGameForm = createElement("form", body, "newGameForm", []);
@@ -106,7 +107,7 @@ function buildPage() {
   ]);
   pVcRadio.setAttribute("type", "radio");
   pVcRadio.setAttribute("name", "modeSelectRadio");
-  pVcRadio.setAttribute("checked", "true")
+  pVcRadio.setAttribute("checked", "true");
 
   const pVpContainer = createElement("div", modeSelectContainer, null, [
     "modeSelectContainer",
@@ -127,33 +128,21 @@ function buildPage() {
   const beginButton = createElement("button", formFooter, "beginButton", []);
   beginButton.innerHTML = "Start Game";
 
-
-
-const messageBox = createElement("div", body, "messageBox", ["hidden"]);
+  const messageBox = createElement("div", body, "messageBox", ["hidden"]);
 
   // End Form
   // ******************************************************************************************
 }
 
-function playerLabel(playerName){
-    const header = document.getElementById("header");
-
-    const currentLabel = document.getElementsByClassName("playerNameLabel");
-    console.log(currentLabel);
-    if (currentLabel.length > 0){
-        currentLabel[0].remove();
-    }
-
-    const playerNameLabel = createElement("H2", header, `${playerName}Label`, ["playerNameLabel"]);
-    playerNameLabel.innerHTML = playerName;
-
+function setSubTitle(text) {
+  const subTitle = document.getElementById("subTitle");
+  subTitle.innerText = text;
+  return;
 }
-
-
 
 // *************************************************************************************
 module.exports = {
   createElement,
   buildPage,
-  playerLabel
+  setSubTitle,
 };
