@@ -87,6 +87,10 @@ class Game {
 
       gameSquares[i].addEventListener("click", function (event) {
         console.log(`player1 click event triggered`);
+        // ******************************************************************************************
+        // It's getting called once the first click, twice the second click, three times the third, and so on....
+        // Why the fuuuuk is it doing that???        
+        // ******************************************************************************************
         event.stopPropagation();
         if (game.turn == "player2") {
           console.log(`player1 tried to go when it wasn't their turn`);
@@ -191,7 +195,6 @@ class Game {
 
     let targetSquareStatus = targetSquare.status;
 
-    console.log(`targetSquare: ${targetSquare}`);
     console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
     while (targetSquareStatus == "hit" || targetSquareStatus == "miss") {
@@ -233,6 +236,7 @@ class Game {
     console.log(`targetSquare: ${targetSquare}`);
     console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
+    game.turn = "player1"
     game.activatePlayer1(game);
     return;
   }
@@ -326,3 +330,4 @@ class Game {
 module.exports = {
   Game,
 };
+

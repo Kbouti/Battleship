@@ -191,7 +191,6 @@ class Gameboard {
       throw new Error(`Attempted to strike an invalid space`);
     }
     let strikeTarget = board.getSpaceAt(board, letter, number);
-    console.log(`strikeTarget: ${strikeTarget}`);
     console.log(`strikeTargetStatus: ${strikeTarget.status}`);
 
 
