@@ -89,7 +89,7 @@ class Game {
         console.log(`player1 click event triggered`);
         // ******************************************************************************************
         // It's getting called once the first click, twice the second click, three times the third, and so on....
-        // Why the fuuuuk is it doing that???        
+        // Why the fuuuuk is it doing that???
         // ******************************************************************************************
         event.stopPropagation();
         if (game.turn == "player2") {
@@ -126,9 +126,9 @@ class Game {
 
         console.log(`strike result: ${result}`);
 
-        let targetSquare = "";
-        targetSquare += targetLetter;
-        targetSquare += targetNumber;
+        let targetSquare = [];
+        targetSquare.push(targetLetter);
+        targetSquare.push(targetNumber);
 
         console.log(`targetSquare: ${targetSquare}`);
 
@@ -236,7 +236,7 @@ class Game {
     console.log(`targetSquare: ${targetSquare}`);
     console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
-    game.turn = "player1"
+    game.turn = "player1";
     game.activatePlayer1(game);
     return;
   }
@@ -282,7 +282,6 @@ class Game {
           setTimeout(() => {
             game.activatePlayer2(game);
           }, 2250);
-  
         } else {
           throw new Error(`Could not determine current player`);
         }
@@ -330,4 +329,3 @@ class Game {
 module.exports = {
   Game,
 };
-

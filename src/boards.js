@@ -340,13 +340,6 @@ class Scoreboard {
     const board = document.getElementById(`${this.playerName}ScoreBoard`);
     const boardChildren = board.childNodes;
     const targetString = `${target[0]}${target[1]}`;
-
-// ***************************************************************************
-// Gotta make sure this is handling spaces with 2-digit coordinate
-// (it's not)
-// ***************************************************************************
-
-
     for (let i = 0; i < boardChildren.length; i++) {
       if (boardChildren[i].classList.contains("backgroundContainer")) {
         const scoreboard = boardChildren[i];
@@ -366,13 +359,6 @@ class Scoreboard {
     const board = document.getElementById(`${this.playerName}ScoreBoard`);
     const boardChildren = board.childNodes;
     const targetString = `${target[0]}${target[1]}`;
-
-// ***************************************************************************
-// Gotta make sure this is handling spaces with 2-digit coordinate
-// (it's not)
-// ***************************************************************************
-
-
     for (let i = 0; i < boardChildren.length; i++) {
       if (boardChildren[i].classList.contains("backgroundContainer")) {
         const scoreboard = boardChildren[i];
