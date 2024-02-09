@@ -70,40 +70,32 @@ class Game {
     console.log(`********************************************`);
     console.log(`activatePlayer1 function triggered`);
     domElements.setSubTitle(`${game.player1Name}, your turn`);
-
-    console.log(`game.turn: ${game.turn}`);
     game.turn = "player1";
     console.log(`game.turn: ${game.turn}`);
 
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
     scoreBoard.classList.add("activeBoard");
     const player2Gameboard = game.player2Gameboard;
-
     const gameSquares = scoreBoard.querySelectorAll(`.boardSpace`);
-
     const coordinatesList = getCoordinatesList();
 
     for (let i = 0; i < gameSquares.length; i++) {
       gameSquares[i].classList.add("activeSquare");
-
       gameSquares[i].addEventListener("click", function (event) {
         console.log(`player1 click event triggered`);
         // ******************************************************************************************
         // It's getting called once the first click, twice the second click, three times the third, and so on....
         // Why the fuuuuk is it doing that???
         // ******************************************************************************************
-        event.stopPropagation();
+        // event.stopPropagation();
         if (game.turn == "player2") {
           console.log(`player1 tried to go when it wasn't their turn`);
           return;
         }
-
         let targetLetter = coordinatesList[i][0];
         let targetNumber = coordinatesList[i][1];
-
         console.log(`targetLetter: ${targetLetter}`);
-        console.log(`targetNumberr: ${targetNumber}`);
-
+        console.log(`targetNumber: ${targetNumber}`);
         let targetSpace = player2Gameboard.getSpaceAt(
           player2Gameboard,
           targetLetter,
@@ -151,9 +143,6 @@ class Game {
           );
         }
 
-        targetSquare = "";
-        targetSpace = null;
-
         scoreBoard.classList.remove("activeBoard");
 
         for (let i = 0; i < gameSquares.length; i++) {
@@ -189,20 +178,20 @@ class Game {
       randomSquare[1]
     );
 
-    let targetSquareStatus = targetSquare.status;
+    console.log(`targetSquare.status: ${targetSquare.status}`);
 
-    console.log(`targetSquareStatus: ${targetSquareStatus}`);
-
-    while (targetSquareStatus == "hit" || targetSquareStatus == "miss") {
-      // ******************************************************************************************************************
-      // This is resulting in an endless loop. We still gotta fix this
-      // ******************************************************************************************************************
+    while (targetSquare.status == "hit" || targetSquare.status == "miss") {
       console.log(`Computer tried to duplicate a move`);
       randomA = Math.floor(Math.random() * 10);
       randomB = Math.floor(Math.random() * 10) + 1;
       randomSquare = [];
       randomSquare.push(alphabet[randomA]);
       randomSquare.push(randomB);
+      targetSquare = game.player1Gameboard.getSpaceAt(
+        this.player1Gameboard,
+        randomSquare[0],
+        randomSquare[1]
+      );
     }
 
     let result = game.player1Gameboard.strike(
@@ -226,14 +215,14 @@ class Game {
       throw new Error(`Could not determine strike result. result: ${result}`);
     }
 
-    console.log(`targetSquare: ${targetSquare}`);
-    console.log(`targetSquareStatus: ${targetSquareStatus}`);
+    // console.log(`targetSquare: ${targetSquare}`);
+    // console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
-    targetSquare = null;
-    targetSquareStatus = null;
+    // targetSquare = null;
+    // targetSquareStatus = null;
 
-    console.log(`targetSquare: ${targetSquare}`);
-    console.log(`targetSquareStatus: ${targetSquareStatus}`);
+    // console.log(`targetSquare: ${targetSquare}`);
+    // console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
     game.turn = "player1";
     game.activatePlayer1(game);
