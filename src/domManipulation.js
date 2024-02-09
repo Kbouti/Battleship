@@ -15,12 +15,12 @@ function submitForm(event) {
   let player2Name = null;
   let gameMode = null;
 
-  if (player1Input.value == null) {
+  if (player1Input.value == "") {
     player1Name = "Player_1";
   } else {
     player1Name = player1Input.value;
   }
-  if (player2Input.value == null) {
+  if (player2Input.value == "") {
     player2Name = "Player_2";
   } else {
     player2Name = player2Input.value;
