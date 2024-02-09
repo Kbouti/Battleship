@@ -55,11 +55,11 @@ class Game {
   checkForWin() {
     if (this.player1Gameboard.allShipsSunk() === true) {
       this.gameIsOver = true;
-      this.winner = this.player2Name;
+      this.winner = `player2`;
       return true;
     } else if (this.player2Gameboard.allShipsSunk() === true) {
       this.gameIsOver = true;
-      this.winner = this.player1Name;
+      this.winner = `player1`;
       return true;
     }
     return false;
@@ -134,9 +134,33 @@ class Game {
         } else if (result == "sunk") {
           console.log(`Sunk a ship!`);
           game.player1Scoreboard.paintHit(targetSquare);
-          // ******************************************************************************************************************
-          // Check if the game is over, message the player to let them know they sunk a ship
-          // ******************************************************************************************************************
+          console.log(`checking for win`);
+          console.log(`game.gameIsOver: ${game.gameIsOver}`);
+          game.checkForWin();
+          console.log(`game.gameIsOver: ${game.gameIsOver}`);
+
+          if (game.gameIsOver === true) {
+            console.log(`game is over. winner is: ${game.winner}`);
+            scoreBoard.classList.remove("activeBoard");
+            for (let i = 0; i < gameSquares.length; i++) {
+              gameSquares[i].classList.remove("activeSquare");
+            }
+            if (game.winner == "player1") {
+              domElements.setSubTitle(
+                `Congratulations ${game.player1Name}, you win! `
+              );
+              return;
+            }
+            if (game.winner == "player2") {
+              domElements.setSubTitle(
+                `You lose.... ${game.player2Name} sunk all your ships!`
+              );
+              return;
+            } else {
+              console.log(`game is over but winner couldn't be determined`);
+              throw new Error(`Game over but winner not determined`);
+            }
+          }
         } else {
           throw new Error(
             `Could not determine results of player1 strike. result: ${result}`
@@ -210,6 +234,35 @@ class Game {
     } else if (result == "sunk") {
       console.log(`Sunk a ship`);
       game.player1Gameboard.paintHit(randomSquare);
+
+      console.log(`checking for win`);
+      console.log(`game.gameIsOver: ${game.gameIsOver}`);
+      game.checkForWin();
+      console.log(`game.gameIsOver: ${game.gameIsOver}`);
+
+      if (game.gameIsOver === true) {
+        console.log(`game is over. winner is: ${game.winner}`);
+        scoreBoard.classList.remove("activeBoard");
+        for (let i = 0; i < gameSquares.length; i++) {
+          gameSquares[i].classList.remove("activeSquare");
+        }
+        if (game.winner == "player1") {
+          domElements.setSubTitle(
+            `Congratulations ${game.player1Name}, you win! `
+          );
+          return;
+        }
+        if (game.winner == "player2") {
+          domElements.setSubTitle(
+            `You lose.... ${game.player2Name} sunk all your ships!`
+          );
+          return;
+        } else {
+          console.log(`game is over but winner couldn't be determined`);
+          throw new Error(`Game over but winner not determined`);
+        }
+      }
+
       // Report sunken ship and check for win
     } else {
       throw new Error(`Could not determine strike result. result: ${result}`);

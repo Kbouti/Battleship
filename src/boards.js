@@ -314,18 +314,27 @@ class Gameboard {
   }
 
   allShipsSunk() {
+
+console.log(`asking ${this.playerName} gameBoard if all ships sunk`);
+
+
     let sunkCount = 0;
     for (let i = 0; i < this.ships.length; i++) {
-      if (this.ships[i].isSunk === true) {
+      let thisShip = this.ships[i];
+      console.log(thisShip.name);
+      console.log(thisShip.hits);
+      console.log(thisShip.isSunk);
+      if (thisShip.isSunk === true) {
         sunkCount++;
-      }
-      if (sunkCount === 5) {
-        return true;
-      }
-      return false;
-      {
+        console.log(`sunkCount: ${sunkCount}`);
       }
     }
+    if (sunkCount === 5) {
+      console.log(`sunkCount: ${sunkCount}`);
+      return true;
+    }
+    return false;
+
   }
 }
 
