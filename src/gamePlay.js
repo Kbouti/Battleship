@@ -83,7 +83,6 @@ class Game {
     const coordinatesList = getCoordinatesList();
 
     for (let i = 0; i < gameSquares.length; i++) {
-
       gameSquares[i].classList.add("activeSquare");
 
       gameSquares[i].addEventListener("click", function (event) {
@@ -154,8 +153,11 @@ class Game {
         for (let i = 0; i < gameSquares.length; i++) {
           gameSquares[i].classList.remove("activeSquare");
         }
-
-        game.activatePlayer2(game);
+        game.turn = "player2";
+        console.log(`setting timeout for activatePlayer2`);
+        setTimeout(() => {
+          game.activatePlayer2(game);
+        }, 1500);
         return;
       });
     }
@@ -273,7 +275,10 @@ class Game {
         if (game.turn === "player1") {
           game.activatePlayer1(game);
         } else if (game.turn === "player2") {
-          game.activatePlayer2(game);
+          setTimeout(() => {
+            game.activatePlayer2(game);
+          }, 2250);
+  
         } else {
           throw new Error(`Could not determine current player`);
         }
@@ -314,7 +319,7 @@ class Game {
       messageBox.classList.add("hidden");
       messageBox.classList.remove("flex");
     }
-    setTimeout(messageDisolve, 2000);
+    setTimeout(messageDisolve, 1500);
   }
 }
 
