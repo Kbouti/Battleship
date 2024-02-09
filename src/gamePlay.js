@@ -142,8 +142,9 @@ class Game {
         } else if (result == "sunk") {
           console.log(`Sunk a ship!`);
           game.player1Scoreboard.paintHit(targetSquare);
-
+          // ******************************************************************************************************************
           // Check if the game is over, message the player to let them know they sunk a ship
+          // ******************************************************************************************************************
         } else {
           throw new Error(
             `Could not determine results of player1 strike. result: ${result}`
@@ -174,23 +175,14 @@ class Game {
   activatePlayer2(game) {
     console.log(`********************************************`);
     console.log(`activatePlayer2 function triggered`);
-    // domElements.setSubTitle(`${game.player2Name} Turn`);
-
-    console.log(`game.turn: ${game.turn}`);
     game.turn = "player2";
     console.log(`game.turn: ${game.turn}`);
-
-    // Maybe we need a variable to store all of player2's moves? We can use that to make sure computer doesn't attempt to duplicate a move
-
     let randomA = Math.floor(Math.random() * 10);
     let randomB = Math.floor(Math.random() * 10) + 1;
     let randomSquare = [];
     randomSquare.push(alphabet[randomA]);
     randomSquare.push(randomB);
-
     console.log(`random targetSquare: ${randomSquare}`);
-
-    // I might need a fix here to accomodate the 10th column
     let targetSquare = game.player1Gameboard.getSpaceAt(
       this.player1Gameboard,
       randomSquare[0],
@@ -202,6 +194,9 @@ class Game {
     console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
     while (targetSquareStatus == "hit" || targetSquareStatus == "miss") {
+      // ******************************************************************************************************************
+      // This is resulting in an endless loop. We still gotta fix this
+      // ******************************************************************************************************************
       console.log(`Computer tried to duplicate a move`);
       randomA = Math.floor(Math.random() * 10);
       randomB = Math.floor(Math.random() * 10) + 1;
@@ -266,6 +261,8 @@ class Game {
     const player1ScoreBoard = document.getElementById(
       `${game.player1Name}ScoreBoard`
     );
+
+    domElements.setSubTitle(`Approve your board`);
 
     if (game.mode === "pVc") {
       // Player vs computer...
