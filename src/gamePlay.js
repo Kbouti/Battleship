@@ -71,12 +71,9 @@ class Game {
     console.log(`player1 turn started`);
     domElements.setSubTitle(`${game.player1Name}, your turn`);
     game.turn = "player1";
-    console.log(`game.turn: ${game.turn}`);
-
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
     scoreBoard.classList.add("activeBoard");
     const gameSquares = scoreBoard.querySelectorAll(`.boardSpace`);
-
     for (let i = 0; i < gameSquares.length; i++) {
       gameSquares[i].classList.add("activeSquare");
     }
@@ -91,60 +88,38 @@ class Game {
     for (let i = 0; i < gameSquares.length; i++) {
       gameSquares[i].addEventListener("click", function () {
         console.log(`player1 click event triggered`);
-        // ******************************************************************************************
-        // It's getting called once the first click, twice the second click, three times the third, and so on....
-        // Why the fuuuuk is it doing that???
-
-        // ******************************************************************************************
         if (game.turn == "player2") {
           console.log(`player1 tried to go when it wasn't their turn`);
           return;
         }
         let targetLetter = coordinatesList[i][0];
         let targetNumber = coordinatesList[i][1];
-        console.log(`targetLetter: ${targetLetter}`);
-        console.log(`targetNumber: ${targetNumber}`);
         let targetSpace = player2Gameboard.getSpaceAt(
           player2Gameboard,
           targetLetter,
           targetNumber
         );
-
         let targetSpaceStatus = targetSpace.status;
-
-        console.log(`targetSpace status: ${targetSpaceStatus}`);
-
         if (targetSpaceStatus == "hit" || targetSpaceStatus == "miss") {
           console.log(`Player1 attempting a duplicate strike, not allowing`);
           // We could add a message here like "You've already tried to strike this square"
           return;
         }
-
         let result = player2Gameboard.strike(
           player2Gameboard,
           targetLetter,
           targetNumber
         );
-
-        console.log(`strike result: ${result}`);
-
         let targetSquare = [];
         targetSquare.push(targetLetter);
         targetSquare.push(targetNumber);
-
-        console.log(`targetSquare: ${targetSquare}`);
-
         if (result == "hit") {
-          console.log(`caught a hit`);
           game.player1Scoreboard.paintHit(targetSquare);
         } else if (result == "miss") {
-          console.log(`caught a miss`);
           game.player1Scoreboard.paintMiss(targetSquare);
         } else if (result == "sunk") {
-          console.log(`Sunk a ship!`);
           game.player1Scoreboard.paintHit(targetSquare);
           console.log(`checking for win`);
-          console.log(`game.gameIsOver: ${game.gameIsOver}`);
           game.checkForWin();
           console.log(`game.gameIsOver: ${game.gameIsOver}`);
 
@@ -169,22 +144,24 @@ class Game {
               console.log(`game is over but winner couldn't be determined`);
               throw new Error(`Game over but winner not determined`);
             }
+          } else {
+            console.log(`Game is not over, continuing`);
           }
         } else {
           throw new Error(
             `Could not determine results of player1 strike. result: ${result}`
           );
         }
-
+        console.log(
+          `player1 turn result: ${result} on square ${targetLetter}, ${targetNumber}`
+        );
         scoreBoard.classList.remove("activeBoard");
-
         for (let i = 0; i < gameSquares.length; i++) {
           gameSquares[i].classList.remove("activeSquare");
         }
         game.turn = "player2";
         console.log(`setting timeout for activatePlayer2`);
         domElements.setSubTitle(`${game.player2Name} Turn`);
-
         setTimeout(() => {
           game.startPlayer2Turn(game);
         }, 1500);
@@ -195,9 +172,8 @@ class Game {
 
   startPlayer2Turn(game) {
     console.log(`********************************************`);
-    console.log(`startPlayer2 turn function triggered`);
+    console.log(`starting player2 Turn`);
     game.turn = "player2";
-    console.log(`game.turn: ${game.turn}`);
     let randomA = Math.floor(Math.random() * 10);
     let randomB = Math.floor(Math.random() * 10) + 1;
     let randomSquare = [];
@@ -209,9 +185,6 @@ class Game {
       randomSquare[0],
       randomSquare[1]
     );
-
-    console.log(`targetSquare.status: ${targetSquare.status}`);
-
     while (targetSquare.status == "hit" || targetSquare.status == "miss") {
       console.log(`Computer tried to duplicate a move`);
       randomA = Math.floor(Math.random() * 10);
@@ -225,35 +198,22 @@ class Game {
         randomSquare[1]
       );
     }
-
     let result = game.player1Gameboard.strike(
       game.player1Gameboard,
       randomSquare[0],
       randomSquare[1]
     );
-    console.log(`result of strike: ${result}`);
-
     if (result == "hit") {
-      console.log(`caught a hit`);
       game.player1Gameboard.paintHit(randomSquare);
     } else if (result == "miss") {
-      console.log(`caught a miss`);
       game.player1Gameboard.paintMiss(randomSquare);
     } else if (result == "sunk") {
       console.log(`Sunk a ship`);
       game.player1Gameboard.paintHit(randomSquare);
-
       console.log(`checking for win`);
-      console.log(`game.gameIsOver: ${game.gameIsOver}`);
       game.checkForWin();
-      console.log(`game.gameIsOver: ${game.gameIsOver}`);
-
       if (game.gameIsOver === true) {
         console.log(`game is over. winner is: ${game.winner}`);
-        scoreBoard.classList.remove("activeBoard");
-        for (let i = 0; i < gameSquares.length; i++) {
-          gameSquares[i].classList.remove("activeSquare");
-        }
         if (game.winner == "player1") {
           domElements.setSubTitle(
             `Congratulations ${game.player1Name}, you win! `
@@ -270,21 +230,12 @@ class Game {
           throw new Error(`Game over but winner not determined`);
         }
       }
-
-      // Report sunken ship and check for win
     } else {
       throw new Error(`Could not determine strike result. result: ${result}`);
     }
-
-    // console.log(`targetSquare: ${targetSquare}`);
-    // console.log(`targetSquareStatus: ${targetSquareStatus}`);
-
-    // targetSquare = null;
-    // targetSquareStatus = null;
-
-    // console.log(`targetSquare: ${targetSquare}`);
-    // console.log(`targetSquareStatus: ${targetSquareStatus}`);
-
+    console.log(
+      `player2 turn result: ${result} on square ${randomSquare[0]}, ${randomSquare[1]}`
+    );
     game.turn = "player1";
     game.startPlayer1Turn(game);
     return;
