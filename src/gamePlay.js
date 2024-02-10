@@ -66,28 +66,36 @@ class Game {
   }
   //  We'll still need a function to handle what happens when winning conditions are met.
 
-  activatePlayer1(game) {
+  startPlayer1Turn(game) {
     console.log(`********************************************`);
-    console.log(`activatePlayer1 function triggered`);
+    console.log(`player1 turn started`);
     domElements.setSubTitle(`${game.player1Name}, your turn`);
     game.turn = "player1";
     console.log(`game.turn: ${game.turn}`);
 
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
     scoreBoard.classList.add("activeBoard");
-    const player2Gameboard = game.player2Gameboard;
     const gameSquares = scoreBoard.querySelectorAll(`.boardSpace`);
-    const coordinatesList = getCoordinatesList();
 
     for (let i = 0; i < gameSquares.length; i++) {
       gameSquares[i].classList.add("activeSquare");
-      gameSquares[i].addEventListener("click", function (event) {
+    }
+  }
+
+  activatePlayer1(game) {
+    console.log(`activatePlayer1 called`);
+    const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
+    const gameSquares = scoreBoard.querySelectorAll(`.boardSpace`);
+    const coordinatesList = getCoordinatesList();
+    const player2Gameboard = game.player2Gameboard;
+    for (let i = 0; i < gameSquares.length; i++) {
+      gameSquares[i].addEventListener("click", function () {
         console.log(`player1 click event triggered`);
         // ******************************************************************************************
         // It's getting called once the first click, twice the second click, three times the third, and so on....
         // Why the fuuuuk is it doing that???
+
         // ******************************************************************************************
-        // event.stopPropagation();
         if (game.turn == "player2") {
           console.log(`player1 tried to go when it wasn't their turn`);
           return;
@@ -108,6 +116,7 @@ class Game {
 
         if (targetSpaceStatus == "hit" || targetSpaceStatus == "miss") {
           console.log(`Player1 attempting a duplicate strike, not allowing`);
+          // We could add a message here like "You've already tried to strike this square"
           return;
         }
 
@@ -177,17 +186,16 @@ class Game {
         domElements.setSubTitle(`${game.player2Name} Turn`);
 
         setTimeout(() => {
-          game.activatePlayer2(game);
+          game.startPlayer2Turn(game);
         }, 1500);
         return;
       });
     }
-    return;
   }
 
-  activatePlayer2(game) {
+  startPlayer2Turn(game) {
     console.log(`********************************************`);
-    console.log(`activatePlayer2 function triggered`);
+    console.log(`startPlayer2 turn function triggered`);
     game.turn = "player2";
     console.log(`game.turn: ${game.turn}`);
     let randomA = Math.floor(Math.random() * 10);
@@ -278,7 +286,7 @@ class Game {
     // console.log(`targetSquareStatus: ${targetSquareStatus}`);
 
     game.turn = "player1";
-    game.activatePlayer1(game);
+    game.startPlayer1Turn(game);
     return;
   }
 
@@ -319,12 +327,14 @@ class Game {
 
         game.coinFlip();
 
+        game.activatePlayer1(game);
+
         if (game.turn === "player1") {
-          game.activatePlayer1(game);
+          game.startPlayer1Turn(game);
         } else if (game.turn === "player2") {
           domElements.setSubTitle(`${game.player2Name} Turn`);
           setTimeout(() => {
-            game.activatePlayer2(game);
+            game.startPlayer2Turn(game);
           }, 2250);
         } else {
           throw new Error(`Could not determine current player`);
