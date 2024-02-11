@@ -79,6 +79,18 @@ class Game {
     }
   }
 
+  player1MovePieces(game) {
+    console.log(`player1MovePieces function called`);
+    const body = document.body;
+    const player1GameBoard = document.getElementById(`${game.player1Name}GameBoard`);
+    const ships = player1GameBoard.getElementsByClassName("ship");
+    console.log(ships);
+
+    // Ok at this point we've accessed all the ships. We can give them a unique class to indicate they can be moved
+
+    
+  }
+
   activatePlayer1(game) {
     console.log(`activatePlayer1 called`);
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
@@ -265,19 +277,22 @@ class Game {
 
     domElements.setSubTitle(`Approve your board`);
 
+    // ****************************************************************************
+    // This is where we call the function that allows player1 to move their pieces
+    game.player1MovePieces(game);
+    // ****************************************************************************
+
     if (game.mode === "pVc") {
       // Player vs computer...
+      // Player has selected their board and computer oponent places ships randomly
       acceptBoardButton.addEventListener("click", () => {
         player1GameBoard.classList.remove("setMode");
         player1ScoreBoard.classList.remove("hidden");
         player1GameBoard.classList.add("playMode");
         player1ScoreBoard.classList.add("playMode");
         acceptBoardButton.remove();
-
         game.player2Gameboard.placeShipsRandomly();
-
         game.coinFlip();
-
         game.activatePlayer1(game);
 
         if (game.turn === "player1") {
@@ -295,6 +310,7 @@ class Game {
       });
     } else if (game.mode === "pVp") {
       // Player vs Player....   We'll come back to this later
+      // Player1 has approved their board, next we need to let player2 approve their board
     } else {
       throw new Error("Game mode is neither pVc or pVp");
     }
