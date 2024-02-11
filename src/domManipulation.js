@@ -21,7 +21,7 @@ function submitForm(event) {
     player1Name = player1Input.value;
   }
   if (player2Input.value == "") {
-    player2Name = "Player_2";
+    player2Name = "Admiral_A.I.";
   } else {
     player2Name = player2Input.value;
   }
