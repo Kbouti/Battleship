@@ -234,6 +234,16 @@ position:relative;
   top: 7%;
 }
 
+.moveableShip:hover {
+  border: 3px solid yellow;
+}
+
+.selectedShip {
+  border: 3px solid green;
+
+}
+
+
 .CarrierHorizontal {
   /* size 5 */
   width: 470%;

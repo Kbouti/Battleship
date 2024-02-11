@@ -82,13 +82,31 @@ class Game {
   player1MovePieces(game) {
     console.log(`player1MovePieces function called`);
     const body = document.body;
-    const player1GameBoard = document.getElementById(`${game.player1Name}GameBoard`);
+    const player1GameBoard = document.getElementById(
+      `${game.player1Name}GameBoard`
+    );
     const ships = player1GameBoard.getElementsByClassName("ship");
     console.log(ships);
 
     // Ok at this point we've accessed all the ships. We can give them a unique class to indicate they can be moved
+    for (let i = 0; i < ships.length; i++) {
+      ships[i].classList.add("moveableShip");
+      ships[i].addEventListener("click", selectShip);
+    }
+    function selectShip() {
+      let thisShip = this;
 
-    
+      // Ok, at this point we've gotten the dom element reference to the ship we clicked. 
+      // We'll need to make sure only one ship can be selected at a time. 
+      // So next we need to loop through ships and see if any have the selected class. 
+
+
+      thisShip.classList.remove("moveableShip");
+      thisShip.classList.add("selectedShip");
+    }
+
+
+
   }
 
   activatePlayer1(game) {
