@@ -96,17 +96,25 @@ class Game {
     function selectShip() {
       let thisShip = this;
 
-      // Ok, at this point we've gotten the dom element reference to the ship we clicked. 
-      // We'll need to make sure only one ship can be selected at a time. 
-      // So next we need to loop through ships and see if any have the selected class. 
+      if (thisShip.classList.contains("selectedShip")) {
+        thisShip.classList.remove("selectedShip");
+        thisShip.classList.add("moveableShip");
+        return;
+      }
+      for (let i = 0; i < ships.length; i++) {
+        if (ships[i].classList.contains("selectedShip")) {
+          // A ship is already active, return;
+          return;
+        }
+      }
 
+// SO in this stage, if you click on a ship it will become selected. If you click on it again it no longer be selected. 
+// If you try to click on a square when another square is already selected, it won't do anything. 
+// Perhaps we should make that^ so that if you click on a different ship that ship just becomes selected. 
 
       thisShip.classList.remove("moveableShip");
       thisShip.classList.add("selectedShip");
     }
-
-
-
   }
 
   activatePlayer1(game) {
