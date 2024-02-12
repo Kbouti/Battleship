@@ -111,13 +111,29 @@ class Game {
           return;
         }
       }
-
-// SO in this stage, if you click on a ship it will become selected. If you click on it again it no longer be selected. 
-// If you try to click on a square when another square is already selected, it will un-select the original ship and select the new ship
-
       thisShip.classList.remove("moveableShip");
       thisShip.classList.add("selectedShip");
+
+      function checkKey(e) {
+        e = e || window.event;
+        if (e.keyCode == "38") {
+          console.log("hit the up arrow");
+        } else if (e.keyCode == "40") {
+          console.log("hit the down arrow");
+        } else if (e.keyCode == "37") {
+          console.log("hit the left arrow");
+        } else if (e.keyCode == "39") {
+          console.log("hit the right arrow");
+        } else if (e.keyCode == "16") {
+          console.log("hit the shift key");
+        }
+      }
+      document.onkeydown = checkKey;
     }
+
+// So at this stage we can select a ship, and add event listener to shift and arrow keys to do what we want.
+// Next we need to explore both moving the dom element, and moving the actual ships on the board
+
   }
 
   activatePlayer1(game) {
