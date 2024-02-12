@@ -21,6 +21,7 @@ class Ship {
   }
 
   canShipMoveHere(startingSpace, orientation) {
+    
     this.orientation = orientation;
     const shipLength = this.size;
     let currentSpace = startingSpace;

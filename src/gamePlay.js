@@ -82,15 +82,16 @@ class Game {
   player1MovePieces(game) {
     console.log(`player1MovePieces function called`);
     const body = document.body;
-    const player1GameBoard = document.getElementById(
+    const player1GameBoardDiv = document.getElementById(
       `${game.player1Name}GameBoard`
     );
-    const ships = player1GameBoard.getElementsByClassName("ship");
+    const shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+    const player1Gameboard = game.player1Gameboard;
 
     // Ok at this point we've accessed all the ships. We can give them a unique class to indicate they can be moved
-    for (let i = 0; i < ships.length; i++) {
-      ships[i].classList.add("moveableShip");
-      ships[i].addEventListener("click", selectShip);
+    for (let i = 0; i < shipDivs.length; i++) {
+      shipDivs[i].classList.add("moveableShip");
+      shipDivs[i].addEventListener("click", selectShip);
     }
     function selectShip() {
       // The event that's triggered when you click a ship
@@ -114,15 +115,15 @@ class Game {
         // ^ this doesn't work. Still can't get it to remove that key listener
         return;
       }
-      for (let i = 0; i < ships.length; i++) {
-        if (ships[i].classList.contains("selectedShip")) {
+      for (let i = 0; i < shipDivs.length; i++) {
+        if (shipDivs[i].classList.contains("selectedShip")) {
           // If a ship is already active...
           thisShipDiv = this;
           shipName = thisShipDiv.classList[2];
           shipClass = thisShipDiv.classList[1];
           startingSquare = thisShipDiv.parentElement.classList[2];
-          ships[i].classList.remove("selectedShip");
-          ships[i].classList.add("moveableShip");
+          shipDivs[i].classList.remove("selectedShip");
+          shipDivs[i].classList.add("moveableShip");
         }
       }
       thisShipDiv.classList.remove("moveableShip");
@@ -134,7 +135,6 @@ class Game {
         if (e.keyCode == "38") {
           console.log("hit the up arrow");
           // So This should attempt to move the ship up one space. If the ship can move up one space, do it and update the dom.
-          // If it can't move up one space
           console.log(
             `We need to move player1's ${shipName} from ${startingSquare} up one square`
           );
@@ -154,6 +154,44 @@ class Game {
           let newCoordinates = newArray.join("");
           console.log(`newCoordinates: ${newCoordinates}`);
           // now we have new coordinates
+
+          // First we need to get the ship object
+          let ships = player1Gameboard.ships;
+
+          console.log(`ships: ${ships}`);
+          let targetShip;
+          for (let i = 0; i < ships.length; i++) {
+            if (ships[i].name == shipName) {
+              console.log(`this is the ship. ${ships[i].name}`);
+              targetShip = ships[i];
+            }
+          }
+
+          let splitCoordinates = newCoordinates.split("");
+          let targetLetter = splitCoordinates.shift();
+          console.log(`targetLetter: ${targetLetter}`);
+
+          let targetNumber = splitCoordinates.join("");
+          console.log(`targetNumber: ${targetNumber}`);
+
+          let targetSpace = player1Gameboard.getSpaceAt(
+            player1Gameboard,
+            targetLetter,
+            targetNumber
+          );
+          console.log(`targetSpace: ${targetSpace}`);
+          console.log(
+            `targetSpace.verticleCoordinate: ${targetSpace.verticleCoordinate}`
+          );
+
+          let canWeMove = targetShip.canShipMoveHere(
+            targetSpace,
+            targetShip.orientation
+          );
+          console.log(`canWeMove: ${canWeMove}`);
+// I'm not sure why this isn't working to determine if the move is allowed. It's logging false when the move should be allowed
+
+
 
 
           // ****************************************************************
