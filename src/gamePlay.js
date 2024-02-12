@@ -104,13 +104,16 @@ class Game {
       for (let i = 0; i < ships.length; i++) {
         if (ships[i].classList.contains("selectedShip")) {
           // A ship is already active, return;
+          ships[i].classList.remove("selectedShip");
+          ships[i].classList.add("moveableShip");
+          thisShip.classList.remove("moveableShip");
+          thisShip.classList.add("selectedShip");
           return;
         }
       }
 
 // SO in this stage, if you click on a ship it will become selected. If you click on it again it no longer be selected. 
-// If you try to click on a square when another square is already selected, it won't do anything. 
-// Perhaps we should make that^ so that if you click on a different ship that ship just becomes selected. 
+// If you try to click on a square when another square is already selected, it will un-select the original ship and select the new ship
 
       thisShip.classList.remove("moveableShip");
       thisShip.classList.add("selectedShip");
