@@ -73,7 +73,7 @@ class Ship {
 // targetDiv actually returns a nodelist with one element, so we're using targetDiv[0]
     const ship = createElement("div", targetDiv[0], null, [
       "ship",
-      this.getShipClass(),
+      this.getShipClass(), this.name
     ]);
   }
 }

@@ -94,30 +94,58 @@ class Game {
       ships[i].addEventListener("click", selectShip);
     }
     function selectShip() {
-      let thisShip = this;
+      // The event that's triggered when you click a ship
+      let thisShipDiv = this;
+      console.log(`Ship clicked.`);
+      console.log(`ship.classlist: ${thisShipDiv.classList}`);
+      console.log(`thisShipDiv: ${thisShipDiv}`);
+      let shipName = thisShipDiv.classList[2];
+      console.log(`shipName: ${shipName}`);
+      console.log(`thisShipDiv.parentElement: ${thisShipDiv.parentElement}`);
+      console.log(
+        `thisShipDiv.parentElement.classList: ${thisShipDiv.parentElement.classList}`
+      );
+      let startingSquare = thisShipDiv.parentElement.classList[2];
+      console.log(`ships starting square: ${startingSquare}`);
 
-      if (thisShip.classList.contains("selectedShip")) {
-        thisShip.classList.remove("selectedShip");
-        thisShip.classList.add("moveableShip");
+      if (thisShipDiv.classList.contains("selectedShip")) {
+        thisShipDiv.classList.remove("selectedShip");
+        thisShipDiv.classList.add("moveableShip");
         return;
       }
       for (let i = 0; i < ships.length; i++) {
         if (ships[i].classList.contains("selectedShip")) {
-          // A ship is already active, return;
+          // If a ship is already active...
           ships[i].classList.remove("selectedShip");
           ships[i].classList.add("moveableShip");
-          thisShip.classList.remove("moveableShip");
-          thisShip.classList.add("selectedShip");
+          thisShipDiv.classList.remove("moveableShip");
+          thisShipDiv.classList.add("selectedShip");
           return;
         }
       }
-      thisShip.classList.remove("moveableShip");
-      thisShip.classList.add("selectedShip");
+      thisShipDiv.classList.remove("moveableShip");
+      thisShipDiv.classList.add("selectedShip");
+
+      console.log(`ship selected`);
 
       function checkKey(e) {
         e = e || window.event;
         if (e.keyCode == "38") {
           console.log("hit the up arrow");
+          // So This should attempt to move the ship up one space. If the ship can move up one space, do it and update the dom.
+          // If it can't move up one space
+          console.log(
+            `We need to move player1's ${shipName} from ${startingSquare} up one square`
+          );
+
+          // ****************************************************************
+          // Ok, next we gotta check to see if the proposed move is on the board. If not, do nothing.
+          // If it is on the board,  we gotta check if it interferes with another ship.
+          // If yes, move the dom element but highlight it red. If no interference, move the dom element and the ship object on the gameBoard
+          // ****************************************************************
+        
+        
+        
         } else if (e.keyCode == "40") {
           console.log("hit the down arrow");
         } else if (e.keyCode == "37") {
@@ -130,10 +158,6 @@ class Game {
       }
       document.onkeydown = checkKey;
     }
-
-// So at this stage we can select a ship, and add event listener to shift and arrow keys to do what we want.
-// Next we need to explore both moving the dom element, and moving the actual ships on the board
-
   }
 
   activatePlayer1(game) {
