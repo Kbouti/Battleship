@@ -88,6 +88,7 @@ class Game {
     const ships = player1GameBoard.getElementsByClassName("ship");
     console.log(ships);
 
+    const player1Gameboard = game.player1Gameboard;
     // Ok at this point we've accessed all the ships. We can give them a unique class to indicate they can be moved
     for (let i = 0; i < ships.length; i++) {
       ships[i].classList.add("moveableShip");
@@ -95,32 +96,37 @@ class Game {
     }
     function selectShip() {
       // The event that's triggered when you click a ship
-      let thisShipDiv = this;
       console.log(`Ship clicked.`);
-      console.log(`ship.classlist: ${thisShipDiv.classList}`);
-      console.log(`thisShipDiv: ${thisShipDiv}`);
+
+      let thisShipDiv = this;
       let shipName = thisShipDiv.classList[2];
-      console.log(`shipName: ${shipName}`);
-      console.log(`thisShipDiv.parentElement: ${thisShipDiv.parentElement}`);
-      console.log(
-        `thisShipDiv.parentElement.classList: ${thisShipDiv.parentElement.classList}`
-      );
+      let shipClass = thisShipDiv.classList[1];
       let startingSquare = thisShipDiv.parentElement.classList[2];
+
+      console.log(`shipName: ${shipName}`);
+      console.log(`shipClass: ${shipClass}`);
       console.log(`ships starting square: ${startingSquare}`);
 
       if (thisShipDiv.classList.contains("selectedShip")) {
+        // This removes the selected class on second click. But we still gotta take away the key listeners
         thisShipDiv.classList.remove("selectedShip");
         thisShipDiv.classList.add("moveableShip");
+        thisShipDiv = null;
+
+// removeEventListener("keydown", checkKey(), false);
+// ^ this doesn't work. Still can't get it to remove that key listener
+
         return;
       }
       for (let i = 0; i < ships.length; i++) {
         if (ships[i].classList.contains("selectedShip")) {
           // If a ship is already active...
+          thisShipDiv = this;
+          shipName = thisShipDiv.classList[2];
+          shipClass = thisShipDiv.classList[1];
+          startingSquare = thisShipDiv.parentElement.classList[2];
           ships[i].classList.remove("selectedShip");
           ships[i].classList.add("moveableShip");
-          thisShipDiv.classList.remove("moveableShip");
-          thisShipDiv.classList.add("selectedShip");
-          return;
         }
       }
       thisShipDiv.classList.remove("moveableShip");
@@ -143,7 +149,7 @@ class Game {
           // If it is on the board,  we gotta check if it interferes with another ship.
           // If yes, move the dom element but highlight it red. If no interference, move the dom element and the ship object on the gameBoard
           // ****************************************************************
-        
+        // player1GameBoard
         
         
         } else if (e.keyCode == "40") {
