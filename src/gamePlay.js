@@ -175,19 +175,22 @@ class Game {
           console.log(
             `targetSpace.verticleCoordinate: ${targetSpace.verticleCoordinate}`
           );
-
-          let canWeMove = targetShip.canShipMoveHere(
-            targetSpace,
-            targetShip.orientation
-          );
-          console.log(`canWeMove: ${canWeMove}`);
-          // I'm not sure why this isn't working to determine if the move is allowed. It's logging false when the move should be allowed
-
+          let orientation = targetShip.orientation;
           targetShip.remove(player1Gameboard);
+
+          let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
+          console.log(`canWeMove: ${canWeMove}`);
+
           // ****************************************************************
-          // We have successfully created a method to remove the ship from the gameBoard and render the board again.
-          // We need to figure out why our "canWeMoveHere" function isn't working
-          // Then if we can move to the intended spot, we plave the ship on the board and render the board again
+          // We've:
+          // Determined the starting and target position,
+          // Removed the piece from the board
+          // Asked if the piece can move to the target position
+
+          // Next:
+          // If the piece can't be moved, return
+          // If the piece can be moved to the target position:
+          // Place ship, render board again
 
           // ****************************************************************
         } else if (e.keyCode == "40") {

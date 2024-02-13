@@ -21,31 +21,23 @@ class Ship {
   }
 
   canShipMoveHere(startingSpace, orientation) {
-
-    console.log(`canShipMoveHere called`)
+    console.log(`canShipMoveHere called`);
 
     this.orientation = orientation;
     const shipLength = this.size;
     let currentSpace = startingSpace;
 
     console.log(`currentSpace: ${currentSpace}`);
-// console.log(`currentSpace.verticleCoordinate: ${currentSpace.verticleCoordinate}`);
-// console.log(`startingSpace.verticleCoordinate: ${startingSpace.verticleCoordinate}`);
-
-    // console.log(`startingSpace.status: ${startingSpace.status}`);
-    // Doesn't seem like it's getting a good reference to a space. This^ is erroring out
-    // I think we need to look at where this is getting called in the buildPage process.
-    // I think it's erroring because at some point when this is called the argument doesn't have space attributes assigned
-
-
-
 
     let moveAllowed = true;
     if (this.orientation == "Horizontal") {
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
-
-          console.log(`currentSpace: ${currentSpace} is either occupied or null`)
+          if (currentSpace !== null) {
+            console.log(`currentSpace is occupied`);
+          } else {
+            console.log(`currentSpace is null`);
+          }
 
           moveAllowed = false;
           return false;
@@ -54,9 +46,15 @@ class Ship {
         }
       }
       return true;
-    } else {
+    } else if (this.orientation == "Verticle") {
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
+          if (currentSpace !== null) {
+            console.log(`currentSpace is occupied`);
+          } else {
+            console.log(`currentSpace is null`);
+          }
+
           moveAllowed = false;
           return false;
         } else {
@@ -64,7 +62,11 @@ class Ship {
         }
       }
       return true;
+    } else {
+      console.log(`Orientation neither Verticle nor Horizontal`);
     }
+    console.log(this.orientation);
+    throw new Error(`Couldn't get orientation`);
   }
 
   remove(gameBoard) {
@@ -74,13 +76,13 @@ class Ship {
     const size = this.size;
     let currentSpace = this.startingSpace;
 
-    if (this.orientation == "horizontal") {
+    if (this.orientation == "Horizontal") {
       for (let i = 0; i < size; i++) {
         currentSpace.status = "empty";
         currentSpace.occupant = null;
         currentSpace = currentSpace.right;
       }
-    } else if (this.orientation == "verticle") {
+    } else if (this.orientation == "Verticle") {
       for (let i = 0; i < size; i++) {
         currentSpace.status = "empty";
         currentSpace.occupant = null;
@@ -129,7 +131,7 @@ class Ship {
       ]);
       return;
     } else {
-      console.log(`starting space is null in ship render`)
+      console.log(`starting space is null in ship render`);
     }
   }
 }
