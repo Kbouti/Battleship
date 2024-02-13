@@ -21,13 +21,32 @@ class Ship {
   }
 
   canShipMoveHere(startingSpace, orientation) {
+
+    console.log(`canShipMoveHere called`)
+
     this.orientation = orientation;
     const shipLength = this.size;
     let currentSpace = startingSpace;
+
+    console.log(`currentSpace: ${currentSpace}`);
+// console.log(`currentSpace.verticleCoordinate: ${currentSpace.verticleCoordinate}`);
+// console.log(`startingSpace.verticleCoordinate: ${startingSpace.verticleCoordinate}`);
+
+    // console.log(`startingSpace.status: ${startingSpace.status}`);
+    // Doesn't seem like it's getting a good reference to a space. This^ is erroring out
+    // I think we need to look at where this is getting called in the buildPage process.
+    // I think it's erroring because at some point when this is called the argument doesn't have space attributes assigned
+
+
+
+
     let moveAllowed = true;
     if (this.orientation == "Horizontal") {
       for (let i = 0; i < shipLength; i++) {
         if (currentSpace == null || currentSpace.status !== "empty") {
+
+          console.log(`currentSpace: ${currentSpace} is either occupied or null`)
+
           moveAllowed = false;
           return false;
         } else {
