@@ -138,27 +138,19 @@ class Game {
           console.log(
             `We need to move player1's ${shipName} from ${startingSquare} up one square`
           );
-
           let newArray = startingSquare.split("");
-          console.log(newArray);
-
           if (newArray[0] == "A") {
             // Can't move this any further up
             // "deh" noise?
             console.log(`Can't move any further up`);
             return;
           }
-
           newArray[0] = getPreviousLetter(newArray[0]);
-
           let newCoordinates = newArray.join("");
           console.log(`newCoordinates: ${newCoordinates}`);
-          // now we have new coordinates
 
-          // First we need to get the ship object
           let ships = player1Gameboard.ships;
 
-          console.log(`ships: ${ships}`);
           let targetShip;
           for (let i = 0; i < ships.length; i++) {
             if (ships[i].name == shipName) {
@@ -189,17 +181,15 @@ class Game {
             targetShip.orientation
           );
           console.log(`canWeMove: ${canWeMove}`);
-// I'm not sure why this isn't working to determine if the move is allowed. It's logging false when the move should be allowed
+          // I'm not sure why this isn't working to determine if the move is allowed. It's logging false when the move should be allowed
 
-
-
+          targetShip.remove(player1Gameboard);
+          // ****************************************************************
+          // We have successfully created a method to remove the ship from the gameBoard and render the board again.
+          // We need to figure out why our "canWeMoveHere" function isn't working
+          // Then if we can move to the intended spot, we plave the ship on the board and render the board again
 
           // ****************************************************************
-          // Ok, next we gotta check to see if the proposed move is on the board. If not, do nothing.
-          // If it is on the board,  we gotta check if it interferes with another ship.
-          // If yes, move the dom element but highlight it red. If no interference, move the dom element and the ship object on the gameBoard
-          // ****************************************************************
-          // player1GameBoard
         } else if (e.keyCode == "40") {
           console.log("hit the down arrow");
         } else if (e.keyCode == "37") {
