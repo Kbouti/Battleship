@@ -108,6 +108,7 @@ class Game {
 
       if (thisShipDiv.classList.contains("selectedShip")) {
         // This removes the selected class on second click. But we still gotta take away the key listeners
+        console.log(`Caught a ship that was clicked and already selected`);
         thisShipDiv.classList.remove("selectedShip");
         thisShipDiv.classList.add("moveableShip");
         thisShipDiv = null;
@@ -116,6 +117,8 @@ class Game {
         return;
       }
       for (let i = 0; i < shipDivs.length; i++) {
+        console.log(`Loop ${i}`);
+
         if (shipDivs[i].classList.contains("selectedShip")) {
           // If a ship is already active...
           thisShipDiv = this;
@@ -194,14 +197,37 @@ class Game {
           player1Gameboard.render();
           game.player1MovePieces(game);
 
-          thisShipDiv.selectShip();
-          // ****************************************************************
-          // Here's where we're struggling. We need to activate the click on the ship again. How can we do that artificially
-          // ****************************************************************
+          console.log("FiddleStix");
 
+          let ourShipDiv;
+
+          let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+          console.log(shipDivs);
+          console.log(shipName);
+          for (let i = 0; i < shipDivs.length; i++) {
+            if (shipDivs[i].classList.contains(shipName)) {
+              console.log(`Found our shipDiv`);
+              ourShipDiv = shipDivs[i];
+            } else {
+              console.log(`couldn't find our shipDiv`);
+            }
+          }
+          console.log(ourShipDiv);
+
+          console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
+          ourShipDiv.classList.remove("selectedShip");
+          console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
+
+          ourShipDiv.click();
+          // ****************************************************************
+          // Here's where we're struggling. We need to activate the click on the ship again.
+
+          // Somehow the newly rendered ship in the new spot is returning old starting space coordinates?
+          // We gotta make sure when we're placing the new ship we're updating the relevant data objects in gameBoard
+
+          // ****************************************************************
 
           return;
-
         } else if (e.keyCode == "40") {
           console.log("hit the down arrow");
         } else if (e.keyCode == "37") {
