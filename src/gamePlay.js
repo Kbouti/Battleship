@@ -230,8 +230,67 @@ class Game {
           return;
         } else if (e.keyCode == "40") {
           console.log("hit the down arrow");
+
+            let newArray = startingSquare.split("");
+            if (newArray[0] == "J") {
+              console.log(`Can't move any further down`);
+              return;
+            }
+            newArray[0] = getNextLetter(newArray[0]);
+            let newCoordinates = newArray.join("");  
+            let ships = player1Gameboard.ships;
+            let targetShip;
+            for (let i = 0; i < ships.length; i++) {
+              if (ships[i].name == shipName) {
+                targetShip = ships[i];
+              }
+            }
+            let startingSpace = targetShip.startingSpace;
+            let splitCoordinates = newCoordinates.split("");
+            let targetLetter = splitCoordinates.shift();  
+            let targetNumber = splitCoordinates.join("");
+            let targetSpace = player1Gameboard.getSpaceAt(
+              player1Gameboard,
+              targetLetter,
+              targetNumber
+            );
+            let orientation = targetShip.orientation;
+            targetShip.remove(player1Gameboard);
+            let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);  
+            if (canWeMove == false) {
+              console.log(`We can't make the attempted move`);
+              console.log(`startingSpace: ${startingSpace}`);
+              targetShip.placeShipHere(startingSpace, targetShip.orientation);
+              player1Gameboard.render();
+              game.player1MovePieces(game);
+              return;
+            }
+            console.log(`We can make the intended move`);
+            targetShip.placeShipHere(targetSpace, targetShip.orientation);
+            player1Gameboard.render();
+            game.player1MovePieces(game);
+            let ourShipDiv;
+            let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+            for (let i = 0; i < shipDivs.length; i++) {
+              if (shipDivs[i].classList.contains(shipName)) {
+                console.log(`Found our shipDiv`);
+                ourShipDiv = shipDivs[i];
+              } else {
+                console.log(`couldn't find our shipDiv`);
+              }
+            }
+            ourShipDiv.classList.remove("selectedShip");  
+            ourShipDiv.click();  
+            return;  
+
         } else if (e.keyCode == "37") {
           console.log("hit the left arrow");
+
+
+
+
+
+          
         } else if (e.keyCode == "39") {
           console.log("hit the right arrow");
         } else if (e.keyCode == "16") {
