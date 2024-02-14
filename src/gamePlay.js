@@ -65,6 +65,7 @@ class Game {
     return false;
   }
   //  We'll still need a function to handle what happens when winning conditions are met.
+  // Currently player can continue clicking squares after the game is won
 
   startPlayer1Turn(game) {
     console.log(`********************************************`);
@@ -132,6 +133,11 @@ class Game {
       thisShipDiv.classList.remove("moveableShip");
       thisShipDiv.classList.add("selectedShip");
       console.log(`ship selected`);
+
+
+
+
+
 
       function checkKey(e) {
         e = e || window.event;
@@ -224,6 +230,13 @@ class Game {
 
           // Somehow the newly rendered ship in the new spot is returning old starting space coordinates?
           // We gotta make sure when we're placing the new ship we're updating the relevant data objects in gameBoard
+
+
+          // After ship is moved, it's still active as you can move it by pressing an arrow key. 
+          // Problem is it doesn't move from it's new spot. It moves from it's original spot. 
+          // So if you click the ship then hit "up" then "down" --- It doesn't move up then back down to it's original location. 
+          // It moves up, then it moves to where it would be if only "down" had been clicked once
+
 
           // ****************************************************************
 
