@@ -90,13 +90,16 @@ class Game {
     const player1Gameboard = game.player1Gameboard;
 
     // Ok at this point we've accessed all the ships. We can give them a unique class to indicate they can be moved
+    // And we give them each an eventListener telling them if clicked to "selectShip()"
+
     for (let i = 0; i < shipDivs.length; i++) {
       shipDivs[i].classList.add("moveableShip");
       shipDivs[i].addEventListener("click", selectShip);
     }
+
     function selectShip() {
       // The event that's triggered when you click a ship
-      console.log(`Ship clicked.`);
+      console.log(`ShipDiv clicked.`);
 
       let thisShipDiv = this;
       let shipName = thisShipDiv.classList[2];
@@ -107,12 +110,20 @@ class Game {
       console.log(`shipClass: ${shipClass}`);
       console.log(`ships starting square: ${startingSquare}`);
 
+      // if (!thisShipDiv.classList.contains("moveableShip")){
+      //   console.log(`called select on a ship that isn't in a moveable state`);
+      //   return;
+      // }
+
       if (thisShipDiv.classList.contains("selectedShip")) {
         // This removes the selected class on second click. But we still gotta take away the key listeners
         console.log(`Caught a ship that was clicked and already selected`);
         thisShipDiv.classList.remove("selectedShip");
         thisShipDiv.classList.add("moveableShip");
         thisShipDiv = null;
+
+        // document.removeEventListener("onkeydown", checkKey)
+document.onkeydown = null;
         // removeEventListener("keydown", checkKey(), false);
         // ^ this doesn't work. Still can't get it to remove that key listener
         return;
@@ -133,11 +144,6 @@ class Game {
       thisShipDiv.classList.remove("moveableShip");
       thisShipDiv.classList.add("selectedShip");
       console.log(`ship selected`);
-
-
-
-
-
 
       function checkKey(e) {
         e = e || window.event;
@@ -224,19 +230,17 @@ class Game {
           ourShipDiv.classList.remove("selectedShip");
           console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
 
-          ourShipDiv.click();
+          // ourShipDiv.click();
           // ****************************************************************
           // Here's where we're struggling. We need to activate the click on the ship again.
 
           // Somehow the newly rendered ship in the new spot is returning old starting space coordinates?
           // We gotta make sure when we're placing the new ship we're updating the relevant data objects in gameBoard
 
-
-          // After ship is moved, it's still active as you can move it by pressing an arrow key. 
-          // Problem is it doesn't move from it's new spot. It moves from it's original spot. 
-          // So if you click the ship then hit "up" then "down" --- It doesn't move up then back down to it's original location. 
+          // After ship is moved, it's still active as you can move it by pressing an arrow key.
+          // Problem is it doesn't move from it's new spot. It moves from it's original spot.
+          // So if you click the ship then hit "up" then "down" --- It doesn't move up then back down to it's original location.
           // It moves up, then it moves to where it would be if only "down" had been clicked once
-
 
           // ****************************************************************
 
@@ -244,176 +248,174 @@ class Game {
         } else if (e.keyCode == "40") {
           console.log("hit the down arrow");
 
-            let newArray = startingSquare.split("");
-            if (newArray[0] == "J") {
-              console.log(`Can't move any further down`);
-              return;
+          let newArray = startingSquare.split("");
+          if (newArray[0] == "J") {
+            console.log(`Can't move any further down`);
+            return;
+          }
+          newArray[0] = getNextLetter(newArray[0]);
+          let newCoordinates = newArray.join("");
+          let ships = player1Gameboard.ships;
+          let targetShip;
+          for (let i = 0; i < ships.length; i++) {
+            if (ships[i].name == shipName) {
+              targetShip = ships[i];
             }
-            newArray[0] = getNextLetter(newArray[0]);
-            let newCoordinates = newArray.join("");  
-            let ships = player1Gameboard.ships;
-            let targetShip;
-            for (let i = 0; i < ships.length; i++) {
-              if (ships[i].name == shipName) {
-                targetShip = ships[i];
-              }
-            }
-            let startingSpace = targetShip.startingSpace;
-            let splitCoordinates = newCoordinates.split("");
-            let targetLetter = splitCoordinates.shift();  
-            let targetNumber = splitCoordinates.join("");
-            let targetSpace = player1Gameboard.getSpaceAt(
-              player1Gameboard,
-              targetLetter,
-              targetNumber
-            );
-            let orientation = targetShip.orientation;
-            targetShip.remove(player1Gameboard);
-            let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);  
-            if (canWeMove == false) {
-              console.log(`We can't make the attempted move`);
-              console.log(`startingSpace: ${startingSpace}`);
-              targetShip.placeShipHere(startingSpace, targetShip.orientation);
-              player1Gameboard.render();
-              game.player1MovePieces(game);
-              return;
-            }
-            console.log(`We can make the intended move`);
-            targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          }
+          let startingSpace = targetShip.startingSpace;
+          let splitCoordinates = newCoordinates.split("");
+          let targetLetter = splitCoordinates.shift();
+          let targetNumber = splitCoordinates.join("");
+          let targetSpace = player1Gameboard.getSpaceAt(
+            player1Gameboard,
+            targetLetter,
+            targetNumber
+          );
+          let orientation = targetShip.orientation;
+          targetShip.remove(player1Gameboard);
+          let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
+          if (canWeMove == false) {
+            console.log(`We can't make the attempted move`);
+            console.log(`startingSpace: ${startingSpace}`);
+            targetShip.placeShipHere(startingSpace, targetShip.orientation);
             player1Gameboard.render();
             game.player1MovePieces(game);
-            let ourShipDiv;
-            let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
-            for (let i = 0; i < shipDivs.length; i++) {
-              if (shipDivs[i].classList.contains(shipName)) {
-                console.log(`Found our shipDiv`);
-                ourShipDiv = shipDivs[i];
-              } else {
-                console.log(`couldn't find our shipDiv`);
-              }
+            return;
+          }
+          console.log(`We can make the intended move`);
+          targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          player1Gameboard.render();
+          game.player1MovePieces(game);
+          let ourShipDiv;
+          let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+          for (let i = 0; i < shipDivs.length; i++) {
+            if (shipDivs[i].classList.contains(shipName)) {
+              console.log(`Found our shipDiv`);
+              ourShipDiv = shipDivs[i];
+            } else {
+              console.log(`couldn't find our shipDiv`);
             }
-            ourShipDiv.classList.remove("selectedShip");  
-            ourShipDiv.click();  
-            return;  
+          }
+          ourShipDiv.classList.remove("selectedShip");
+          document.onkeydown = null;
 
+          // ourShipDiv.click();
+          return;
         } else if (e.keyCode == "37") {
           console.log("hit the left arrow");
-            let startingArray = startingSquare.split("");
+          let startingArray = startingSquare.split("");
           let targetLetter = startingArray.shift();
           let startingNumber = startingArray.join("");
-            if (startingNumber === 1) {
-              console.log(`Can't move any further left`);
-              return;
+          if (startingNumber === 1) {
+            console.log(`Can't move any further left`);
+            return;
+          }
+          let newCoordinates = [targetLetter, Number(startingNumber) - 1];
+          let ships = player1Gameboard.ships;
+          let targetShip;
+          for (let i = 0; i < ships.length; i++) {
+            if (ships[i].name == shipName) {
+              targetShip = ships[i];
             }
-            let newCoordinates = [targetLetter, Number(startingNumber) - 1];  
-            let ships = player1Gameboard.ships;
-            let targetShip;
-            for (let i = 0; i < ships.length; i++) {
-              if (ships[i].name == shipName) {
-                targetShip = ships[i];
-              }
-            }
-            let startingSpace = targetShip.startingSpace;
-            targetLetter = newCoordinates[0];  
-            let targetNumber = newCoordinates[1]
-            let targetSpace = player1Gameboard.getSpaceAt(
-              player1Gameboard,
-              targetLetter,
-              targetNumber
-            );
-            let orientation = targetShip.orientation;
-            targetShip.remove(player1Gameboard);
-            let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);  
-            if (canWeMove == false) {
-              console.log(`We can't make the attempted move`);
-              console.log(`startingSpace: ${startingSpace}`);
-              targetShip.placeShipHere(startingSpace, targetShip.orientation);
-              player1Gameboard.render();
-              game.player1MovePieces(game);
-              return;
-            }
-            console.log(`We can make the intended move`);
-            targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          }
+          let startingSpace = targetShip.startingSpace;
+          targetLetter = newCoordinates[0];
+          let targetNumber = newCoordinates[1];
+          let targetSpace = player1Gameboard.getSpaceAt(
+            player1Gameboard,
+            targetLetter,
+            targetNumber
+          );
+          let orientation = targetShip.orientation;
+          targetShip.remove(player1Gameboard);
+          let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
+          if (canWeMove == false) {
+            console.log(`We can't make the attempted move`);
+            console.log(`startingSpace: ${startingSpace}`);
+            targetShip.placeShipHere(startingSpace, targetShip.orientation);
             player1Gameboard.render();
             game.player1MovePieces(game);
-            let ourShipDiv;
-            let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
-            for (let i = 0; i < shipDivs.length; i++) {
-              if (shipDivs[i].classList.contains(shipName)) {
-                console.log(`Found our shipDiv`);
-                ourShipDiv = shipDivs[i];
-              } else {
-                console.log(`couldn't find our shipDiv`);
-              }
+            return;
+          }
+          console.log(`We can make the intended move`);
+          targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          player1Gameboard.render();
+          game.player1MovePieces(game);
+          let ourShipDiv;
+          let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+          for (let i = 0; i < shipDivs.length; i++) {
+            if (shipDivs[i].classList.contains(shipName)) {
+              console.log(`Found our shipDiv`);
+              ourShipDiv = shipDivs[i];
+            } else {
+              console.log(`couldn't find our shipDiv`);
             }
-            ourShipDiv.classList.remove("selectedShip");  
-            ourShipDiv.click();  
-            return;  
+          }
+          ourShipDiv.classList.remove("selectedShip");
+          document.onkeydown = null;
+
+          // ourShipDiv.click();
+          return;
         } else if (e.keyCode == "39") {
           console.log("hit the right arrow");
           let startingArray = startingSquare.split("");
           let targetLetter = startingArray.shift();
           let startingNumber = startingArray.join("");
-            if (startingNumber === 10) {
-              console.log(`Can't move any further right`);
-              return;
+          if (startingNumber === 10) {
+            console.log(`Can't move any further right`);
+            return;
+          }
+          let newCoordinates = [targetLetter, Number(startingNumber) + 1];
+          let ships = player1Gameboard.ships;
+          let targetShip;
+          for (let i = 0; i < ships.length; i++) {
+            if (ships[i].name == shipName) {
+              targetShip = ships[i];
             }
-            let newCoordinates = [targetLetter, Number(startingNumber) + 1];  
-            let ships = player1Gameboard.ships;
-            let targetShip;
-            for (let i = 0; i < ships.length; i++) {
-              if (ships[i].name == shipName) {
-                targetShip = ships[i];
-              }
-            }
-            let startingSpace = targetShip.startingSpace;
-            targetLetter = newCoordinates[0];  
-            let targetNumber = newCoordinates[1]
-            let targetSpace = player1Gameboard.getSpaceAt(
-              player1Gameboard,
-              targetLetter,
-              targetNumber
-            );
-            let orientation = targetShip.orientation;
-            targetShip.remove(player1Gameboard);
-            let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);  
-            if (canWeMove == false) {
-              console.log(`We can't make the attempted move`);
-              console.log(`startingSpace: ${startingSpace}`);
-              targetShip.placeShipHere(startingSpace, targetShip.orientation);
-              player1Gameboard.render();
-              game.player1MovePieces(game);
-              return;
-            }
-            console.log(`We can make the intended move`);
-            targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          }
+          let startingSpace = targetShip.startingSpace;
+          targetLetter = newCoordinates[0];
+          let targetNumber = newCoordinates[1];
+          let targetSpace = player1Gameboard.getSpaceAt(
+            player1Gameboard,
+            targetLetter,
+            targetNumber
+          );
+          let orientation = targetShip.orientation;
+          targetShip.remove(player1Gameboard);
+          let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
+          if (canWeMove == false) {
+            console.log(`We can't make the attempted move`);
+            console.log(`startingSpace: ${startingSpace}`);
+            targetShip.placeShipHere(startingSpace, targetShip.orientation);
             player1Gameboard.render();
             game.player1MovePieces(game);
-            let ourShipDiv;
-            let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
-            for (let i = 0; i < shipDivs.length; i++) {
-              if (shipDivs[i].classList.contains(shipName)) {
-                console.log(`Found our shipDiv`);
-                ourShipDiv = shipDivs[i];
-              } else {
-                console.log(`couldn't find our shipDiv`);
-              }
+            return;
+          }
+          console.log(`We can make the intended move`);
+          targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          player1Gameboard.render();
+          game.player1MovePieces(game);
+          let ourShipDiv;
+          let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+          for (let i = 0; i < shipDivs.length; i++) {
+            if (shipDivs[i].classList.contains(shipName)) {
+              console.log(`Found our shipDiv`);
+              ourShipDiv = shipDivs[i];
+            } else {
+              console.log(`couldn't find our shipDiv`);
             }
-            ourShipDiv.classList.remove("selectedShip");  
-            ourShipDiv.click();  
-            return;  
+          }
+          ourShipDiv.classList.remove("selectedShip");
+          document.onkeydown = null;
 
+          // ourShipDiv.click();
+          return;
         } else if (e.keyCode == "16") {
           console.log("hit the shift key");
-
-
-// ************************************************************************
-// Need logic to switch from verticle to horizontal
-// ************************************************************************
-
-
-
-
+          // ************************************************************************
+          // Need logic to switch from verticle to horizontal
+          // ************************************************************************
         }
       }
       document.onkeydown = checkKey;
