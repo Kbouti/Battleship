@@ -158,7 +158,7 @@ class Game {
               targetShip = ships[i];
             }
           }
-
+          let startingSpace = targetShip.startingSpace;
           let splitCoordinates = newCoordinates.split("");
           let targetLetter = splitCoordinates.shift();
           console.log(`targetLetter: ${targetLetter}`);
@@ -181,18 +181,27 @@ class Game {
           let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
           console.log(`canWeMove: ${canWeMove}`);
 
-          // ****************************************************************
-          // We've:
-          // Determined the starting and target position,
-          // Removed the piece from the board
-          // Asked if the piece can move to the target position
+          if (canWeMove == false) {
+            console.log(`We can't make the attempted move`);
+            console.log(`startingSpace: ${startingSpace}`);
+            targetShip.placeShipHere(startingSpace, targetShip.orientation);
+            player1Gameboard.render();
+            game.player1MovePieces(game);
+            return;
+          }
+          console.log(`We can make the intended move`);
+          targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          player1Gameboard.render();
+          game.player1MovePieces(game);
 
-          // Next:
-          // If the piece can't be moved, return
-          // If the piece can be moved to the target position:
-          // Place ship, render board again
-
+          thisShipDiv.selectShip();
           // ****************************************************************
+          // Here's where we're struggling. We need to activate the click on the ship again. How can we do that artificially
+          // ****************************************************************
+
+
+          return;
+
         } else if (e.keyCode == "40") {
           console.log("hit the down arrow");
         } else if (e.keyCode == "37") {
