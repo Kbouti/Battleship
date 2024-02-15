@@ -428,43 +428,56 @@ class Game {
           console.log(`startingNumber: ${startingNumber}`);
 
 
-          if (targetShip.orientation == "Verticle"){
-            console.log(`VerticleShip needs to be switched to horizontal`);
-// Need to ask gameBoard if targetShip can move to it's current position, switched orientation. 
-// If yes, move it there and render. 
-// If no, check a nearby square? 
+          let intendedOrientation;
 
-            let targetSpace = player1Gameboard.getSpaceAt(player1Gameboard, startingLetter, startingNumber);
+          if (targetShip.orientation == "Verticle") {
+            intendedOrientation = "Horizontal";
+          } else if (targetShip.orientation == "Horizontal") {
+            intendedOrientation = "Verticle";
+          } else {
+            console.log(
+              `Can't get targetShip.orientation: ${targetShip.orientation}`
+            );
+          }
 
+
+
+
+
+
+            console.log(`starting orientation: ${targetShip.orientation}`);
+            console.log(`intendedOrientation: ${intendedOrientation}`)
+
+            let targetSpace = player1Gameboard.getSpaceAt(
+              player1Gameboard,
+              startingLetter,
+              startingNumber
+            );
 
             // We need to take it off the board first
             targetShip.remove(player1Gameboard);
 
-            let canWeMakeFirstMove = targetShip.canShipMoveHere(targetSpace, "Horizontal");
+            let canWeMakeFirstMove = targetShip.canShipMoveHere(
+              targetSpace,
+              intendedOrientation
+            );
             console.log(`canWeMakeFirstMove: ${canWeMakeFirstMove}`);
 
-if (canWeMakeFirstMove == true){
-  targetShip.placeShipHere(targetSpace, "Horizontal");
-  player1Gameboard.render();
-  // document.onkeydown = null;
-  // return
-// ******************************************************************************************************
-// Ok we've done it, buuuut we need to restore conditions so that player can continue moving pieces around
-// ******************************************************************************************************
-} else {
-  // ******************************************************************************************************
-// We need to find a new square (Or indicate that the player has to move the ship to a place where it can turn first)
-// ******************************************************************************************************
+            if (canWeMakeFirstMove == true) {
+              targetShip.placeShipHere(targetSpace, intendedOrientation);
+              player1Gameboard.render();
+              game.player1MovePieces(game);
 
-}
-
-
-          } else if (targetShip.orientation == "Horizontal"){
-            console.log(`Horizontal ship needs to be changed to verticle`);
-          } else {
-            console.log(`Can't get targetShip.orientation: ${targetShip.orientation}`);
-          }
-
+              // document.onkeydown = null;
+              // return
+              // ******************************************************************************************************
+              // Ok we've done it, buuuut we need to restore conditions so that player can continue moving pieces around
+              // ******************************************************************************************************
+            } else {
+              // ******************************************************************************************************
+              // We need to find a new square (Or indicate that the player has to move the ship to a place where it can turn first)
+              // ******************************************************************************************************
+            }
         }
       }
       document.onkeydown = checkKey;
