@@ -148,111 +148,15 @@ class Game {
         if (e.keyCode == "38") {
           console.log("hit the up arrow");
           // So This should attempt to move the ship up one space. If the ship can move up one space, do it and update the dom.
-          console.log(
-            `We need to move player1's ${shipName} from ${startingSquare} up one square`
-          );
-          let newArray = startingSquare.split("");
-          if (newArray[0] == "A") {
-            // Can't move this any further up
-            // "deh" noise?
+          let startingArray = startingSquare.split("");
+          let startingLetter = startingArray.shift();
+          let startingNumber = startingArray.join("");
+          if (startingLetter == "A"){
             console.log(`Can't move any further up`);
             return;
           }
-          newArray[0] = getPreviousLetter(newArray[0]);
-          let newCoordinates = newArray.join("");
-          console.log(`newCoordinates: ${newCoordinates}`);
-
-          let ships = player1Gameboard.ships;
-
-          let targetShip;
-          for (let i = 0; i < ships.length; i++) {
-            if (ships[i].name == shipName) {
-              console.log(`this is the ship. ${ships[i].name}`);
-              targetShip = ships[i];
-            }
-          }
-          let startingSpace = targetShip.startingSpace;
-          let splitCoordinates = newCoordinates.split("");
-          let targetLetter = splitCoordinates.shift();
-          console.log(`targetLetter: ${targetLetter}`);
-
-          let targetNumber = splitCoordinates.join("");
-          console.log(`targetNumber: ${targetNumber}`);
-
-          let targetSpace = player1Gameboard.getSpaceAt(
-            player1Gameboard,
-            targetLetter,
-            targetNumber
-          );
-          console.log(`targetSpace: ${targetSpace}`);
-          console.log(
-            `targetSpace.verticleCoordinate: ${targetSpace.verticleCoordinate}`
-          );
-          let orientation = targetShip.orientation;
-          targetShip.remove(player1Gameboard);
-
-          let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
-          console.log(`canWeMove: ${canWeMove}`);
-
-          if (canWeMove == false) {
-            console.log(`We can't make the attempted move`);
-            console.log(`startingSpace: ${startingSpace}`);
-            targetShip.placeShipHere(startingSpace, targetShip.orientation);
-            player1Gameboard.render();
-            game.player1MovePieces(game);
-            return;
-          }
-          console.log(`We can make the intended move`);
-          targetShip.placeShipHere(targetSpace, targetShip.orientation);
-          player1Gameboard.render();
-          game.player1MovePieces(game);
-
-          console.log("FiddleStix");
-
-          let ourShipDiv;
-
-          let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
-          console.log(shipDivs);
-          console.log(shipName);
-          for (let i = 0; i < shipDivs.length; i++) {
-            if (shipDivs[i].classList.contains(shipName)) {
-              console.log(`Found our shipDiv`);
-              ourShipDiv = shipDivs[i];
-            } else {
-              console.log(`couldn't find our shipDiv`);
-            }
-          }
-          console.log(ourShipDiv);
-
-          console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
-          ourShipDiv.classList.remove("selectedShip");
-          console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
-
-          // ourShipDiv.click();
-          // ****************************************************************
-          // Here's where we're struggling. We need to activate the click on the ship again.
-
-          // Somehow the newly rendered ship in the new spot is returning old starting space coordinates?
-          // We gotta make sure when we're placing the new ship we're updating the relevant data objects in gameBoard
-
-          // After ship is moved, it's still active as you can move it by pressing an arrow key.
-          // Problem is it doesn't move from it's new spot. It moves from it's original spot.
-          // So if you click the ship then hit "up" then "down" --- It doesn't move up then back down to it's original location.
-          // It moves up, then it moves to where it would be if only "down" had been clicked once
-
-          // ****************************************************************
-
-          return;
-        } else if (e.keyCode == "40") {
-          console.log("hit the down arrow");
-
-          let newArray = startingSquare.split("");
-          if (newArray[0] == "J") {
-            console.log(`Can't move any further down`);
-            return;
-          }
-          newArray[0] = getNextLetter(newArray[0]);
-          let newCoordinates = newArray.join("");
+          let targetLetter = getPreviousLetter(startingLetter);
+          let newCoordinates = [targetLetter, startingNumber];
           let ships = player1Gameboard.ships;
           let targetShip;
           for (let i = 0; i < ships.length; i++) {
@@ -261,9 +165,7 @@ class Game {
             }
           }
           let startingSpace = targetShip.startingSpace;
-          let splitCoordinates = newCoordinates.split("");
-          let targetLetter = splitCoordinates.shift();
-          let targetNumber = splitCoordinates.join("");
+          let targetNumber = newCoordinates[1];
           let targetSpace = player1Gameboard.getSpaceAt(
             player1Gameboard,
             targetLetter,
@@ -302,7 +204,65 @@ class Game {
           // console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
 
           return;
-          
+        } else if (e.keyCode == "40") {
+          console.log("hit the down arrow");
+          let startingArray = startingSquare.split("");
+          let startingLetter = startingArray.shift();
+          let startingNumber = startingArray.join("");
+          if (startingLetter == "J"){
+            console.log(`Can't move any further down`);
+            return;
+          }
+            let targetLetter = getNextLetter(startingLetter);
+          let newCoordinates = [targetLetter, startingNumber];
+          let ships = player1Gameboard.ships;
+          let targetShip;
+          for (let i = 0; i < ships.length; i++) {
+            if (ships[i].name == shipName) {
+              targetShip = ships[i];
+            }
+          }
+          let startingSpace = targetShip.startingSpace;
+          let targetNumber = newCoordinates[1];
+          let targetSpace = player1Gameboard.getSpaceAt(
+            player1Gameboard,
+            targetLetter,
+            targetNumber
+          );
+          let orientation = targetShip.orientation;
+          targetShip.remove(player1Gameboard);
+          let canWeMove = targetShip.canShipMoveHere(targetSpace, orientation);
+          if (canWeMove == false) {
+            console.log(`We can't make the attempted move`);
+            console.log(`startingSpace: ${startingSpace}`);
+            targetShip.placeShipHere(startingSpace, targetShip.orientation);
+            player1Gameboard.render();
+            game.player1MovePieces(game);
+            return;
+          }
+          console.log(`We can make the intended move`);
+          targetShip.placeShipHere(targetSpace, targetShip.orientation);
+          player1Gameboard.render();
+          game.player1MovePieces(game);
+          let ourShipDiv;
+          let shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+          for (let i = 0; i < shipDivs.length; i++) {
+            if (shipDivs[i].classList.contains(shipName)) {
+              console.log(`Found our shipDiv`);
+              ourShipDiv = shipDivs[i];
+            } else {
+              console.log(`couldn't find our shipDiv`);
+            }
+          }
+          ourShipDiv.classList.remove("selectedShip");
+          document.onkeydown = null;
+
+          // ourShipDiv.click();
+          // console.log(`ourShipDiv: ${ourShipDiv}`);
+          // console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
+
+          return;
+
         } else if (e.keyCode == "37") {
           console.log("hit the left arrow");
           let startingArray = startingSquare.split("");
