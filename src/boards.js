@@ -363,6 +363,51 @@ class Scoreboard {
     return;
   }
 
+  linkSpaces(board) {
+    // This function establishes left/right and up/down references between all squares. It should be run immedietely after generating squares
+    for (let i = 0; i < this.spaces.length; i++) {
+      if (this.spaces[i].verticleCoordinate === "A") {
+        this.spaces[i].up = null;
+      } else {
+        this.spaces[i].up = board.getSpaceAt(
+          board,
+          getPreviousLetter(this.spaces[i].verticleCoordinate),
+          this.spaces[i].horizontalCoordinate
+        );
+      }
+      if (this.spaces[i].verticleCoordinate === "J") {
+        this.spaces[i].down = null;
+      } else {
+        this.spaces[i].down = board.getSpaceAt(
+          board,
+          getNextLetter(this.spaces[i].verticleCoordinate),
+          this.spaces[i].horizontalCoordinate
+        );
+      }
+      if (this.spaces[i].horizontalCoordinate === 1) {
+        this.spaces[i].left = null;
+      } else {
+        this.spaces[i].left = board.getSpaceAt(
+          board,
+          this.spaces[i].verticleCoordinate,
+          this.spaces[i].horizontalCoordinate - 1
+        );
+      }
+      if (this.spaces[i].horizontalCoordinate === 10) {
+        this.spaces[i].right = null;
+      } else {
+        this.spaces[i].right = board.getSpaceAt(
+          board,
+          this.spaces[i].verticleCoordinate,
+          this.spaces[i].horizontalCoordinate + 1
+        );
+      }
+    }
+    return;
+  }
+
+
+
   paintMiss(target) {
     console.log(`paintMiss called on target: ${target}`);
     const board = document.getElementById(`${this.playerName}ScoreBoard`);
@@ -520,6 +565,7 @@ function createGameboard(playerName) {
 
 function createScoreboard(playerName) {
   let newScoreboard = new Scoreboard(playerName);
+  newScoreboard.linkSpaces(newScoreboard);
   return newScoreboard;
 }
 

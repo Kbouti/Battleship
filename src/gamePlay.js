@@ -514,15 +514,11 @@ class Game {
       });
     }
 
-
-// ***********************************************************************************************
-//ISSUE:: 
-// The .active class is still present on ships after the game has started. 
-// We need to remove the .active class so the ships don't glow yellow when hovered
-// ***********************************************************************************************
-
-
-
+    // ***********************************************************************************************
+    //ISSUE::
+    // The .active class is still present on ships after the game has started.
+    // We need to remove the .active class so the ships don't glow yellow when hovered
+    // ***********************************************************************************************
   }
 
   startPlayer2Turn(game) {
@@ -535,47 +531,86 @@ class Game {
     }
     game.turn = "player2";
     let player2Scoreboard = game.player2Scoreboard;
+    let player1Gameboard = game.player1Gameboard;
 
-// Ok At this point we're now keeping track of player2's hits and misses. 
-// Next we can look at the board and see if there is a strike on the board. 
-// Then we can look at that strike and check if all the adjacent square have been checked
-// Or rather:
-// If there's one strike, check all the adjacent squares. 
-// If there's two strikes next to each other, check the square on the end of the chain. 
-
+    // Ok At this point we're now keeping track of player2's hits and misses.
+    // Next we can look at the board and see if there is a strike on the board.
+    // Then we can look at that strike and check if all the adjacent square have been checked
+    // Or rather:
+    // If there's one strike, check all the adjacent squares.
+    // If there's two strikes next to each other, check the square on the end of the chain.
 
     let scoreBoardSpaces = player2Scoreboard.spaces;
 
+    let hitsList = [];
+    let advisedTarget = null;
 
-    for (let i = 0;i < scoreBoardSpaces.length;i++){
-      console.log(`scoreBoardSpaces[${i}].status: ${scoreBoardSpaces[i].status}`);
+    for (let i = 0; i < scoreBoardSpaces.length; i++) {
+      // console.log(`scoreBoardSpaces[${i}].status: ${scoreBoardSpaces[i].status}`);
+      if (scoreBoardSpaces[i].status == "hit") {
+        hitsList.push(scoreBoardSpaces[i]);
+      }
     }
 
+    // let targetSquare
 
+    if (hitsList.length > 0) {
+      //If there's a hit on the board.....
 
-    let randomA = Math.floor(Math.random() * 10);
-    let randomB = Math.floor(Math.random() * 10) + 1;
-    let randomSquare = [];
-    randomSquare.push(alphabet[randomA]);
-    randomSquare.push(randomB);
-    console.log(`random targetSquare: ${randomSquare}`);
-    let targetSquare = game.player1Gameboard.getSpaceAt(
-      this.player1Gameboard,
-      randomSquare[0],
-      randomSquare[1]
-    );
+      for (let i = 0; i < hitsList.length; i++) {
+        // For each hit....
 
-    let scoreBoardSpace = player2Scoreboard.getSpaceAt(
-      player2Scoreboard,
-      randomSquare[0],
-      randomSquare[1]
-    );
+        console.log(`hitsList[i]: ${hitsList[i]}`);
+        let square = hitsList[i];
+        console.log(`square: ${square}`);
+        console.log(`square.up: ${square.up}`);
+        if (square.up !== null && square.up.status == "empty") {
+          // If there is an empty adjacent square, target it
+          advisedTarget = square.up;
+        } else if (square.right !== null && square.right.status == "empty") {
+          advisedTarget = square.right;
+        } else if (square.down !== null && square.down.status == "empty") {
+          advisedTarget = square.down;
+        } else if (square.left !== null && square.left.status == "empty") {
+          advisedTarget = square.down;
+        }
+        // If we've found a strike with an unchecked adjacent square, it is advisedTarget.
+      }
+    }
+    let targetSquare;
+    if (advisedTarget == null) {
+      let randomA = Math.floor(Math.random() * 10);
+      let randomB = Math.floor(Math.random() * 10) + 1;
+      let randomSquare = [];
+      randomSquare.push(alphabet[randomA]);
+      randomSquare.push(randomB);
+      console.log(`random targetSquare: ${randomSquare}`);
+      targetSquare = player1Gameboard.getSpaceAt(
+        player1Gameboard,
+        randomSquare[0],
+        randomSquare[1]
+      );
+    } else {
+      console.log(`advisedTarget: ${advisedTarget}`);
+
+      targetSquare = player1Gameboard.getSpaceAt(
+        player1Gameboard,
+        advisedTarget.verticleCoordinate,
+        advisedTarget.horizontalCoordinate
+      );
+    }
+
+    // let scoreBoardSpace = player2Scoreboard.getSpaceAt(
+    //   player2Scoreboard,
+    //   randomSquare[0],
+    //   randomSquare[1]
+    // );
 
     while (targetSquare.status == "hit" || targetSquare.status == "miss") {
       console.log(`Computer tried to duplicate a move`);
-      randomA = Math.floor(Math.random() * 10);
-      randomB = Math.floor(Math.random() * 10) + 1;
-      randomSquare = [];
+      let randomA = Math.floor(Math.random() * 10);
+      let randomB = Math.floor(Math.random() * 10) + 1;
+      let randomSquare = [];
       randomSquare.push(alphabet[randomA]);
       randomSquare.push(randomB);
       targetSquare = game.player1Gameboard.getSpaceAt(
@@ -586,18 +621,34 @@ class Game {
     }
     let result = game.player1Gameboard.strike(
       game.player1Gameboard,
-      randomSquare[0],
-      randomSquare[1]
+      targetSquare.verticleCoordinate,
+      targetSquare.horizontalCoordinate
     );
+
+    let scoreBoardSpace = player2Scoreboard.getSpaceAt(
+      player2Scoreboard,
+      targetSquare.verticleCoordinate,
+      targetSquare.horizontalCoordinate
+    );
+
     if (result == "hit") {
-      game.player1Gameboard.paintHit(randomSquare);
+      game.player1Gameboard.paintHit([
+        targetSquare.verticleCoordinate,
+        targetSquare.horizontalCoordinate,
+      ]);
       scoreBoardSpace.status = "hit";
     } else if (result == "miss") {
-      game.player1Gameboard.paintMiss(randomSquare);
+      game.player1Gameboard.paintMiss([
+        targetSquare.verticleCoordinate,
+        targetSquare.horizontalCoordinate,
+      ]);
       scoreBoardSpace.status = "miss";
     } else if (result == "sunk") {
       console.log(`Sunk a ship`);
-      game.player1Gameboard.paintHit(randomSquare);
+      game.player1Gameboard.paintHit([
+        targetSquare.verticleCoordinate,
+        targetSquare.horizontalCoordinate,
+      ]);
       scoreBoardSpace.status = "hit";
       console.log(`checking for win`);
       game.checkForWin();
@@ -623,7 +674,7 @@ class Game {
       throw new Error(`Could not determine strike result. result: ${result}`);
     }
     console.log(
-      `player2 turn result: ${result} on square ${randomSquare[0]}, ${randomSquare[1]}`
+      `player2 turn result: ${result} on square ${targetSquare.verticleCoordinate}, ${targetSquare.horizontalCoordinate}`
     );
     game.turn = "player1";
     game.startPlayer1Turn(game);
