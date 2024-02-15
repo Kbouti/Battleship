@@ -151,7 +151,7 @@ class Game {
           let startingArray = startingSquare.split("");
           let startingLetter = startingArray.shift();
           let startingNumber = startingArray.join("");
-          if (startingLetter == "A"){
+          if (startingLetter == "A") {
             console.log(`Can't move any further up`);
             return;
           }
@@ -209,11 +209,11 @@ class Game {
           let startingArray = startingSquare.split("");
           let startingLetter = startingArray.shift();
           let startingNumber = startingArray.join("");
-          if (startingLetter == "J"){
+          if (startingLetter == "J") {
             console.log(`Can't move any further down`);
             return;
           }
-            let targetLetter = getNextLetter(startingLetter);
+          let targetLetter = getNextLetter(startingLetter);
           let newCoordinates = [targetLetter, startingNumber];
           let ships = player1Gameboard.ships;
           let targetShip;
@@ -262,7 +262,6 @@ class Game {
           // console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
 
           return;
-
         } else if (e.keyCode == "37") {
           console.log("hit the left arrow");
           let startingArray = startingSquare.split("");
@@ -514,6 +513,16 @@ class Game {
         return;
       });
     }
+
+
+// ***********************************************************************************************
+//ISSUE:: 
+// The .active class is still present on ships after the game has started. 
+// We need to remove the .active class so the ships don't glow yellow when hovered
+// ***********************************************************************************************
+
+
+
   }
 
   startPlayer2Turn(game) {
@@ -525,6 +534,25 @@ class Game {
       return;
     }
     game.turn = "player2";
+    let player2Scoreboard = game.player2Scoreboard;
+
+// Ok At this point we're now keeping track of player2's hits and misses. 
+// Next we can look at the board and see if there is a strike on the board. 
+// Then we can look at that strike and check if all the adjacent square have been checked
+// Or rather:
+// If there's one strike, check all the adjacent squares. 
+// If there's two strikes next to each other, check the square on the end of the chain. 
+
+
+    let scoreBoardSpaces = player2Scoreboard.spaces;
+
+
+    for (let i = 0;i < scoreBoardSpaces.length;i++){
+      console.log(`scoreBoardSpaces[${i}].status: ${scoreBoardSpaces[i].status}`);
+    }
+
+
+
     let randomA = Math.floor(Math.random() * 10);
     let randomB = Math.floor(Math.random() * 10) + 1;
     let randomSquare = [];
@@ -536,6 +564,13 @@ class Game {
       randomSquare[0],
       randomSquare[1]
     );
+
+    let scoreBoardSpace = player2Scoreboard.getSpaceAt(
+      player2Scoreboard,
+      randomSquare[0],
+      randomSquare[1]
+    );
+
     while (targetSquare.status == "hit" || targetSquare.status == "miss") {
       console.log(`Computer tried to duplicate a move`);
       randomA = Math.floor(Math.random() * 10);
@@ -556,11 +591,14 @@ class Game {
     );
     if (result == "hit") {
       game.player1Gameboard.paintHit(randomSquare);
+      scoreBoardSpace.status = "hit";
     } else if (result == "miss") {
       game.player1Gameboard.paintMiss(randomSquare);
+      scoreBoardSpace.status = "miss";
     } else if (result == "sunk") {
       console.log(`Sunk a ship`);
       game.player1Gameboard.paintHit(randomSquare);
+      scoreBoardSpace.status = "hit";
       console.log(`checking for win`);
       game.checkForWin();
       if (game.gameIsOver === true) {
