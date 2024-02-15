@@ -110,22 +110,13 @@ class Game {
       console.log(`shipClass: ${shipClass}`);
       console.log(`ships starting square: ${startingSquare}`);
 
-      // if (!thisShipDiv.classList.contains("moveableShip")){
-      //   console.log(`called select on a ship that isn't in a moveable state`);
-      //   return;
-      // }
-
       if (thisShipDiv.classList.contains("selectedShip")) {
         // This removes the selected class on second click. But we still gotta take away the key listeners
         console.log(`Caught a ship that was clicked and already selected`);
         thisShipDiv.classList.remove("selectedShip");
         thisShipDiv.classList.add("moveableShip");
         thisShipDiv = null;
-
-        // document.removeEventListener("onkeydown", checkKey)
-document.onkeydown = null;
-        // removeEventListener("keydown", checkKey(), false);
-        // ^ this doesn't work. Still can't get it to remove that key listener
+        document.onkeydown = null;
         return;
       }
       for (let i = 0; i < shipDivs.length; i++) {
@@ -416,6 +407,27 @@ document.onkeydown = null;
           // ************************************************************************
           // Need logic to switch from verticle to horizontal
           // ************************************************************************
+
+          console.log(`startingSquare: ${startingSquare}`);
+          console.log(`shipName: ${shipName}`);
+          let targetShip;
+          for (let i = 0; i < player1Gameboard.ships.length; i++) {
+            if (player1Gameboard.ships[i].name == shipName) {
+              targetShip = player1Gameboard.ships[i];
+            }
+          }
+
+          console.log(`targetShip: ${targetShip}`);
+          console.log(`ship orientation: ${targetShip.orientation}`);
+
+          if (targetShip.orientation == "Verticle"){
+            console.log(`VerticleShip needs to be switched to horizontal`);
+          } else if (targetShip.orientation == "Horizontal"){
+            console.log(`Horizontal ship needs to be changed to verticle`);
+          } else {
+            console.log(`Can't get targetShip.orientation: ${targetShip.orientation}`);
+          }
+
         }
       }
       document.onkeydown = checkKey;
