@@ -70,6 +70,13 @@ class Game {
   startPlayer1Turn(game) {
     console.log(`********************************************`);
     console.log(`player1 turn started`);
+
+    if (game.checkForWin()) {
+      console.log(`game is over.`);
+      domElements.setSubTitle(`Game is Over`);
+      return;
+    }
+
     domElements.setSubTitle(`${game.player1Name}, your turn`);
     game.turn = "player1";
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
@@ -291,7 +298,11 @@ class Game {
           document.onkeydown = null;
 
           // ourShipDiv.click();
+          // console.log(`ourShipDiv: ${ourShipDiv}`);
+          // console.log(`ourShipDiv.classList: ${ourShipDiv.classList}`);
+
           return;
+          
         } else if (e.keyCode == "37") {
           console.log("hit the left arrow");
           let startingArray = startingSquare.split("");
@@ -424,25 +435,25 @@ class Game {
               `Can't get startingOrientation: ${startingOrientation}`
             );
           }
-            let targetSpace = player1Gameboard.getSpaceAt(
-              player1Gameboard,
-              startingLetter,
-              startingNumber
-            );
-            targetShip.remove(player1Gameboard);
-            let canWeMakeFirstMove = targetShip.canShipMoveHere(
-              targetSpace,
-              intendedOrientation
-            );
-            if (canWeMakeFirstMove == true) {
-              targetShip.placeShipHere(targetSpace, intendedOrientation);
-            } else {
-              console.log(`Can't rotate ship, move it first`)
-              targetShip.placeShipHere(targetSpace, startingOrientation);
-            }
-            player1Gameboard.render();
-            game.player1MovePieces(game);
-            return;
+          let targetSpace = player1Gameboard.getSpaceAt(
+            player1Gameboard,
+            startingLetter,
+            startingNumber
+          );
+          targetShip.remove(player1Gameboard);
+          let canWeMakeFirstMove = targetShip.canShipMoveHere(
+            targetSpace,
+            intendedOrientation
+          );
+          if (canWeMakeFirstMove == true) {
+            targetShip.placeShipHere(targetSpace, intendedOrientation);
+          } else {
+            console.log(`Can't rotate ship, move it first`);
+            targetShip.placeShipHere(targetSpace, startingOrientation);
+          }
+          player1Gameboard.render();
+          game.player1MovePieces(game);
+          return;
         }
       }
       document.onkeydown = checkKey;
@@ -460,6 +471,10 @@ class Game {
         console.log(`player1 click event triggered`);
         if (game.turn == "player2") {
           console.log(`player1 tried to go when it wasn't their turn`);
+          return;
+        }
+        if (game.gameIsOver == true) {
+          console.log(`Clicked after game is over`);
           return;
         }
         let targetLetter = coordinatesList[i][0];
@@ -496,6 +511,7 @@ class Game {
           if (game.gameIsOver === true) {
             console.log(`game is over. winner is: ${game.winner}`);
             scoreBoard.classList.remove("activeBoard");
+            game.gameIsOver = true;
             for (let i = 0; i < gameSquares.length; i++) {
               gameSquares[i].classList.remove("activeSquare");
             }
@@ -543,6 +559,11 @@ class Game {
   startPlayer2Turn(game) {
     console.log(`********************************************`);
     console.log(`starting player2 Turn`);
+    if (game.checkForWin()) {
+      console.log(`game is over.`);
+      domElements.setSubTitle(`Game is Over`);
+      return;
+    }
     game.turn = "player2";
     let randomA = Math.floor(Math.random() * 10);
     let randomB = Math.floor(Math.random() * 10) + 1;
