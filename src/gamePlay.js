@@ -403,81 +403,46 @@ class Game {
           // ourShipDiv.click();
           return;
         } else if (e.keyCode == "16") {
-          console.log("hit the shift key");
-          // ************************************************************************
-          // Need logic to switch from verticle to horizontal
-          // ************************************************************************
-          console.log(`startingSquare: ${startingSquare}`);
-
+          console.log("hit the shift key, rotating ship");
           let startingArray = startingSquare.split("");
           let startingLetter = startingArray.shift();
           let startingNumber = startingArray.join("");
-
           let targetShip;
           for (let i = 0; i < player1Gameboard.ships.length; i++) {
             if (player1Gameboard.ships[i].name == shipName) {
               targetShip = player1Gameboard.ships[i];
             }
           }
-
-          console.log(`targetShip: ${targetShip}`);
-          console.log(`shipName: ${shipName}`);
-          console.log(`ship orientation: ${targetShip.orientation}`);
-          console.log(`startingSquare: ${startingSquare}`);
-          console.log(`startingLetter: ${startingLetter}`);
-          console.log(`startingNumber: ${startingNumber}`);
-
-
+          let startingOrientation = targetShip.orientation;
           let intendedOrientation;
-
-          if (targetShip.orientation == "Verticle") {
+          if (startingOrientation == "Verticle") {
             intendedOrientation = "Horizontal";
-          } else if (targetShip.orientation == "Horizontal") {
+          } else if (startingOrientation == "Horizontal") {
             intendedOrientation = "Verticle";
           } else {
             console.log(
-              `Can't get targetShip.orientation: ${targetShip.orientation}`
+              `Can't get startingOrientation: ${startingOrientation}`
             );
           }
-
-
-
-
-
-
-            console.log(`starting orientation: ${targetShip.orientation}`);
-            console.log(`intendedOrientation: ${intendedOrientation}`)
-
             let targetSpace = player1Gameboard.getSpaceAt(
               player1Gameboard,
               startingLetter,
               startingNumber
             );
-
-            // We need to take it off the board first
             targetShip.remove(player1Gameboard);
-
             let canWeMakeFirstMove = targetShip.canShipMoveHere(
               targetSpace,
               intendedOrientation
             );
-            console.log(`canWeMakeFirstMove: ${canWeMakeFirstMove}`);
-
             if (canWeMakeFirstMove == true) {
               targetShip.placeShipHere(targetSpace, intendedOrientation);
-              player1Gameboard.render();
-              game.player1MovePieces(game);
-
-              // document.onkeydown = null;
-              // return
-              // ******************************************************************************************************
-              // Ok we've done it, buuuut we need to restore conditions so that player can continue moving pieces around
-              // ******************************************************************************************************
             } else {
-              // ******************************************************************************************************
-              // We need to find a new square (Or indicate that the player has to move the ship to a place where it can turn first)
-              // ******************************************************************************************************
+              console.log(`Can't rotate ship, move it first`)
+              targetShip.placeShipHere(targetSpace, startingOrientation);
             }
+            player1Gameboard.render();
+            game.player1MovePieces(game);
+            return;
         }
       }
       document.onkeydown = checkKey;
