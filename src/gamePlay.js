@@ -690,10 +690,6 @@ class Game {
 
   beginMatch(game) {
     // domElements.setSubTitle(game.player1Name);
-    game.player1Gameboard.placeShipsRandomly();
-    game.player1Scoreboard.render();
-    game.player1Gameboard.render();
-
     const body = document.body;
     const acceptBoardButton = domElements.createElement(
       "button",
@@ -702,6 +698,10 @@ class Game {
       ["button"]
     );
     acceptBoardButton.innerHTML = "Begin";
+
+    game.player1Gameboard.placeShipsRandomly();
+    game.player1Scoreboard.render();
+    game.player1Gameboard.render();
 
     const player1GameBoard = document.getElementById(
       `${game.player1Name}GameBoard`
