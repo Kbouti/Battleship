@@ -412,6 +412,7 @@ class Game {
           }
           player1Gameboard.render();
           game.player1MovePieces(game);
+          document.onkeydown = null;
           return;
         }
       }
