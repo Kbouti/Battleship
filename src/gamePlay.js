@@ -422,6 +422,8 @@ class Game {
     const player1GameBoardDiv = document.getElementById(
       `${game.player1Name}GameBoard`
     );
+      player1GameBoardDiv.classList.remove("setMode");
+      player1GameBoardDiv.classList.add("playMode");
     const shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
     for (let i = 0; i < shipDivs.length; i++) {
       shipDivs[i].classList.remove("moveableShip");
