@@ -64,8 +64,6 @@ class Game {
     }
     return false;
   }
-  //  We'll still need a function to handle what happens when winning conditions are met.
-  // Currently player can continue clicking squares after the game is won
 
   startPlayer1Turn(game) {
     console.log(`********************************************`);
@@ -144,7 +142,7 @@ class Game {
       console.log(`ship selected`);
 
       function checkKey(e) {
-        e = e || window.event;
+        // e = e || window.event;
         if (e.keyCode == "38") {
           console.log("hit the up arrow");
           // So This should attempt to move the ship up one space. If the ship can move up one space, do it and update the dom.
@@ -420,6 +418,20 @@ class Game {
     }
   }
 
+  deactivateMovePieces(game) {
+    const player1GameBoardDiv = document.getElementById(
+      `${game.player1Name}GameBoard`
+    );
+    const shipDivs = player1GameBoardDiv.getElementsByClassName("ship");
+    for (let i = 0; i < shipDivs.length; i++) {
+      shipDivs[i].classList.remove("moveableShip");
+      // This will replace the ship div with a clone of itself. The clone will not copy any eventListeners
+      let oldShip = shipDivs[i];
+      let newShip = oldShip.cloneNode(true);
+      oldShip.parentNode.replaceChild(newShip, oldShip);
+    }
+  }
+
   activatePlayer1(game) {
     console.log(`activatePlayer1 called`);
     const scoreBoard = document.getElementById(`${game.player1Name}ScoreBoard`);
@@ -514,12 +526,6 @@ class Game {
         return;
       });
     }
-
-    // ***********************************************************************************************
-    //ISSUE::
-    // The .active class is still present on ships after the game has started.
-    // We need to remove the .active class so the ships don't glow yellow when hovered
-    // ***********************************************************************************************
   }
 
   startPlayer2Turn(game) {
@@ -548,22 +554,32 @@ class Game {
       //If there's a hit on the board.....
       for (let i = 0; i < hitsList.length; i++) {
         // For each hit....
-        if (advisedTarget == null){
-          // If we haven't established an andvised target yet..... 
+        if (advisedTarget == null) {
+          // If we haven't established an andvised target yet.....
           let square = hitsList[i];
-          console.log(`hitsList[${i}]: [${square.verticleCoordinate}, ${square.horizontalCoordinate}]`);
+          console.log(
+            `hitsList[${i}]: [${square.verticleCoordinate}, ${square.horizontalCoordinate}]`
+          );
           if (square.up !== null && square.up.status == "empty") {
             // If there is an empty adjacent square, target it
-            console.log(`This hit element has an empty space up we could strike`)
+            console.log(
+              `This hit element has an empty space up we could strike`
+            );
             advisedTarget = square.up;
           } else if (square.right !== null && square.right.status == "empty") {
-            console.log(`This hit element has an empty space right we could strike`)
+            console.log(
+              `This hit element has an empty space right we could strike`
+            );
             advisedTarget = square.right;
           } else if (square.down !== null && square.down.status == "empty") {
-            console.log(`This hit element has an empty space down we could strike`)
+            console.log(
+              `This hit element has an empty space down we could strike`
+            );
             advisedTarget = square.down;
           } else if (square.left !== null && square.left.status == "empty") {
-            console.log(`This hit element has an empty space left we could strike`)
+            console.log(
+              `This hit element has an empty space left we could strike`
+            );
             advisedTarget = square.left;
           }
         }
@@ -586,7 +602,9 @@ class Game {
         randomSquare[1]
       );
     } else {
-      console.log(`advisedTarget: [${advisedTarget.verticleCoordinate}, ${advisedTarget.horizontalCoordinate}]`);
+      console.log(
+        `advisedTarget: [${advisedTarget.verticleCoordinate}, ${advisedTarget.horizontalCoordinate}]`
+      );
 
       targetSquare = player1Gameboard.getSpaceAt(
         player1Gameboard,
@@ -703,6 +721,7 @@ class Game {
       // Player vs computer...
       // Player has selected their board and computer oponent places ships randomly
       acceptBoardButton.addEventListener("click", () => {
+        game.deactivateMovePieces(game);
         player1GameBoard.classList.remove("setMode");
         player1ScoreBoard.classList.remove("hidden");
         player1GameBoard.classList.add("playMode");
