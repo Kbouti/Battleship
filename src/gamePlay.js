@@ -532,16 +532,7 @@ class Game {
     game.turn = "player2";
     let player2Scoreboard = game.player2Scoreboard;
     let player1Gameboard = game.player1Gameboard;
-
-    // Ok At this point we're now keeping track of player2's hits and misses.
-    // Next we can look at the board and see if there is a strike on the board.
-    // Then we can look at that strike and check if all the adjacent square have been checked
-    // Or rather:
-    // If there's one strike, check all the adjacent squares.
-    // If there's two strikes next to each other, check the square on the end of the chain.
-
     let scoreBoardSpaces = player2Scoreboard.spaces;
-
     let hitsList = [];
     let advisedTarget = null;
 
@@ -552,30 +543,33 @@ class Game {
       }
     }
 
-    // let targetSquare
-
     if (hitsList.length > 0) {
       //If there's a hit on the board.....
-
       for (let i = 0; i < hitsList.length; i++) {
         // For each hit....
-
-        console.log(`hitsList[i]: ${hitsList[i]}`);
-        let square = hitsList[i];
-        console.log(`square: ${square}`);
-        console.log(`square.up: ${square.up}`);
-        if (square.up !== null && square.up.status == "empty") {
-          // If there is an empty adjacent square, target it
-          advisedTarget = square.up;
-        } else if (square.right !== null && square.right.status == "empty") {
-          advisedTarget = square.right;
-        } else if (square.down !== null && square.down.status == "empty") {
-          advisedTarget = square.down;
-        } else if (square.left !== null && square.left.status == "empty") {
-          advisedTarget = square.down;
+        if (advisedTarget == null){
+          // If we haven't established an andvised target yet..... 
+          let square = hitsList[i];
+          console.log(`hitsList[${i}]: [${square.verticleCoordinate}, ${square.horizontalCoordinate}]`);
+          if (square.up !== null && square.up.status == "empty") {
+            // If there is an empty adjacent square, target it
+            console.log(`This hit element has an empty space up we could strike`)
+            advisedTarget = square.up;
+          } else if (square.right !== null && square.right.status == "empty") {
+            console.log(`This hit element has an empty space right we could strike`)
+            advisedTarget = square.right;
+          } else if (square.down !== null && square.down.status == "empty") {
+            console.log(`This hit element has an empty space down we could strike`)
+            advisedTarget = square.down;
+          } else if (square.left !== null && square.left.status == "empty") {
+            console.log(`This hit element has an empty space left we could strike`)
+            advisedTarget = square.left;
+          }
         }
         // If we've found a strike with an unchecked adjacent square, it is advisedTarget.
       }
+
+      console.log(`advisedTarget: ${advisedTarget}`);
     }
     let targetSquare;
     if (advisedTarget == null) {
@@ -591,7 +585,7 @@ class Game {
         randomSquare[1]
       );
     } else {
-      console.log(`advisedTarget: ${advisedTarget}`);
+      console.log(`advisedTarget: [${advisedTarget.verticleCoordinate}, ${advisedTarget.horizontalCoordinate}]`);
 
       targetSquare = player1Gameboard.getSpaceAt(
         player1Gameboard,
@@ -599,12 +593,6 @@ class Game {
         advisedTarget.horizontalCoordinate
       );
     }
-
-    // let scoreBoardSpace = player2Scoreboard.getSpaceAt(
-    //   player2Scoreboard,
-    //   randomSquare[0],
-    //   randomSquare[1]
-    // );
 
     while (targetSquare.status == "hit" || targetSquare.status == "miss") {
       console.log(`Computer tried to duplicate a move`);
