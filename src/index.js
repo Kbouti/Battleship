@@ -24,22 +24,11 @@ addEventListeners();
 
 
 
+// ******************************************************************************************
+// Notes for revision:
 
+// Consider adding some other kind of visual indicator to determine hit from miss. 
+// A user suffering from colorblindness may struggle to understand.
+// Ehhhh When I think about it again it's not really a color issue, there's enough contrast in hue
 
-// When game begins:
-// Select how many players
-// Name players
-// Make sure names aren't the same
-// Create Game
-// Create gameboard and watcherBoard
-// Each player places their ships on the board
-// Assign a player to take the first turn
-//
-
-// On each turn:
-// Ask the player for their target
-// Strike the other board
-// Check if the game is over
-// Check if a ship is sunk
-// Report results of turn
-// Change player turn
+// Ship placement requires both mouse and keyboard, not great for accessibility
