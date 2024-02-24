@@ -55,6 +55,25 @@ body {
   align-content: center;
 }
 
+.formInput {
+}
+
+
+
+
+/* ************************************************ */
+
+/* 
+formContent width is NOT the same as the width of the two halves.
+That's why the name input leaks over. 
+Investigate form size
+ */
+
+/* ************************************************ */
+
+
+
+
 #newGameTitle {
   align-self: center;
 }
