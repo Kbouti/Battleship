@@ -81,8 +81,12 @@ Investigate form size
 .formContentHalf {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
   align-items: center;
+}
+
+input{
+ max-width:100%;
 }
 
 #formFooter {
