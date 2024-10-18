@@ -16,6 +16,7 @@ Improvements for later:
 * HTML/CSS
 * Javascript
 * Webpack
+* Testing
 
 ### Project Guidelines:
 https://www.theodinproject.com/lessons/node-path-javascript-battleship

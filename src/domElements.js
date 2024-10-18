@@ -110,21 +110,24 @@ function buildPage() {
   pVcRadio.setAttribute("name", "modeSelectRadio");
   pVcRadio.setAttribute("checked", "true");
 
-  const pVpContainer = createElement("div", modeSelectContainer, null, [
-    "modeSelectContainer",
-  ]);
+  // ********************************************************************************************************************************************
+  // Removed PvP radio button until functionality is added
 
-  const pVpLabel = createElement("label", pVpContainer, "pVpLabel", [
-    "radioLabel",
-  ]);
-  pVpLabel.setAttribute("for", "pVcRadio");
-  pVpLabel.innerHTML = "Player V. Player";
+  // const pVpContainer = createElement("div", modeSelectContainer, null, [
+  //   "modeSelectContainer",
+  // ]);
 
-  const pVpRadio = createElement("input", pVpContainer, "pVpRadio", [
-    "modeSelectRadio",
-  ]);
-  pVpRadio.setAttribute("type", "radio");
-  pVpRadio.setAttribute("name", "modeSelectRadio");
+  // const pVpLabel = createElement("label", pVpContainer, "pVpLabel", [
+  //   "radioLabel",
+  // ]);
+  // pVpLabel.setAttribute("for", "pVcRadio");
+  // pVpLabel.innerHTML = "Player V. Player";
+
+  // const pVpRadio = createElement("input", pVpContainer, "pVpRadio", [
+  //   "modeSelectRadio",
+  // ]);
+  // pVpRadio.setAttribute("type", "radio");
+  // pVpRadio.setAttribute("name", "modeSelectRadio");
 
   const beginButton = createElement("button", formFooter, "beginButton", []);
   beginButton.innerHTML = "Start Game";
